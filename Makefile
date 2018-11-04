@@ -10,19 +10,24 @@ clean:
 cleanSandbox:
 	rm -rf sandbox
 
+copyRelease:
+	cp build/Release/bin/* sandbox/bin
+
+copyDebug:
+	cp build/Debug/bin/* sandbox/bin
 
 copy:
 	mkdir -p sandbox/
 	rsync -avH data sandbox/
 	mv sandbox/data/*.sh sandbox/
 
-sandbox: release copy
+sandbox: release copy copyRelease
 
-distDebug: debug copy
+sandboxDebug: debug copy copyDebug
 
 r: sandbox
 	cd sandbox && ./run.sh local
 
-d: distDebug
+d: sandboxDebug
 	cd sandbox && ./debug.sh local
 

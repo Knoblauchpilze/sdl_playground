@@ -7,6 +7,8 @@
 # include <sdl_core/SdlWidget.hh>
 # include <sdl_graphic/LinearLayout.hh>
 # include <sdl_graphic/GridLayout.hh>
+# include <sdl_graphic/PictureContainer.hh>
+# include <sdl_graphic/SelectorWidget.hh>
 
 int main(int argc, char* argv[]) {
   // Run the application.
@@ -19,15 +21,16 @@ int main(int argc, char* argv[]) {
     sdl::core::BasicSdlWindowShPtr app = std::make_shared<sdl::core::SdlApplication>(
       std::string("Sdl playground (but this is still SPARTA !)"),
       std::string("data/img/65px-Stop_hand.BMP"),
-      640,
-      480,
+      1900,
+      1060,
       6.0f,
       3.0f
     );
 
+    // Root widget
     sdl::core::SdlWidgetShPtr widget = std::make_shared<sdl::core::SdlWidget>(
-      std::string("Best widget in da place"),
-      sdl::core::Boxf(320.0f, 240.0f, 400.0f, 200.0f),
+      std::string("root_widget"),
+      sdl::core::Boxf(950.0f, 530.0f, 1900.0f, 1060.0f),
       nullptr,
       SDL_Color{255, 128, 0, SDL_ALPHA_OPAQUE}
     );
@@ -38,58 +41,53 @@ int main(int argc, char* argv[]) {
       widget.get()
     ));
 
-    sdl::core::SdlWidgetShPtr widget2 = std::make_shared<sdl::core::SdlWidget>(
-      std::string("Second best widget in da place"),
+    // Left widget
+    sdl::core::SdlWidget* widget2 = new sdl::core::SdlWidget(
+      std::string("left_widget"),
       sdl::core::Boxf(),
       widget.get(),
       SDL_Color{128, 255, 0, SDL_ALPHA_OPAQUE}
     );
 
-
-    sdl::core::SdlWidgetShPtr widget3 = std::make_shared<sdl::core::SdlWidget>(
-      std::string("Not the best widget in da place"),
-      sdl::core::Boxf(),
+    // Right widget
+    sdl::graphic::SelectorWidget* widget3 = new sdl::graphic::SelectorWidget(
+      std::string("selector_widget"),
       widget.get(),
       SDL_Color{0, 255, 255, SDL_ALPHA_OPAQUE}
     );
-    widget3->setLayout(std::make_shared<sdl::graphic::GridLayout>(
-      3u,
-      3u,
-      5.0f,
-      widget3.get()
-    ));
 
-    sdl::core::SdlWidgetShPtr widget4 = std::make_shared<sdl::core::SdlWidget>(
-      std::string("Child of a widget which is not the best in da place"),
-      sdl::core::Boxf(),
-      widget.get(),
+    // Internal selector widgets.
+    for (int i = 216 ; i < 449 ; ++i) {
+      sdl::graphic::PictureContainer* widgetI = new sdl::graphic::PictureContainer(
+        std::string("selector_internal_") + std::to_string(i),
+        std::string("data/img/155_named/") + std::to_string(i) + ".bmp",
+        sdl::graphic::PictureContainer::Mode::Fit,
+        widget3,
+        SDL_Color{255, 255, 255, SDL_ALPHA_OPAQUE}
+      );
+    }
+    sdl::graphic::PictureContainer* widget4 = new sdl::graphic::PictureContainer(
+      std::string("selector_internal_1"),
+      std::string("data/img/mini.bmp"),
+      sdl::graphic::PictureContainer::Mode::Crop,
+      widget3,
       SDL_Color{255, 255, 255, SDL_ALPHA_OPAQUE}
     );
-    sdl::core::SdlWidgetShPtr widget5 = std::make_shared<sdl::core::SdlWidget>(
-      std::string("Another child of a not so awesome widget in da place"),
-      sdl::core::Boxf(),
-      widget.get(),
-      SDL_Color{255, 0, 255, SDL_ALPHA_OPAQUE}
-    );
-    sdl::core::SdlWidgetShPtr widget6 = std::make_shared<sdl::core::SdlWidget>(
-      std::string("Clearly no the best child of a widget which is not the best in da place"),
-      sdl::core::Boxf(),
-      widget.get(),
-      SDL_Color{0, 128, 255, SDL_ALPHA_OPAQUE}
-    );
+    // sdl::graphic::PictureContainer* widget5 = new sdl::graphic::PictureContainer(
+    //   std::string("selector_internal_2"),
+    //   std::string("data/img/daybreak_Overwerk.bmp"),
+    //   sdl::graphic::PictureContainer::Mode::Fit,
+    //   widget3,
+    //   SDL_Color{255, 0, 255, SDL_ALPHA_OPAQUE}
+    // );
 
-    widget3->addWidget(widget4, 0u, 0u, 1u, 1u);
-    widget3->addWidget(widget5, 1u, 1u, 1u, 1u);
-    widget3->addWidget(widget6, 2u, 2u, 1u, 1u);
+    widget3->setActiveWidget(0);
 
-    widget->addWidget(widget2);
-    widget->addWidget(widget3);
-
+    // Setup application
     app->addWidget(widget);
 
+    // Run it.
     app->run();
-
-    std::cout << "[MAIN] App stopped" << std::endl;
   }
   catch (const sdl::core::SdlException& e) {
     std::cerr << "[MAIN] Caught internal exception:" << std::endl << e.what() << std::endl;

@@ -5,12 +5,12 @@
 # include <sdl_core/SdlException.hh>
 # include <sdl_app_core/SdlApplication.hh>
 # include <sdl_core/SdlWidget.hh>
+# include <sdl_core/FontFactory.hh>
 # include <sdl_graphic/LinearLayout.hh>
 # include <sdl_graphic/GridLayout.hh>
 # include <sdl_graphic/PictureWidget.hh>
 # include <sdl_graphic/SelectorWidget.hh>
 # include <sdl_graphic/LabelWidget.hh>
-# include <sdl_graphic/FontFactory.hh>
 
 int main(int argc, char* argv[]) {
   // Run the application.
@@ -35,7 +35,7 @@ int main(int argc, char* argv[]) {
       sdl::core::Boxf(320.0f, 240.0f, 600.0f, 440.0f),
       nullptr,
       false,
-      SDL_Color{255, 0, 0, SDL_ALPHA_OPAQUE}
+      sdl::core::Palette()//SDL_Color{255, 0, 0, SDL_ALPHA_OPAQUE}
     );
     widget->setLayout(std::make_shared<sdl::graphic::LinearLayout>(
       sdl::graphic::LinearLayout::Direction::Horizontal,
@@ -45,22 +45,56 @@ int main(int argc, char* argv[]) {
     ));
 
     // Left widget
-    sdl::core::SdlWidget* widget2 = new sdl::core::SdlWidget(
-      std::string("left_widget"),
-      sdl::core::Boxf(),
-      widget.get(),
-      false,
-      SDL_Color{0, 255, 0, SDL_ALPHA_OPAQUE}
-    );
-    // sdl::graphic::PictureWidget* widget2 = new sdl::graphic::PictureWidget(
+    // sdl::core::SdlWidget* widget2 = new sdl::core::SdlWidget(
     //   std::string("left_widget"),
-    //   std::string("data/img/daybreak_Overwerk.bmp"),
-    //   // std::string("data/img/Ashley_mini.bmp"),
-    //   sdl::graphic::PictureWidget::Mode::Fit,
+    //   sdl::core::Boxf(),
     //   widget.get(),
     //   false,
-    //   SDL_Color{0, 255, 0, SDL_ALPHA_OPAQUE}
+    //   SDL_Color{0, 255, 0, SDL_ALPHA_OPAQUE / 2}
     // );
+    sdl::graphic::PictureWidget* widget2 = new sdl::graphic::PictureWidget(
+      std::string("left_widget"),
+      std::string("data/img/daybreak_Overwerk.bmp"),
+      sdl::graphic::PictureWidget::Mode::Fit,
+      widget.get(),
+      false,
+      sdl::core::Palette()//SDL_Color{0, 255, 0, SDL_ALPHA_OPAQUE}
+    );
+    widget2->setLayout(std::make_shared<sdl::graphic::LinearLayout>(
+      sdl::graphic::LinearLayout::Direction::Vertical,
+      5.0f,
+      10.0f,
+      widget2
+    ));
+
+    sdl::core::SdlWidget* widget21 = new sdl::core::SdlWidget(
+      std::string("widget21"),
+      sdl::core::Boxf(),
+      widget2,
+      false,
+      sdl::core::Palette()//SDL_Color{64, 64, 64, SDL_ALPHA_OPAQUE}
+    );
+    sdl::core::SdlWidget* widget22 = new sdl::core::SdlWidget(
+      std::string("widget22"),
+      sdl::core::Boxf(),
+      widget2,
+      false,
+      sdl::core::Palette()//SDL_Color{64, 64, 64, SDL_ALPHA_OPAQUE / 2}
+    );
+    sdl::core::SdlWidget* widget23 = new sdl::core::SdlWidget(
+      std::string("widget23"),
+      sdl::core::Boxf(),
+      widget2,
+      false,
+      sdl::core::Palette()//SDL_Color{64, 64, 64, SDL_ALPHA_TRANSPARENT}
+    );
+    sdl::core::SdlWidget* widget24 = new sdl::core::SdlWidget(
+      std::string("widget24"),
+      sdl::core::Boxf(),
+      widget2,
+      true,
+      sdl::core::Palette()//SDL_Color{64, 64, 64, SDL_ALPHA_OPAQUE}
+    );
 
     // Right widget
     // sdl::core::SdlWidget* widget3 = new sdl::core::SdlWidget(
@@ -70,19 +104,27 @@ int main(int argc, char* argv[]) {
     //   false,
     //   SDL_Color{0, 0, 255, SDL_ALPHA_OPAQUE}
     // );
+    // sdl::graphic::PictureWidget* widget3 = new sdl::graphic::PictureWidget(
+    //   std::string("right_widget"),
+    //   std::string("data/img/daybreak_Overwerk.bmp"),
+    //   sdl::graphic::PictureWidget::Mode::Crop,
+    //   widget.get(),
+    //   false,
+    //   SDL_Color{0, 0, 255, SDL_ALPHA_OPAQUE}
+    // );
     sdl::graphic::LabelWidget* widget3 = new sdl::graphic::LabelWidget(
       std::string("right_widget"),
       std::string("This is some bg text"),
-      sdl::graphic::FontFactory::getInstance().createColoredFont(
+      sdl::core::FontFactory::getInstance().createColoredFont(
         std::string("data/fonts/times.ttf"),
-        SDL_Color{64, 64, 64, SDL_ALPHA_OPAQUE},
+        SDL_Color{64, 64, 64, SDL_ALPHA_OPAQUE / 4},
         20
       ),
       sdl::graphic::LabelWidget::HorizontalAlignment::Right,
       sdl::graphic::LabelWidget::VerticalAlignment::Center,
       widget.get(),
       true,
-      SDL_Color{0, 0, 255, SDL_ALPHA_OPAQUE}
+      sdl::core::Palette()//SDL_Color{0, 0, 255, SDL_ALPHA_OPAQUE}
     );
     widget3->setLayout(std::make_shared<sdl::graphic::LinearLayout>(
       sdl::graphic::LinearLayout::Direction::Vertical,
@@ -91,32 +133,32 @@ int main(int argc, char* argv[]) {
       widget3
     ));
 
-    // sdl::core::SdlWidget* widget4 = new sdl::core::SdlWidget(
-    //   std::string("widget4"),
+    // sdl::core::SdlWidget* widget31 = new sdl::core::SdlWidget(
+    //   std::string("widget31"),
     //   sdl::core::Boxf(),
     //   widget3,
     //   false,
     //   SDL_Color{64, 64, 64, SDL_ALPHA_OPAQUE}
     // );
-    // sdl::core::SdlWidget* widget5 = new sdl::core::SdlWidget(
-    //   std::string("widget5"),
+    // sdl::core::SdlWidget* widget32 = new sdl::core::SdlWidget(
+    //   std::string("widget32"),
     //   sdl::core::Boxf(),
     //   widget3,
     //   false,
     //   SDL_Color{64, 64, 64, SDL_ALPHA_OPAQUE / 2}
     // );
-    // sdl::core::SdlWidget* widget6 = new sdl::core::SdlWidget(
-    //   std::string("widget6"),
+    // sdl::core::SdlWidget* widget33 = new sdl::core::SdlWidget(
+    //   std::string("widget33"),
     //   sdl::core::Boxf(),
     //   widget3,
     //   false,
     //   SDL_Color{64, 64, 64, SDL_ALPHA_TRANSPARENT}
     // );
-    // sdl::core::SdlWidget* widget7 = new sdl::core::SdlWidget(
-    //   std::string("widget7"),
+    // sdl::core::SdlWidget* widget34 = new sdl::core::SdlWidget(
+    //   std::string("widget34"),
     //   sdl::core::Boxf(),
     //   widget3,
-    //   false,
+    //   true,
     //   SDL_Color{64, 64, 64, SDL_ALPHA_OPAQUE}
     // );
 
@@ -153,11 +195,10 @@ int main(int argc, char* argv[]) {
     //   SDL_Color{64, 64, 64, SDL_ALPHA_OPAQUE}
     // );
 
-
-    sdl::graphic::LabelWidget* widget4 = new sdl::graphic::LabelWidget(
-      std::string("widget4"),
+    sdl::graphic::LabelWidget* widget31 = new sdl::graphic::LabelWidget(
+      std::string("widget31"),
       std::string("This is some text"),
-      sdl::graphic::FontFactory::getInstance().createColoredFont(
+      sdl::core::FontFactory::getInstance().createColoredFont(
         std::string("data/fonts/times.ttf"),
         SDL_Color{0, 0, 0, SDL_ALPHA_OPAQUE},
         20
@@ -166,12 +207,12 @@ int main(int argc, char* argv[]) {
       sdl::graphic::LabelWidget::VerticalAlignment::Center,
       widget3,
       false,
-      SDL_Color{64, 64, 64, SDL_ALPHA_OPAQUE}
+      sdl::core::Palette()//SDL_Color{64, 64, 64, SDL_ALPHA_OPAQUE}
     );
-    sdl::graphic::LabelWidget* widget5 = new sdl::graphic::LabelWidget(
-      std::string("widget5"),
+    sdl::graphic::LabelWidget* widget32 = new sdl::graphic::LabelWidget(
+      std::string("widget32"),
       std::string("This is some text"),
-      sdl::graphic::FontFactory::getInstance().createColoredFont(
+      sdl::core::FontFactory::getInstance().createColoredFont(
         std::string("data/fonts/times.ttf"),
         SDL_Color{0, 0, 0, SDL_ALPHA_OPAQUE},
         20
@@ -180,12 +221,12 @@ int main(int argc, char* argv[]) {
       sdl::graphic::LabelWidget::VerticalAlignment::Center,
       widget3,
       false,
-      SDL_Color{64, 64, 64, SDL_ALPHA_OPAQUE / 2}
+      sdl::core::Palette()//SDL_Color{64, 64, 64, SDL_ALPHA_OPAQUE / 2}
     );
-    sdl::graphic::LabelWidget* widget6 = new sdl::graphic::LabelWidget(
-      std::string("widget6"),
+    sdl::graphic::LabelWidget* widget33 = new sdl::graphic::LabelWidget(
+      std::string("widget33"),
       std::string("This is some text"),
-      sdl::graphic::FontFactory::getInstance().createColoredFont(
+      sdl::core::FontFactory::getInstance().createColoredFont(
         std::string("data/fonts/times.ttf"),
         SDL_Color{0, 0, 0, SDL_ALPHA_OPAQUE},
         20
@@ -194,12 +235,12 @@ int main(int argc, char* argv[]) {
       sdl::graphic::LabelWidget::VerticalAlignment::Center,
       widget3,
       false,
-      SDL_Color{64, 64, 64, SDL_ALPHA_TRANSPARENT}
+      sdl::core::Palette()//SDL_Color{64, 64, 64, SDL_ALPHA_TRANSPARENT}
     );
-    sdl::graphic::LabelWidget* widget7 = new sdl::graphic::LabelWidget(
-      std::string("widget7"),
+    sdl::graphic::LabelWidget* widget34 = new sdl::graphic::LabelWidget(
+      std::string("widget34"),
       std::string("This is some text"),
-      sdl::graphic::FontFactory::getInstance().createColoredFont(
+      sdl::core::FontFactory::getInstance().createColoredFont(
         std::string("data/fonts/times.ttf"),
         SDL_Color{0, 0, 0, SDL_ALPHA_OPAQUE / 2},
         20
@@ -208,7 +249,7 @@ int main(int argc, char* argv[]) {
       sdl::graphic::LabelWidget::VerticalAlignment::Center,
       widget3,
       false,
-      SDL_Color{64, 64, 64, SDL_ALPHA_OPAQUE}
+      sdl::core::Palette()//SDL_Color{64, 64, 64, SDL_ALPHA_OPAQUE}
     );
 
     // Setup application
@@ -222,7 +263,7 @@ int main(int argc, char* argv[]) {
   }
 
   // Unload used fonts.
-  sdl::graphic::FontFactory::getInstance().releaseFonts();
+  sdl::core::FontFactory::getInstance().releaseFonts();
 
   // Unload the sdl and the ttf libs if needed.
   if (TTF_WasInit()) {

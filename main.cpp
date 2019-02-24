@@ -43,6 +43,15 @@ int main(int argc, char* argv[]) {
       10.0f,
       widget.get()
     ));
+    // sdl::graphic::GridLayoutShPtr layout = std::make_shared<sdl::graphic::GridLayout>(
+    //   2,
+    //   1,
+    //   1.0f,
+    //   widget.get()
+    // );
+    // layout->setColumnHorizontalStretch(0, 2);
+    // layout->setGrid(3, 2);
+    // widget->setLayout(layout);
 
     // Left widget
     // sdl::core::SdlWidget* widget2 = new sdl::core::SdlWidget(
@@ -57,9 +66,11 @@ int main(int argc, char* argv[]) {
       std::string("data/img/daybreak_Overwerk.bmp"),
       sdl::graphic::PictureWidget::Mode::Fit,
       widget.get(),
+      //nullptr,
       false,
       sdl::core::Palette::fromBackgroundColor(sdl::core::Color(0, 255, 0, SDL_ALPHA_OPAQUE))
     );
+    // layout->addItem(widget2, 0, 0, 1, 1);
     widget2->setLayout(std::make_shared<sdl::graphic::LinearLayout>(
       sdl::graphic::LinearLayout::Direction::Vertical,
       5.0f,
@@ -79,21 +90,25 @@ int main(int argc, char* argv[]) {
       sdl::core::Boxf(),
       widget2,
       false,
-      sdl::core::Palette::fromBackgroundColor(sdl::core::Color(64, 64, 64, SDL_ALPHA_OPAQUE / 2))
+      sdl::core::Palette::fromBackgroundColor(sdl::core::Color(64, 64, 128, SDL_ALPHA_OPAQUE / 2))
     );
+    sdl::core::SizePolicy policy;
+    policy.setVerticalStretch(2.0f);
+    widget22->setSizePolicy(policy);
+
     sdl::core::SdlWidget* widget23 = new sdl::core::SdlWidget(
       std::string("widget23"),
       sdl::core::Boxf(),
       widget2,
       false,
-      sdl::core::Palette::fromBackgroundColor(sdl::core::Color(64, 64, 64, SDL_ALPHA_TRANSPARENT))
+      sdl::core::Palette::fromBackgroundColor(sdl::core::Color(64, 128, 64, SDL_ALPHA_TRANSPARENT))
     );
     sdl::core::SdlWidget* widget24 = new sdl::core::SdlWidget(
       std::string("widget24"),
       sdl::core::Boxf(),
       widget2,
       true,
-      sdl::core::Palette::fromBackgroundColor(sdl::core::Color(64, 64, 64, SDL_ALPHA_OPAQUE))
+      sdl::core::Palette::fromBackgroundColor(sdl::core::Color(128, 64, 64, SDL_ALPHA_OPAQUE))
     );
 
     // Right widget
@@ -123,9 +138,11 @@ int main(int argc, char* argv[]) {
       sdl::graphic::LabelWidget::HorizontalAlignment::Right,
       sdl::graphic::LabelWidget::VerticalAlignment::Center,
       widget.get(),
+      //nullptr,
       true,
       sdl::core::Palette::fromBackgroundColor(sdl::core::Color(0, 0, 255, SDL_ALPHA_OPAQUE))
     );
+    // layout->addItem(widget3, 1, 0, 1, 1);
     widget3->setLayout(std::make_shared<sdl::graphic::LinearLayout>(
       sdl::graphic::LinearLayout::Direction::Vertical,
       5.0f,

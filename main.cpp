@@ -29,10 +29,9 @@ int main(int argc, char* argv[]) {
       30.0f
     );
 
-    // Root widget
+    // `root_widget`
     sdl::core::SdlWidgetShPtr widget = std::make_shared<sdl::core::SdlWidget>(
       std::string("root_widget"),
-      //sdl::core::Sizef(320.0f, 240.0f, 600.0f, 440.0f),
       sdl::utils::Sizef(600.0f, 440.0f),
       nullptr,
       false,
@@ -40,40 +39,26 @@ int main(int argc, char* argv[]) {
     );
     widget->setRenderingArea(sdl::utils::Boxf(320.0f, 240.0f, 600.0f, 440.0f));
 
+    // `root_widget` layout
     widget->setLayout(std::make_shared<sdl::graphic::LinearLayout>(
       sdl::graphic::LinearLayout::Direction::Horizontal,
       5.0f,
       10.0f,
       widget.get()
     ));
-    // sdl::graphic::GridLayoutShPtr layout = std::make_shared<sdl::graphic::GridLayout>(
-    //   2,
-    //   1,
-    //   1.0f,
-    //   widget.get()
-    // );
-    // layout->setColumnHorizontalStretch(0, 2);
-    // layout->setGrid(3, 2);
-    // widget->setLayout(layout);
 
-    // Left widget
-    // sdl::core::SdlWidget* widget2 = new sdl::core::SdlWidget(
-    //   std::string("left_widget"),
-    //   sdl::core::Sizef(),
-    //   widget.get(),
-    //   false,
-    //   sdl::core::Palette::fromBackgroundColor(sdl::core::Color(0, 255, 0, SDL_ALPHA_OPAQUE / 2))
-    // );
+    // `left_widget`
     sdl::graphic::PictureWidget* widget2 = new sdl::graphic::PictureWidget(
       std::string("left_widget"),
       std::string("data/img/daybreak_Overwerk.bmp"),
       sdl::graphic::PictureWidget::Mode::Fit,
       widget.get(),
-      //nullptr,
       false,
-      sdl::core::Palette::fromBackgroundColor(sdl::core::Color(0, 255, 0, SDL_ALPHA_OPAQUE))
+      sdl::core::Palette::fromBackgroundColor(sdl::core::Color(0, 255, 0, SDL_ALPHA_OPAQUE)),
+      sdl::utils::Sizef(100.0f, 100.0f)
     );
-    // layout->addItem(widget2, 0, 0, 1, 1);
+
+    // `left_widget` layout
     widget2->setLayout(std::make_shared<sdl::graphic::LinearLayout>(
       sdl::graphic::LinearLayout::Direction::Vertical,
       5.0f,
@@ -81,196 +66,47 @@ int main(int argc, char* argv[]) {
       widget2
     ));
 
-    // sdl::core::SdlWidget* widget21 = new sdl::core::SdlWidget(
-    //   std::string("widget21"),
-    //   sdl::core::Sizef(),
-    //   widget2,
-    //   false,
-    //   sdl::core::Palette::fromBackgroundColor(sdl::core::Color(64, 64, 64, SDL_ALPHA_OPAQUE))
-    // );
-    // sdl::core::SdlWidget* widget22 = new sdl::core::SdlWidget(
-    //   std::string("widget22"),
-    //   sdl::core::Sizef(),
-    //   widget2,
-    //   false,
-    //   sdl::core::Palette::fromBackgroundColor(sdl::core::Color(64, 64, 128, SDL_ALPHA_OPAQUE / 2))
-    // );
-    // sdl::core::SizePolicy policy;
-    // policy.setVerticalStretch(2.0f);
-    // widget22->setSizePolicy(policy);
+    // `middle_widget`
+    sdl::core::SdlWidget* widget1 = new sdl::core::SdlWidget(
+      std::string("middle_widget"),
+      sdl::utils::Sizef(50.0f, 150.0f),
+      widget.get(),
+      false,
+      sdl::core::Palette::fromBackgroundColor(sdl::core::Color(128, 128, 0, SDL_ALPHA_OPAQUE))
+    );
+    widget1->setSizePolicy(sdl::core::SizePolicy(
+      sdl::core::SizePolicy::Maximum,
+      sdl::core::SizePolicy::Fixed
+    ));
 
-    // sdl::core::SdlWidget* widget23 = new sdl::core::SdlWidget(
-    //   std::string("widget23"),
-    //   sdl::core::Sizef(),
-    //   widget2,
-    //   false,
-    //   sdl::core::Palette::fromBackgroundColor(sdl::core::Color(64, 128, 64, SDL_ALPHA_TRANSPARENT))
-    // );
-    // sdl::core::SdlWidget* widget24 = new sdl::core::SdlWidget(
-    //   std::string("widget24"),
-    //   sdl::core::Sizef(),
-    //   widget2,
-    //   true,
-    //   sdl::core::Palette::fromBackgroundColor(sdl::core::Color(128, 64, 64, SDL_ALPHA_OPAQUE))
-    // );
-
-    // Right widget
-    // sdl::core::SdlWidget* widget3 = new sdl::core::SdlWidget(
-    //   std::string("right_widget"),
-    //   sdl::core::Sizef(),
-    //   widget.get(),
-    //   false,
-    //   sdl::core::Palette::fromBackgroundColor(sdl::core::Color(0, 0, 255, SDL_ALPHA_OPAQUE))
-    // );
-    // sdl::graphic::PictureWidget* widget3 = new sdl::graphic::PictureWidget(
-    //   std::string("right_widget"),
-    //   std::string("data/img/daybreak_Overwerk.bmp"),
-    //   sdl::graphic::PictureWidget::Mode::Crop,
-    //   widget.get(),
-    //   false,
-    //   sdl::core::Palette::fromBackgroundColor(sdl::core::Color(0, 0, 255, SDL_ALPHA_OPAQUE))
-    // );
+    // `right_widget`
     sdl::graphic::LabelWidget* widget3 = new sdl::graphic::LabelWidget(
       std::string("right_widget"),
       std::string("This is some bg text"),
       sdl::core::FontFactory::getInstance().createColoredFont(
         std::string("data/fonts/times.ttf"),
-        sdl::core::Color(64, 64, 64, SDL_ALPHA_OPAQUE / 4),
+        sdl::core::Color(64, 64, 64, SDL_ALPHA_OPAQUE / 2),
         20
       ),
       sdl::graphic::LabelWidget::HorizontalAlignment::Right,
       sdl::graphic::LabelWidget::VerticalAlignment::Center,
       widget.get(),
-      //nullptr,
       true,
       sdl::core::Palette::fromBackgroundColor(sdl::core::Color(0, 0, 255, SDL_ALPHA_OPAQUE))
     );
+    // widget3->setSizePolicy(sdl::core::SizePolicy(
+    //   sdl::core::SizePolicy::Minimum,
+    //   sdl::core::SizePolicy::Minimum
+    // ));
     // layout->addItem(widget3, 1, 0, 1, 1);
+
+    // `right_widget` layout
     widget3->setLayout(std::make_shared<sdl::graphic::LinearLayout>(
       sdl::graphic::LinearLayout::Direction::Vertical,
       5.0f,
       10.0f,
       widget3
     ));
-
-    // sdl::core::SdlWidget* widget31 = new sdl::core::SdlWidget(
-    //   std::string("widget31"),
-    //   sdl::core::Sizef(),
-    //   widget3,
-    //   false,
-    //   sdl::core::Palette::fromBackgroundColor(sdl::core::Color(64, 64, 64, SDL_ALPHA_OPAQUE))
-    // );
-    // sdl::core::SdlWidget* widget32 = new sdl::core::SdlWidget(
-    //   std::string("widget32"),
-    //   sdl::core::Sizef(),
-    //   widget3,
-    //   false,
-    //   sdl::core::Palette::fromBackgroundColor(sdl::core::Color(64, 64, 64, SDL_ALPHA_OPAQUE / 2))
-    // );
-    // sdl::core::SdlWidget* widget33 = new sdl::core::SdlWidget(
-    //   std::string("widget33"),
-    //   sdl::core::Sizef(),
-    //   widget3,
-    //   false,
-    //   sdl::core::Palette::fromBackgroundColor(sdl::core::Color(64, 64, 64, SDL_ALPHA_TRANSPARENT))
-    // );
-    // sdl::core::SdlWidget* widget34 = new sdl::core::SdlWidget(
-    //   std::string("widget34"),
-    //   sdl::core::Sizef(),
-    //   widget3,
-    //   true,
-    //   sdl::core::Palette::fromBackgroundColor(sdl::core::Color(64, 64, 64, SDL_ALPHA_OPAQUE))
-    // );
-
-    // sdl::graphic::PictureWidget* widget4 = new sdl::graphic::PictureWidget(
-    //   std::string("widget4"),
-    //   std::string("data/img/daybreak_Overwerk.bmp"),
-    //   sdl::graphic::PictureWidget::Mode::Crop,
-    //   widget3,
-    //   false,
-    //   sdl::core::Palette::fromBackgroundColor(sdl::core::Color(64, 64, 64, SDL_ALPHA_OPAQUE))
-    // );
-    // sdl::graphic::PictureWidget* widget5 = new sdl::graphic::PictureWidget(
-    //   std::string("widget5"),
-    //   std::string("data/img/daybreak_Overwerk.bmp"),
-    //   sdl::graphic::PictureWidget::Mode::Crop,
-    //   widget3,
-    //   false,
-    //   sdl::core::Palette::fromBackgroundColor(sdl::core::Color(64, 64, 64, SDL_ALPHA_OPAQUE / 2))
-    // );
-    // sdl::graphic::PictureWidget* widget6 = new sdl::graphic::PictureWidget(
-    //   std::string("widget6"),
-    //   std::string("data/img/daybreak_Overwerk.bmp"),
-    //   sdl::graphic::PictureWidget::Mode::Crop,
-    //   widget3,
-    //   false,
-    //   sdl::core::Palette::fromBackgroundColor(sdl::core::Color(64, 64, 64, SDL_ALPHA_TRANSPARENT))
-    // );
-    // sdl::graphic::PictureWidget* widget7 = new sdl::graphic::PictureWidget(
-    //   std::string("widget7"),
-    //   std::string("data/img/daybreak_Overwerk.bmp"),
-    //   sdl::graphic::PictureWidget::Mode::Crop,
-    //   widget3,
-    //   true,
-    //   sdl::core::Palette::fromBackgroundColor(sdl::core::Color(64, 64, 64, SDL_ALPHA_OPAQUE))
-    // );
-
-    // sdl::graphic::LabelWidget* widget31 = new sdl::graphic::LabelWidget(
-    //   std::string("widget31"),
-    //   std::string("This is some text"),
-    //   sdl::core::FontFactory::getInstance().createColoredFont(
-    //     std::string("data/fonts/times.ttf"),
-    //     sdl::core::Color(0, 0, 0, SDL_ALPHA_OPAQUE),
-    //     20
-    //   ),
-    //   sdl::graphic::LabelWidget::HorizontalAlignment::Center,
-    //   sdl::graphic::LabelWidget::VerticalAlignment::Center,
-    //   widget3,
-    //   false,
-    //   sdl::core::Palette::fromBackgroundColor(sdl::core::Color(64, 64, 64, SDL_ALPHA_OPAQUE))
-    // );
-    // sdl::graphic::LabelWidget* widget32 = new sdl::graphic::LabelWidget(
-    //   std::string("widget32"),
-    //   std::string("This is some text"),
-    //   sdl::core::FontFactory::getInstance().createColoredFont(
-    //     std::string("data/fonts/times.ttf"),
-    //     sdl::core::Color(0, 0, 0, SDL_ALPHA_OPAQUE),
-    //     20
-    //   ),
-    //   sdl::graphic::LabelWidget::HorizontalAlignment::Center,
-    //   sdl::graphic::LabelWidget::VerticalAlignment::Center,
-    //   widget3,
-    //   false,
-    //   sdl::core::Palette::fromBackgroundColor(sdl::core::Color(64, 64, 64, SDL_ALPHA_OPAQUE / 2))
-    // );
-    // sdl::graphic::LabelWidget* widget33 = new sdl::graphic::LabelWidget(
-    //   std::string("widget33"),
-    //   std::string("This is some text"),
-    //   sdl::core::FontFactory::getInstance().createColoredFont(
-    //     std::string("data/fonts/times.ttf"),
-    //     sdl::core::Color(0, 0, 0, SDL_ALPHA_OPAQUE),
-    //     20
-    //   ),
-    //   sdl::graphic::LabelWidget::HorizontalAlignment::Center,
-    //   sdl::graphic::LabelWidget::VerticalAlignment::Center,
-    //   widget3,
-    //   false,
-    //   sdl::core::Palette::fromBackgroundColor(sdl::core::Color(64, 64, 64, SDL_ALPHA_TRANSPARENT))
-    // );
-    // sdl::graphic::LabelWidget* widget34 = new sdl::graphic::LabelWidget(
-    //   std::string("widget34"),
-    //   std::string("This is some text"),
-    //   sdl::core::FontFactory::getInstance().createColoredFont(
-    //     std::string("data/fonts/times.ttf"),
-    //     sdl::core::Color(0, 0, 0, SDL_ALPHA_OPAQUE / 2),
-    //     20
-    //   ),
-    //   sdl::graphic::LabelWidget::HorizontalAlignment::Center,
-    //   sdl::graphic::LabelWidget::VerticalAlignment::Center,
-    //   widget3,
-    //   false,
-    //   sdl::core::Palette::fromBackgroundColor(sdl::core::Color(64, 64, 64, SDL_ALPHA_OPAQUE))
-    // );
 
     // Setup application
     app->addWidget(widget);

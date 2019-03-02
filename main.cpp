@@ -38,6 +38,8 @@ int main(int argc, char* argv[]) {
       false,
       sdl::core::Palette::fromBackgroundColor(sdl::core::Color(255, 0, 0, SDL_ALPHA_OPAQUE))
     );
+    widget->setRenderingArea(sdl::utils::Boxf(320.0f, 240.0f, 600.0f, 440.0f));
+
     widget->setLayout(std::make_shared<sdl::graphic::LinearLayout>(
       sdl::graphic::LinearLayout::Direction::Horizontal,
       5.0f,

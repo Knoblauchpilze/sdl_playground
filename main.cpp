@@ -85,7 +85,7 @@ int main(int argc, char* argv[]) {
       std::string("This is some bg text"),
       sdl::core::FontFactory::getInstance().createColoredFont(
         std::string("data/fonts/times.ttf"),
-        sdl::core::Color(64, 64, 64, SDL_ALPHA_OPAQUE / 2),
+        sdl::core::Color(64, 64, 64, SDL_ALPHA_OPAQUE),
         20
       ),
       sdl::graphic::LabelWidget::HorizontalAlignment::Right,

@@ -75,8 +75,8 @@ int main(int argc, char* argv[]) {
       sdl::core::Palette::fromBackgroundColor(sdl::core::Color(128, 128, 0, SDL_ALPHA_OPAQUE))
     );
     widget1->setSizePolicy(sdl::core::SizePolicy(
-      sdl::core::SizePolicy::Maximum,
-      sdl::core::SizePolicy::Fixed
+      sdl::core::SizePolicy::Minimum,
+      sdl::core::SizePolicy::Minimum
     ));
 
     // `right_widget`

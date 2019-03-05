@@ -40,19 +40,25 @@ int main(int argc, char* argv[]) {
     widget->setRenderingArea(sdl::utils::Boxf(320.0f, 240.0f, 600.0f, 440.0f));
 
     // `root_widget` layout
-    widget->setLayout(std::make_shared<sdl::graphic::LinearLayout>(
-      sdl::graphic::LinearLayout::Direction::Horizontal,
-      5.0f,
+    sdl::graphic::GridLayoutShPtr layout = std::make_shared<sdl::graphic::GridLayout>(
+      5u,
+      4u,
       10.0f,
       widget.get()
-    ));
+    );
+    // widget->setLayout(std::make_shared<sdl::graphic::LinearLayout>(
+    //   sdl::graphic::LinearLayout::Direction::Vertical,
+    //   5.0f,
+    //   10.0f,
+    //   widget.get()
+    // ));
 
     // `left_widget`
     sdl::graphic::PictureWidget* widget2 = new sdl::graphic::PictureWidget(
       std::string("left_widget"),
       std::string("data/img/daybreak_Overwerk.bmp"),
       sdl::graphic::PictureWidget::Mode::Fit,
-      widget.get(),
+      nullptr,//widget.get(),
       false,
       sdl::core::Palette::fromBackgroundColor(sdl::core::Color(0, 255, 0, SDL_ALPHA_OPAQUE)),
       sdl::utils::Sizef(100.0f, 100.0f)
@@ -70,7 +76,7 @@ int main(int argc, char* argv[]) {
     sdl::core::SdlWidget* widget1 = new sdl::core::SdlWidget(
       std::string("middle_widget"),
       sdl::utils::Sizef(50.0f, 150.0f),
-      widget.get(),
+      nullptr,//widget.get(),
       false,
       sdl::core::Palette::fromBackgroundColor(sdl::core::Color(128, 128, 0, SDL_ALPHA_OPAQUE))
     );
@@ -78,6 +84,7 @@ int main(int argc, char* argv[]) {
       sdl::core::SizePolicy::Minimum,
       sdl::core::SizePolicy::Minimum
     ));
+    widget1->setMaxSize(sdl::utils::Sizef(120.0f, 120.0f));
 
     // `right_widget`
     sdl::graphic::LabelWidget* widget3 = new sdl::graphic::LabelWidget(
@@ -90,7 +97,7 @@ int main(int argc, char* argv[]) {
       ),
       sdl::graphic::LabelWidget::HorizontalAlignment::Right,
       sdl::graphic::LabelWidget::VerticalAlignment::Center,
-      widget.get(),
+      nullptr,//widget.get(),
       true,
       sdl::core::Palette::fromBackgroundColor(sdl::core::Color(0, 0, 255, SDL_ALPHA_OPAQUE))
     );
@@ -98,7 +105,7 @@ int main(int argc, char* argv[]) {
     //   sdl::core::SizePolicy::Minimum,
     //   sdl::core::SizePolicy::Minimum
     // ));
-    // layout->addItem(widget3, 1, 0, 1, 1);
+    widget3->setMaxSize(sdl::utils::Sizef(180.0f, 60.0f));
 
     // `right_widget` layout
     widget3->setLayout(std::make_shared<sdl::graphic::LinearLayout>(
@@ -107,6 +114,11 @@ int main(int argc, char* argv[]) {
       10.0f,
       widget3
     ));
+
+    layout->addItem(widget2, 0, 0, 1, 1);
+    layout->addItem(widget1, 1, 2, 1, 1);
+    layout->addItem(widget3, 3, 3, 1, 1);
+    widget->setLayout(layout);
 
     // Setup application
     app->addWidget(widget);

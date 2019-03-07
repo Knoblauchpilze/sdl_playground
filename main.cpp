@@ -63,6 +63,7 @@ int main(int argc, char* argv[]) {
       sdl::core::Palette::fromBackgroundColor(sdl::core::Color(0, 255, 0, SDL_ALPHA_OPAQUE)),
       sdl::utils::Sizef(100.0f, 100.0f)
     );
+    widget2->setMinSize(sdl::utils::Sizef(50.0f, 5.0f));
 
     // `left_widget` layout
     widget2->setLayout(std::make_shared<sdl::graphic::LinearLayout>(
@@ -115,6 +116,8 @@ int main(int argc, char* argv[]) {
       widget3
     ));
 
+    layout->setColumnsMinimumWidth(2.0f);
+    layout->setRowsMinimumHeight(3.0f);
     layout->addItem(widget2, 0, 0, 1, 1);
     layout->addItem(widget1, 1, 2, 1, 1);
     layout->addItem(widget3, 3, 3, 1, 1);

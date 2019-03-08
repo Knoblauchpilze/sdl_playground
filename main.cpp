@@ -64,6 +64,10 @@ int main(int argc, char* argv[]) {
       sdl::utils::Sizef(100.0f, 100.0f)
     );
     widget2->setMinSize(sdl::utils::Sizef(50.0f, 5.0f));
+    // widget2->setSizePolicy(sdl::core::SizePolicy(
+    //   sdl::core::SizePolicy::Expanding,
+    //   sdl::core::SizePolicy::Expanding
+    // ));
 
     // `left_widget` layout
     widget2->setLayout(std::make_shared<sdl::graphic::LinearLayout>(
@@ -76,7 +80,7 @@ int main(int argc, char* argv[]) {
     // `middle_widget`
     sdl::core::SdlWidget* widget1 = new sdl::core::SdlWidget(
       std::string("middle_widget"),
-      sdl::utils::Sizef(50.0f, 150.0f),
+      sdl::utils::Sizef(50.0f, 110.0f),
       nullptr,//widget.get(),
       false,
       sdl::core::Palette::fromBackgroundColor(sdl::core::Color(128, 128, 0, SDL_ALPHA_OPAQUE))
@@ -116,11 +120,33 @@ int main(int argc, char* argv[]) {
       widget3
     ));
 
+    // `last_widget`
+    sdl::core::SdlWidget* widget4 = new sdl::core::SdlWidget(
+      std::string("last_widget"),
+      sdl::utils::Sizef(),
+      nullptr,//widget.get(),
+      false,
+      sdl::core::Palette::fromBackgroundColor(sdl::core::Color(0, 128, 0, SDL_ALPHA_OPAQUE / 2))
+    );
+    // widget4->setSizePolicy(sdl::core::SizePolicy(
+    //   sdl::core::SizePolicy::Expand,
+    //   sdl::core::SizePolicy::Expand
+    // ));
+
+    // `last_widget` layout
+    widget4->setLayout(std::make_shared<sdl::graphic::LinearLayout>(
+      sdl::graphic::LinearLayout::Direction::Vertical,
+      5.0f,
+      10.0f,
+      widget4
+    ));
+
     layout->setColumnsMinimumWidth(2.0f);
     layout->setRowsMinimumHeight(3.0f);
-    layout->addItem(widget2, 0, 0, 1, 1);
+    layout->addItem(widget2, 0, 0, 2, 1);
     layout->addItem(widget1, 1, 2, 1, 1);
     layout->addItem(widget3, 3, 3, 1, 1);
+    layout->addItem(widget4, 4, 3, 1, 1);
     widget->setLayout(layout);
 
     // Setup application

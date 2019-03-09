@@ -69,14 +69,6 @@ int main(int argc, char* argv[]) {
     //   sdl::core::SizePolicy::Expanding
     // ));
 
-    // `left_widget` layout
-    widget2->setLayout(std::make_shared<sdl::graphic::LinearLayout>(
-      sdl::graphic::LinearLayout::Direction::Vertical,
-      5.0f,
-      10.0f,
-      widget2
-    ));
-
     // `middle_widget`
     sdl::core::SdlWidget* widget1 = new sdl::core::SdlWidget(
       std::string("middle_widget"),
@@ -85,11 +77,11 @@ int main(int argc, char* argv[]) {
       false,
       sdl::core::Palette::fromBackgroundColor(sdl::core::Color(128, 128, 0, SDL_ALPHA_OPAQUE))
     );
-    widget1->setSizePolicy(sdl::core::SizePolicy(
-      sdl::core::SizePolicy::Minimum,
-      sdl::core::SizePolicy::Minimum
-    ));
-    widget1->setMaxSize(sdl::utils::Sizef(120.0f, 120.0f));
+    // widget1->setSizePolicy(sdl::core::SizePolicy(
+    //   sdl::core::SizePolicy::Minimum,
+    //   sdl::core::SizePolicy::Minimum
+    // ));
+    // widget1->setMaxSize(sdl::utils::Sizef(120.0f, 120.0f));
 
     // `right_widget`
     sdl::graphic::LabelWidget* widget3 = new sdl::graphic::LabelWidget(
@@ -112,13 +104,14 @@ int main(int argc, char* argv[]) {
     // ));
     widget3->setMaxSize(sdl::utils::Sizef(180.0f, 60.0f));
 
-    // `right_widget` layout
-    widget3->setLayout(std::make_shared<sdl::graphic::LinearLayout>(
-      sdl::graphic::LinearLayout::Direction::Vertical,
-      5.0f,
-      10.0f,
-      widget3
-    ));
+    // `second_to_last_widget`
+    sdl::core::SdlWidget* widget5 = new sdl::core::SdlWidget(
+      std::string("second_to_last_widget"),
+      sdl::utils::Sizef(20.0f, 20.0f),
+      nullptr,//widget.get(),
+      false,
+      sdl::core::Palette::fromBackgroundColor(sdl::core::Color(0, 128, 255, SDL_ALPHA_OPAQUE / 2))
+    );
 
     // `last_widget`
     sdl::core::SdlWidget* widget4 = new sdl::core::SdlWidget(
@@ -133,20 +126,13 @@ int main(int argc, char* argv[]) {
     //   sdl::core::SizePolicy::Expand
     // ));
 
-    // `last_widget` layout
-    widget4->setLayout(std::make_shared<sdl::graphic::LinearLayout>(
-      sdl::graphic::LinearLayout::Direction::Vertical,
-      5.0f,
-      10.0f,
-      widget4
-    ));
-
     layout->setColumnsMinimumWidth(2.0f);
     layout->setRowsMinimumHeight(3.0f);
-    layout->addItem(widget2, 0, 0, 2, 1);
+    layout->addItem(widget2, 0, 0, 1, 1);
     layout->addItem(widget1, 1, 2, 1, 1);
     layout->addItem(widget3, 3, 3, 1, 1);
     layout->addItem(widget4, 4, 3, 1, 1);
+    layout->addItem(widget5, 0, 3, 1, 1);
     widget->setLayout(layout);
 
     // Setup application

@@ -58,22 +58,24 @@ int main(int argc, char* argv[]) {
       std::string("left_widget"),
       std::string("data/img/daybreak_Overwerk.bmp"),
       sdl::graphic::PictureWidget::Mode::Fit,
-      nullptr,//widget.get(),
+      // widget.get(),
+      nullptr,
       false,
       sdl::core::Palette::fromBackgroundColor(sdl::core::Color(0, 255, 0, SDL_ALPHA_OPAQUE)),
       sdl::utils::Sizef(100.0f, 100.0f)
     );
     widget2->setMinSize(sdl::utils::Sizef(50.0f, 5.0f));
-    // widget2->setSizePolicy(sdl::core::SizePolicy(
-    //   sdl::core::SizePolicy::Expanding,
-    //   sdl::core::SizePolicy::Expanding
-    // ));
+    widget2->setSizePolicy(sdl::core::SizePolicy(
+      sdl::core::SizePolicy::Preferred,
+      sdl::core::SizePolicy::Preferred
+    ));
 
     // `middle_widget`
     sdl::core::SdlWidget* widget1 = new sdl::core::SdlWidget(
       std::string("middle_widget"),
       sdl::utils::Sizef(50.0f, 110.0f),
-      nullptr,//widget.get(),
+      // widget.get(),
+      nullptr,
       false,
       sdl::core::Palette::fromBackgroundColor(sdl::core::Color(128, 128, 0, SDL_ALPHA_OPAQUE))
     );
@@ -94,7 +96,8 @@ int main(int argc, char* argv[]) {
       ),
       sdl::graphic::LabelWidget::HorizontalAlignment::Right,
       sdl::graphic::LabelWidget::VerticalAlignment::Center,
-      nullptr,//widget.get(),
+      // widget.get(),
+      nullptr,
       true,
       sdl::core::Palette::fromBackgroundColor(sdl::core::Color(0, 0, 255, SDL_ALPHA_OPAQUE))
     );
@@ -108,7 +111,8 @@ int main(int argc, char* argv[]) {
     sdl::core::SdlWidget* widget5 = new sdl::core::SdlWidget(
       std::string("second_to_last_widget"),
       sdl::utils::Sizef(20.0f, 20.0f),
-      nullptr,//widget.get(),
+      // widget.get(),
+      nullptr,
       false,
       sdl::core::Palette::fromBackgroundColor(sdl::core::Color(0, 128, 255, SDL_ALPHA_OPAQUE / 2))
     );
@@ -121,10 +125,6 @@ int main(int argc, char* argv[]) {
       false,
       sdl::core::Palette::fromBackgroundColor(sdl::core::Color(0, 128, 0, SDL_ALPHA_OPAQUE / 2))
     );
-    // widget4->setSizePolicy(sdl::core::SizePolicy(
-    //   sdl::core::SizePolicy::Expand,
-    //   sdl::core::SizePolicy::Expand
-    // ));
 
     layout->setColumnsMinimumWidth(2.0f);
     layout->setRowsMinimumHeight(3.0f);

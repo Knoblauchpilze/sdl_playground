@@ -1,5 +1,4 @@
 
-# include <iostream>
 # include <SDL2/SDL_ttf.h>
 
 # include <sdl_core/SdlException.hh>
@@ -9,18 +8,21 @@
 # include <sdl_graphic/LinearLayout.hh>
 # include <sdl_graphic/GridLayout.hh>
 # include <sdl_graphic/PictureWidget.hh>
-# include <sdl_graphic/SelectorWidget.hh>
 # include <sdl_graphic/LabelWidget.hh>
 
 int main(int argc, char* argv[]) {
   // Run the application.
   if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-    std::cerr << "[MAIN] Could not initialize sdl video mode (err: \"" << SDL_GetError() << "\")" << std::endl;
+    utils::core::Logger::getInstance().logCritical(
+      std::string("Could not initialize SDL lib"),
+      std::string("main"),
+      SDL_GetError()
+    );
     return EXIT_FAILURE;
   }
 
   try {
-    sdl::core::BasicSdlWindowShPtr app = std::make_shared<sdl::core::SdlApplication>(
+    sdl::app::BasicSdlWindowShPtr app = std::make_shared<sdl::app::SdlApplication>(
       std::string("sdl_playground"),
       std::string("Sdl playground (but this is still SPARTA !)"),
       std::string("data/img/65px-Stop_hand.BMP"),
@@ -143,8 +145,25 @@ int main(int argc, char* argv[]) {
     // Run it.
     app->run();
   }
-  catch (const sdl::core::SdlException& e) {
-    std::cerr << "[MAIN] Caught internal exception:" << std::endl << e.what() << std::endl;
+  catch (const utils::core::CoreException& e) {
+    utils::core::Logger::getInstance().logCritical(
+      std::string("Caught internal exception while setting up application"),
+      std::string("main"),
+      e.what()
+    );
+  }
+  catch (const std::exception& e) {
+    utils::core::Logger::getInstance().logCritical(
+      std::string("Caught exception while setting up application"),
+      std::string("main"),
+      e.what()
+    );
+  }
+  catch (...) {
+    utils::core::Logger::getInstance().logCritical(
+      std::string("Unexpected error while setting up application"),
+      std::string("main")
+    );
   }
 
   // Unload used fonts.

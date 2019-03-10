@@ -21,6 +21,7 @@ int main(int argc, char* argv[]) {
 
   try {
     sdl::core::BasicSdlWindowShPtr app = std::make_shared<sdl::core::SdlApplication>(
+      std::string("sdl_playground"),
       std::string("Sdl playground (but this is still SPARTA !)"),
       std::string("data/img/65px-Stop_hand.BMP"),
       640.0f,
@@ -30,21 +31,21 @@ int main(int argc, char* argv[]) {
     );
 
     // `root_widget`
-    sdl::core::SdlWidgetShPtr widget = std::make_shared<sdl::core::SdlWidget>(
+    sdl::core::SdlWidgetShPtr root_widget = std::make_shared<sdl::core::SdlWidget>(
       std::string("root_widget"),
       sdl::utils::Sizef(600.0f, 440.0f),
       nullptr,
       false,
       sdl::core::Palette::fromBackgroundColor(sdl::core::Color(255, 0, 0, SDL_ALPHA_OPAQUE))
     );
-    widget->setRenderingArea(sdl::utils::Boxf(320.0f, 240.0f, 600.0f, 440.0f));
+    root_widget->setRenderingArea(sdl::utils::Boxf(320.0f, 240.0f, 600.0f, 440.0f));
 
     // `root_widget` layout
     sdl::graphic::GridLayoutShPtr layout = std::make_shared<sdl::graphic::GridLayout>(
       5u,
       4u,
       10.0f,
-      widget.get()
+      root_widget.get()
     );
     // widget->setLayout(std::make_shared<sdl::graphic::LinearLayout>(
     //   sdl::graphic::LinearLayout::Direction::Vertical,
@@ -54,39 +55,39 @@ int main(int argc, char* argv[]) {
     // ));
 
     // `left_widget`
-    sdl::graphic::PictureWidget* widget2 = new sdl::graphic::PictureWidget(
+    sdl::graphic::PictureWidget* left_widget = new sdl::graphic::PictureWidget(
       std::string("left_widget"),
       std::string("data/img/daybreak_Overwerk.bmp"),
       sdl::graphic::PictureWidget::Mode::Fit,
-      // widget.get(),
+      // root_widget.get(),
       nullptr,
       false,
       sdl::core::Palette::fromBackgroundColor(sdl::core::Color(0, 255, 0, SDL_ALPHA_OPAQUE)),
       sdl::utils::Sizef(100.0f, 100.0f)
     );
-    widget2->setMinSize(sdl::utils::Sizef(50.0f, 5.0f));
-    widget2->setSizePolicy(sdl::core::SizePolicy(
-      sdl::core::SizePolicy::Preferred,
-      sdl::core::SizePolicy::Preferred
-    ));
+    left_widget->setMinSize(sdl::utils::Sizef(50.0f, 5.0f));
+    // left_widget->setSizePolicy(sdl::core::SizePolicy(
+    //   sdl::core::SizePolicy::Preferred,
+    //   sdl::core::SizePolicy::Preferred
+    // ));
 
     // `middle_widget`
-    sdl::core::SdlWidget* widget1 = new sdl::core::SdlWidget(
+    sdl::core::SdlWidget* middle_widget = new sdl::core::SdlWidget(
       std::string("middle_widget"),
       sdl::utils::Sizef(50.0f, 110.0f),
-      // widget.get(),
+      // root_widget.get(),
       nullptr,
       false,
       sdl::core::Palette::fromBackgroundColor(sdl::core::Color(128, 128, 0, SDL_ALPHA_OPAQUE))
     );
-    // widget1->setSizePolicy(sdl::core::SizePolicy(
+    // middle_widget->setSizePolicy(sdl::core::SizePolicy(
     //   sdl::core::SizePolicy::Minimum,
     //   sdl::core::SizePolicy::Minimum
     // ));
-    // widget1->setMaxSize(sdl::utils::Sizef(120.0f, 120.0f));
+    // middle_widget->setMaxSize(sdl::utils::Sizef(120.0f, 120.0f));
 
     // `right_widget`
-    sdl::graphic::LabelWidget* widget3 = new sdl::graphic::LabelWidget(
+    sdl::graphic::LabelWidget* right_widget = new sdl::graphic::LabelWidget(
       std::string("right_widget"),
       std::string("This is some bg text"),
       sdl::core::FontFactory::getInstance().createColoredFont(
@@ -96,47 +97,48 @@ int main(int argc, char* argv[]) {
       ),
       sdl::graphic::LabelWidget::HorizontalAlignment::Right,
       sdl::graphic::LabelWidget::VerticalAlignment::Center,
-      // widget.get(),
+      // root_widget.get(),
       nullptr,
       true,
       sdl::core::Palette::fromBackgroundColor(sdl::core::Color(0, 0, 255, SDL_ALPHA_OPAQUE))
     );
-    // widget3->setSizePolicy(sdl::core::SizePolicy(
+    // right_widget->setSizePolicy(sdl::core::SizePolicy(
     //   sdl::core::SizePolicy::Minimum,
     //   sdl::core::SizePolicy::Minimum
     // ));
-    widget3->setMaxSize(sdl::utils::Sizef(180.0f, 60.0f));
+    right_widget->setMaxSize(sdl::utils::Sizef(180.0f, 60.0f));
 
     // `second_to_last_widget`
-    sdl::core::SdlWidget* widget5 = new sdl::core::SdlWidget(
-      std::string("second_to_last_widget"),
-      sdl::utils::Sizef(20.0f, 20.0f),
-      // widget.get(),
-      nullptr,
-      false,
-      sdl::core::Palette::fromBackgroundColor(sdl::core::Color(0, 128, 255, SDL_ALPHA_OPAQUE / 2))
-    );
+    // sdl::core::SdlWidget* widget5 = new sdl::core::SdlWidget(
+    //   std::string("second_to_last_widget"),
+    //   sdl::utils::Sizef(20.0f, 20.0f),
+    //   // root_widget.get(),
+    //   nullptr,
+    //   false,
+    //   sdl::core::Palette::fromBackgroundColor(sdl::core::Color(0, 128, 255, SDL_ALPHA_OPAQUE / 2))
+    // );
 
     // `last_widget`
-    sdl::core::SdlWidget* widget4 = new sdl::core::SdlWidget(
-      std::string("last_widget"),
-      sdl::utils::Sizef(),
-      nullptr,//widget.get(),
-      false,
-      sdl::core::Palette::fromBackgroundColor(sdl::core::Color(0, 128, 0, SDL_ALPHA_OPAQUE / 2))
-    );
+    // sdl::core::SdlWidget* widget4 = new sdl::core::SdlWidget(
+    //   std::string("last_widget"),
+    //   sdl::utils::Sizef(),
+    //   // root_widget.get(),
+    //   nullptr,
+    //   false,
+    //   sdl::core::Palette::fromBackgroundColor(sdl::core::Color(0, 128, 0, SDL_ALPHA_OPAQUE / 2))
+    // );
 
     layout->setColumnsMinimumWidth(2.0f);
     layout->setRowsMinimumHeight(3.0f);
-    layout->addItem(widget2, 0, 0, 1, 1);
-    layout->addItem(widget1, 1, 2, 1, 1);
-    layout->addItem(widget3, 3, 3, 1, 1);
-    layout->addItem(widget4, 4, 3, 1, 1);
-    layout->addItem(widget5, 0, 3, 1, 1);
-    widget->setLayout(layout);
+    layout->addItem(left_widget, 0, 0, 2, 1);
+    layout->addItem(middle_widget, 1, 2, 1, 1);
+    layout->addItem(right_widget, 3, 3, 1, 1);
+    // layout->addItem(widget4, 4, 3, 1, 1);
+    // layout->addItem(widget5, 0, 3, 1, 1);
+    root_widget->setLayout(layout);
 
     // Setup application
-    app->addWidget(widget);
+    app->addWidget(root_widget);
 
     // Run it.
     app->run();

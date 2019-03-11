@@ -4,8 +4,8 @@
 # include <sdl_core/SdlException.hh>
 # include <sdl_app_core/SdlApplication.hh>
 # include <sdl_core/SdlWidget.hh>
-# include <sdl_core/WidgetFactory.hh>
 # include <sdl_core/FontFactory.hh>
+# include <sdl_core/WidgetBuilder.hh>
 # include <sdl_graphic/LinearLayout.hh>
 # include <sdl_graphic/GridLayout.hh>
 # include <sdl_graphic/PictureWidget.hh>
@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
   utils::core::LoggerShPtr logger = std::make_shared<utils::core::Logger>(std::make_shared<utils::core::LoggingDevice>());
 
   // Create the widget factory.
-  sdl::core::WidgetFactoryShPtr factory = std::make_shared<sdl::core::WidgetFactory>(logger);
+  sdl::core::WidgetBuilder widgetBuilder(logger);
 
   // Run the application.
   if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -31,31 +31,23 @@ int main(int argc, char* argv[]) {
   const utils::maths::Size<int> size(640, 480);
 
   try {
-    sdl::app::SdlApplicationShPtr app = std::make_shared<sdl::app::SdlApplication>(
-      appName, appTitle, appIcon, size, 60.0f, 30.0f, true, logger
-    );
+    sdl::app::SdlApplicationShPtr app = std::make_shared<sdl::app::SdlApplication>(appName, appTitle, appIcon, size, 60.0f, 30.0f, logger);
 
     // `root_widget`
-    sdl::core::SdlWidgetShPtr root_widget = factory->createRootWidget(
-      std::string("root_widget"),
-      utils::maths::Sizef(600.0f, 440.0f),
-      sdl::core::Color(255, 0, 0, SDL_ALPHA_OPAQUE)
+    sdl::core::SdlWidgetShPtr root_widget = std::shared_ptr<sdl::core::SdlWidget>(
+      widgetBuilder.setSizeHint(
+        utils::maths::Sizef(600.0f, 440.0f)
+      ).setPalette(
+        sdl::core::Palette::fromBackgroundColor(sdl::core::Color(255, 0, 0, SDL_ALPHA_OPAQUE))
+      ).build(
+        std::string("root_widget")
+      )
     );
     root_widget->setRenderingArea(utils::maths::Boxf(320.0f, 240.0f, 600.0f, 440.0f));
 
     // `root_widget` layout
-    sdl::graphic::GridLayoutShPtr layout = std::make_shared<sdl::graphic::GridLayout>(
-      5u,
-      4u,
-      10.0f,
-      root_widget.get()
-    );
-    // widget->setLayout(std::make_shared<sdl::graphic::LinearLayout>(
-    //   sdl::graphic::LinearLayout::Direction::Vertical,
-    //   5.0f,
-    //   10.0f,
-    //   widget.get()
-    // ));
+    sdl::graphic::GridLayoutShPtr layout = std::make_shared<sdl::graphic::GridLayout>(5u, 4u, 10.0f, root_widget.get());
+    // root_widget->setLayout(std::make_shared<sdl::graphic::LinearLayout>(sdl::graphic::LinearLayout::Direction::Vertical, 5.0f, 10.0f, widget.get()));
 
     // `left_widget`
     sdl::graphic::PictureWidget* left_widget = new sdl::graphic::PictureWidget(
@@ -71,12 +63,17 @@ int main(int argc, char* argv[]) {
     left_widget->setMinSize(utils::maths::Sizef(50.0f, 5.0f));
 
     // `middle_widget`
-    sdl::core::SdlWidget* middle_widget = factory->createWidget(
-      std::string("middle_widget"),
-      utils::maths::Sizef(50.0f, 110.0f),
-      sdl::core::Color(128, 128, 0, SDL_ALPHA_OPAQUE)
-      // root_widget.get(),
-    );
+    sdl::core::SdlWidget* middle_widget = widgetBuilder.setSizeHint(
+        utils::maths::Sizef(50.0f, 110.0f)
+      ).setPalette(
+        sdl::core::Palette::fromBackgroundColor(sdl::core::Color(128, 128, 0, SDL_ALPHA_OPAQUE))
+      ).setParent(
+        // root_widget.get()
+        nullptr
+      ).build(
+        std::string("middle_widget")
+      )
+    ;
 
     // `right_widget`
     sdl::graphic::LabelWidget* right_widget = new sdl::graphic::LabelWidget(

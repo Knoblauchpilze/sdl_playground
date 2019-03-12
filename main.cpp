@@ -5,22 +5,30 @@
 # include <sdl_app_core/SdlApplication.hh>
 # include <sdl_core/SdlWidget.hh>
 # include <sdl_core/FontFactory.hh>
-# include <sdl_core/WidgetBuilder.hh>
 # include <sdl_graphic/LinearLayout.hh>
 # include <sdl_graphic/GridLayout.hh>
 # include <sdl_graphic/PictureWidget.hh>
 # include <sdl_graphic/LabelWidget.hh>
+# include <core_utils/StdLogger.hh>
+# include <core_utils/LoggerLocator.hh>
 
 int main(int argc, char* argv[]) {
   // Create the logger.
-  utils::core::LoggerShPtr logger = std::make_shared<utils::core::Logger>(std::make_shared<utils::core::LoggingDevice>());
+  utils::StdLogger logger;
+  utils::LoggerLocator::provide(&logger);
 
-  // Create the widget factory.
-  sdl::core::WidgetBuilder widgetBuilder(logger);
+  const std::string service("playground");
+  const std::string module("main");
 
   // Run the application.
   if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-    logger->logCritical(std::string("Could not initialize SDL lib"), std::string("main"), SDL_GetError());
+    utils::LoggerLocator::getLogger().logMessage(
+      utils::Level::Fatal,
+      std::string("Could not initialize SDL lib"),
+      module,
+      service,
+      SDL_GetError()
+    );
     return EXIT_FAILURE;
   }
 
@@ -28,22 +36,20 @@ int main(int argc, char* argv[]) {
   const std::string appName = std::string("sdl_playground");
   const std::string appTitle = std::string("Sdl playground (but this is still SPARTA !)");
   const std::string appIcon = std::string("data/img/65px-Stop_hand.BMP");
-  const utils::maths::Size<int> size(640, 480);
+  const utils::Size<int> size(640, 480);
 
   try {
-    sdl::app::SdlApplicationShPtr app = std::make_shared<sdl::app::SdlApplication>(appName, appTitle, appIcon, size, 60.0f, 30.0f, logger);
+    sdl::app::SdlApplicationShPtr app = std::make_shared<sdl::app::SdlApplication>(appName, appTitle, appIcon, size, 60.0f, 30.0f);
 
     // `root_widget`
-    sdl::core::SdlWidgetShPtr root_widget = std::shared_ptr<sdl::core::SdlWidget>(
-      widgetBuilder.setSizeHint(
-        utils::maths::Sizef(600.0f, 440.0f)
-      ).setPalette(
-        sdl::core::Palette::fromBackgroundColor(sdl::core::Color(255, 0, 0, SDL_ALPHA_OPAQUE))
-      ).build(
-        std::string("root_widget")
-      )
+    sdl::core::SdlWidgetShPtr root_widget = std::make_shared<sdl::core::SdlWidget>(
+      std::string("root_widget"),
+      utils::Sizef(600.0f, 440.0f),
+      nullptr,
+      false,
+      sdl::core::Palette::fromBackgroundColor(sdl::core::Color(255, 0, 0, SDL_ALPHA_OPAQUE))
     );
-    root_widget->setRenderingArea(utils::maths::Boxf(320.0f, 240.0f, 600.0f, 440.0f));
+    root_widget->setRenderingArea(utils::Boxf(320.0f, 240.0f, 600.0f, 440.0f));
 
     // `root_widget` layout
     sdl::graphic::GridLayoutShPtr layout = std::make_shared<sdl::graphic::GridLayout>(5u, 4u, 10.0f, root_widget.get());
@@ -58,22 +64,19 @@ int main(int argc, char* argv[]) {
       nullptr,
       false,
       sdl::core::Palette::fromBackgroundColor(sdl::core::Color(0, 255, 0, SDL_ALPHA_OPAQUE)),
-      utils::maths::Sizef(100.0f, 100.0f)
+      utils::Sizef(100.0f, 100.0f)
     );
-    left_widget->setMinSize(utils::maths::Sizef(50.0f, 5.0f));
+    left_widget->setMinSize(utils::Sizef(50.0f, 5.0f));
 
     // `middle_widget`
-    sdl::core::SdlWidget* middle_widget = widgetBuilder.setSizeHint(
-        utils::maths::Sizef(50.0f, 110.0f)
-      ).setPalette(
-        sdl::core::Palette::fromBackgroundColor(sdl::core::Color(128, 128, 0, SDL_ALPHA_OPAQUE))
-      ).setParent(
-        // root_widget.get()
-        nullptr
-      ).build(
-        std::string("middle_widget")
-      )
-    ;
+    sdl::core::SdlWidget* middle_widget = new sdl::core::SdlWidget(
+      std::string("middle_widget"),
+      utils::Sizef(50.0f, 110.0f),
+      // root_widget.get()
+      nullptr,
+      false,
+      sdl::core::Palette::fromBackgroundColor(sdl::core::Color(128, 128, 0, SDL_ALPHA_OPAQUE))
+    );
 
     // `right_widget`
     sdl::graphic::LabelWidget* right_widget = new sdl::graphic::LabelWidget(
@@ -95,7 +98,7 @@ int main(int argc, char* argv[]) {
     //   sdl::core::SizePolicy::Minimum,
     //   sdl::core::SizePolicy::Minimum
     // ));
-    right_widget->setMaxSize(utils::maths::Sizef(180.0f, 60.0f));
+    right_widget->setMaxSize(utils::Sizef(180.0f, 60.0f));
 
     layout->setColumnsMinimumWidth(2.0f);
     layout->setRowsMinimumHeight(3.0f);
@@ -110,24 +113,30 @@ int main(int argc, char* argv[]) {
     // Run it.
     app->run();
   }
-  catch (const utils::core::CoreException& e) {
-    utils::core::Logger::getInstance().logCritical(
+  catch (const utils::CoreException& e) {
+    utils::LoggerLocator::getLogger().logMessage(
+      utils::Level::Critical,
       std::string("Caught internal exception while setting up application"),
-      std::string("main"),
+      module,
+      service,
       e.what()
     );
   }
   catch (const std::exception& e) {
-    utils::core::Logger::getInstance().logCritical(
+    utils::LoggerLocator::getLogger().logMessage(
+      utils::Level::Critical,
       std::string("Caught exception while setting up application"),
-      std::string("main"),
+      module,
+      service,
       e.what()
     );
   }
   catch (...) {
-    utils::core::Logger::getInstance().logCritical(
+    utils::LoggerLocator::getLogger().logMessage(
+      utils::Level::Critical,
       std::string("Unexpected error while setting up application"),
-      std::string("main")
+      module,
+      service
     );
   }
 

@@ -1,7 +1,6 @@
 
 # include <SDL2/SDL_ttf.h>
 
-# include <sdl_core/SdlException.hh>
 # include <sdl_app_core/SdlApplication.hh>
 # include <sdl_core/SdlWidget.hh>
 # include <sdl_core/FontFactory.hh>

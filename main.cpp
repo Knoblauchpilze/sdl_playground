@@ -70,7 +70,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
       // root_widget.get()
       nullptr,
       false,
-      sdl::core::engine::Palette::fromBackgroundColor(sdl::core::engine::Color::fromRGB(128, 128, 0))
+      sdl::core::engine::Palette::fromBackgroundColor(sdl::core::engine::Color::fromRGB(0.5f, 0.5f, 0.0f))
     );
 
     // `right_widget`

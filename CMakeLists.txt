@@ -31,6 +31,7 @@ target_include_directories (sdl_playground PRIVATE
 
 target_link_libraries(sdl_playground
   core_utils
+  sdl_engine
   sdl_core
   sdl_graphic
   sdl_app_core

@@ -1,37 +1,33 @@
 
-# include <SDL2/SDL_ttf.h>
+# include <core_utils/StdLogger.hh>
+# include <core_utils/LoggerLocator.hh>
+# include <sdl_engine/SdlEngine.hh>
+# include <sdl_engine/EngineLocator.hh>
 
 # include <sdl_app_core/SdlApplication.hh>
 # include <sdl_core/SdlWidget.hh>
-# include <sdl_core/FontFactory.hh>
+# include <sdl_engine/FontFactory.hh>
 # include <sdl_graphic/LinearLayout.hh>
 # include <sdl_graphic/GridLayout.hh>
 # include <sdl_graphic/PictureWidget.hh>
 # include <sdl_graphic/LabelWidget.hh>
-# include <core_utils/StdLogger.hh>
-# include <core_utils/LoggerLocator.hh>
 
-int main(int argc, char* argv[]) {
+int main(int /*argc*/, char** /*argv[]*/) {
   // Create the logger.
   utils::StdLogger logger;
   utils::LoggerLocator::provide(&logger);
 
+  // Create the sdl engine.
+  sdl::core::engine::SdlEngine engine;
+  sdl::core::engine::EngineLocator::provide(&engine);
+
+  // Create the font factory.
+  sdl::core::engine::FontFactory fontFactory;
+
   const std::string service("playground");
   const std::string module("main");
 
-  // Run the application.
-  if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-    utils::LoggerLocator::getLogger().logMessage(
-      utils::Level::Fatal,
-      std::string("Could not initialize SDL lib"),
-      module,
-      service,
-      SDL_GetError()
-    );
-    return EXIT_FAILURE;
-  }
-
-  // Create the application window.
+  // Create the application window parameters.
   const std::string appName = std::string("sdl_playground");
   const std::string appTitle = std::string("Sdl playground (but this is still SPARTA !)");
   const std::string appIcon = std::string("data/img/65px-Stop_hand.BMP");
@@ -46,7 +42,7 @@ int main(int argc, char* argv[]) {
       utils::Sizef(600.0f, 440.0f),
       nullptr,
       false,
-      sdl::core::Palette::fromBackgroundColor(sdl::core::Color(255, 0, 0, SDL_ALPHA_OPAQUE))
+      sdl::core::engine::Palette::fromBackgroundColor(sdl::core::engine::Color::NamedColor::Red)
     );
     root_widget->setRenderingArea(utils::Boxf(320.0f, 240.0f, 600.0f, 440.0f));
 
@@ -62,7 +58,7 @@ int main(int argc, char* argv[]) {
       // root_widget.get(),
       nullptr,
       false,
-      sdl::core::Palette::fromBackgroundColor(sdl::core::Color(0, 255, 0, SDL_ALPHA_OPAQUE)),
+      sdl::core::engine::Palette::fromBackgroundColor(sdl::core::engine::Color::NamedColor::Green),
       utils::Sizef(100.0f, 100.0f)
     );
     left_widget->setMinSize(utils::Sizef(50.0f, 5.0f));
@@ -74,24 +70,24 @@ int main(int argc, char* argv[]) {
       // root_widget.get()
       nullptr,
       false,
-      sdl::core::Palette::fromBackgroundColor(sdl::core::Color(128, 128, 0, SDL_ALPHA_OPAQUE))
+      sdl::core::engine::Palette::fromBackgroundColor(sdl::core::engine::Color::fromRGB(128, 128, 0))
     );
 
     // `right_widget`
     sdl::graphic::LabelWidget* right_widget = new sdl::graphic::LabelWidget(
       std::string("right_widget"),
       std::string("This is some bg text"),
-      sdl::core::FontFactory::getInstance().createColoredFont(
+      fontFactory.createColoredFont(
         std::string("data/fonts/times.ttf"),
-        sdl::core::Color(64, 64, 64, SDL_ALPHA_OPAQUE),
-        20
+        20,
+        sdl::core::engine::Color::NamedColor::Gray
       ),
       sdl::graphic::LabelWidget::HorizontalAlignment::Right,
       sdl::graphic::LabelWidget::VerticalAlignment::Center,
       // root_widget.get(),
       nullptr,
       true,
-      sdl::core::Palette::fromBackgroundColor(sdl::core::Color(0, 0, 255, SDL_ALPHA_OPAQUE))
+      sdl::core::engine::Palette::fromBackgroundColor(sdl::core::engine::Color::NamedColor::Blue)
     );
     // right_widget->setSizePolicy(sdl::core::SizePolicy(
     //   sdl::core::SizePolicy::Minimum,
@@ -137,17 +133,6 @@ int main(int argc, char* argv[]) {
       module,
       service
     );
-  }
-
-  // Unload used fonts.
-  sdl::core::FontFactory::getInstance().releaseFonts();
-
-  // Unload the sdl and the ttf libs if needed.
-  if (TTF_WasInit()) {
-    TTF_Quit();
-  }
-  if (SDL_WasInit(0u)) {
-    SDL_Quit();
   }
 
   // All is good.

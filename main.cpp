@@ -18,8 +18,8 @@ int main(int /*argc*/, char** /*argv[]*/) {
   utils::LoggerLocator::provide(&logger);
 
   // Create the sdl engine.
-  sdl::core::engine::SdlEngine engine;
-  sdl::core::engine::EngineLocator::provide(&engine);
+  // sdl::core::engine::SdlEngine engine;
+  // sdl::core::engine::EngineLocator::provide(&engine);
 
   // Create the font factory.
   sdl::core::engine::FontFactory fontFactory;
@@ -42,7 +42,8 @@ int main(int /*argc*/, char** /*argv[]*/) {
       utils::Sizef(600.0f, 440.0f),
       nullptr,
       false,
-      sdl::core::engine::Palette::fromBackgroundColor(sdl::core::engine::Color::NamedColor::Red)
+      sdl::core::engine::Palette::fromBackgroundColor(sdl::core::engine::Color::NamedColor::Red),
+      app->m_engine
     );
     root_widget->setRenderingArea(utils::Boxf(320.0f, 240.0f, 600.0f, 440.0f));
 
@@ -79,7 +80,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
       std::string("This is some bg text"),
       fontFactory.createColoredFont(
         std::string("data/fonts/times.ttf"),
-        20,
+        15,
         sdl::core::engine::Color::NamedColor::Gray
       ),
       sdl::graphic::LabelWidget::HorizontalAlignment::Right,

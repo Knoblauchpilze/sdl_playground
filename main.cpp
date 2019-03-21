@@ -2,7 +2,6 @@
 # include <core_utils/StdLogger.hh>
 # include <core_utils/LoggerLocator.hh>
 # include <sdl_engine/SdlEngine.hh>
-# include <sdl_engine/EngineLocator.hh>
 
 # include <sdl_app_core/SdlApplication.hh>
 # include <sdl_core/SdlWidget.hh>
@@ -16,10 +15,6 @@ int main(int /*argc*/, char** /*argv[]*/) {
   // Create the logger.
   utils::StdLogger logger;
   utils::LoggerLocator::provide(&logger);
-
-  // Create the sdl engine.
-  // sdl::core::engine::SdlEngine engine;
-  // sdl::core::engine::EngineLocator::provide(&engine);
 
   // Create the font factory.
   sdl::core::engine::FontFactory fontFactory;

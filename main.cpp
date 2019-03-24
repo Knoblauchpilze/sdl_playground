@@ -32,6 +32,8 @@ int main(int /*argc*/, char** /*argv[]*/) {
     sdl::app::SdlApplicationShPtr app = std::make_shared<sdl::app::SdlApplication>(appName, appTitle, appIcon, size, 60.0f, 30.0f);
 
     // `root_widget`
+#define ROOT_WIDGET
+#ifdef ROOT_WIDGET
     sdl::core::SdlWidgetShPtr root_widget = std::make_shared<sdl::core::SdlWidget>(
       std::string("root_widget"),
       utils::Sizef(600.0f, 440.0f),
@@ -41,12 +43,22 @@ int main(int /*argc*/, char** /*argv[]*/) {
       app->m_engine
     );
     root_widget->setRenderingArea(utils::Boxf(320.0f, 240.0f, 600.0f, 440.0f));
+#endif
 
     // `root_widget` layout
+#define GRID_LAYOUT
+#ifdef ROOT_WIDGET
+# ifdef GRID_LAYOUT
     sdl::graphic::GridLayoutShPtr layout = std::make_shared<sdl::graphic::GridLayout>(5u, 4u, 10.0f, root_widget.get());
-    // root_widget->setLayout(std::make_shared<sdl::graphic::LinearLayout>(sdl::graphic::LinearLayout::Direction::Vertical, 5.0f, 10.0f, widget.get()));
+# else
+    root_widget->setLayout(std::make_shared<sdl::graphic::LinearLayout>(sdl::graphic::LinearLayout::Direction::Vertical, 5.0f, 10.0f, root_widget.get()));
+# endif
+#endif
 
     // `left_widget`
+#ifdef ROOT_WIDGET
+# define OTHER_WIDGETS
+# ifdef OTHER_WIDGETS
     sdl::graphic::PictureWidget* left_widget = new sdl::graphic::PictureWidget(
       std::string("left_widget"),
       std::string("data/img/daybreak_Overwerk.bmp"),
@@ -90,16 +102,24 @@ int main(int /*argc*/, char** /*argv[]*/) {
     //   sdl::core::SizePolicy::Minimum
     // ));
     right_widget->setMaxSize(utils::Sizef(180.0f, 60.0f));
+# endif
 
+# ifdef GRID_LAYOUT
     layout->setColumnsMinimumWidth(2.0f);
     layout->setRowsMinimumHeight(3.0f);
+#  ifdef OTHER_WIDGETS
     layout->addItem(left_widget, 0, 0, 1, 1);
     layout->addItem(middle_widget, 1, 2, 1, 1);
     layout->addItem(right_widget, 3, 3, 1, 1);
+#  endif
     root_widget->setLayout(layout);
+# endif
+#endif
 
     // Setup application
+#ifdef ROOT_WIDGET
     app->addWidget(root_widget);
+#endif
 
     // Run it.
     app->run();

@@ -17,7 +17,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
   utils::LoggerLocator::provide(&logger);
 
   // Create the font factory.
-  sdl::core::engine::FontFactory fontFactory;
+  sdl::core::engine::FontFactoryShPtr fontFactory;
 
   const std::string service("playground");
   const std::string module("main");
@@ -28,8 +28,11 @@ int main(int /*argc*/, char** /*argv[]*/) {
   const std::string appIcon = std::string("data/img/65px-Stop_hand.BMP");
   const utils::Size<int> size(640, 480);
 
+  sdl::app::SdlApplicationShPtr app = nullptr;
+
   try {
-    sdl::app::SdlApplicationShPtr app = std::make_shared<sdl::app::SdlApplication>(appName, appTitle, appIcon, size, 60.0f, 30.0f);
+    fontFactory = std::make_shared<sdl::core::engine::FontFactory>();
+    app = std::make_shared<sdl::app::SdlApplication>(appName, appTitle, appIcon, size, 60.0f, 30.0f);
 
     // `root_widget`
 #define ROOT_WIDGET
@@ -39,8 +42,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
       utils::Sizef(600.0f, 440.0f),
       nullptr,
       false,
-      sdl::core::engine::Palette::fromBackgroundColor(sdl::core::engine::Color::NamedColor::Red),
-      app->m_engine
+      sdl::core::engine::Palette::fromBackgroundColor(sdl::core::engine::Color::NamedColor::Red)
     );
     root_widget->setRenderingArea(utils::Boxf(320.0f, 240.0f, 600.0f, 440.0f));
 #endif
@@ -85,7 +87,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
     sdl::graphic::LabelWidget* right_widget = new sdl::graphic::LabelWidget(
       std::string("right_widget"),
       std::string("This is some bg text"),
-      fontFactory.createColoredFont(
+      fontFactory->createColoredFont(
         std::string("data/fonts/times.ttf"),
         15,
         sdl::core::engine::Color::NamedColor::Gray
@@ -150,6 +152,9 @@ int main(int /*argc*/, char** /*argv[]*/) {
       service
     );
   }
+
+  app.reset();
+  fontFactory.reset();
 
   // All is good.
   return EXIT_SUCCESS;

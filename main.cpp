@@ -16,9 +16,6 @@ int main(int /*argc*/, char** /*argv[]*/) {
   utils::StdLogger logger;
   utils::LoggerLocator::provide(&logger);
 
-  // Create the font factory.
-  sdl::core::engine::FontFactoryShPtr fontFactory;
-
   const std::string service("playground");
   const std::string module("main");
 
@@ -31,7 +28,6 @@ int main(int /*argc*/, char** /*argv[]*/) {
   sdl::app::SdlApplicationShPtr app = nullptr;
 
   try {
-    fontFactory = std::make_shared<sdl::core::engine::FontFactory>();
     app = std::make_shared<sdl::app::SdlApplication>(appName, appTitle, appIcon, size, 60.0f, 30.0f);
 
     // `root_widget`
@@ -83,15 +79,17 @@ int main(int /*argc*/, char** /*argv[]*/) {
       sdl::core::engine::Palette::fromBackgroundColor(sdl::core::engine::Color::fromRGB(0.5f, 0.5f, 0.0f))
     );
 
+    utils::Uuid font = app->getEngine().createColoredFont(
+      std::string("data/fonts/times.ttf"),
+      15,
+      sdl::core::engine::Color::NamedColor::Gray
+    );
+
     // `right_widget`
     sdl::graphic::LabelWidget* right_widget = new sdl::graphic::LabelWidget(
       std::string("right_widget"),
       std::string("This is some bg text"),
-      fontFactory->createColoredFont(
-        std::string("data/fonts/times.ttf"),
-        15,
-        sdl::core::engine::Color::NamedColor::Gray
-      ),
+      font,
       sdl::graphic::LabelWidget::HorizontalAlignment::Right,
       sdl::graphic::LabelWidget::VerticalAlignment::Center,
       // root_widget.get(),
@@ -154,7 +152,6 @@ int main(int /*argc*/, char** /*argv[]*/) {
   }
 
   app.reset();
-  fontFactory.reset();
 
   // All is good.
   return EXIT_SUCCESS;

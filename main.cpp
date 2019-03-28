@@ -44,7 +44,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
 # endif
 
     // `root_widget` layout
-// # define GRID_LAYOUT
+# define GRID_LAYOUT
 # ifdef ROOT_WIDGET
 # ifdef GRID_LAYOUT
     sdl::graphic::GridLayoutShPtr layout = std::make_shared<sdl::graphic::GridLayout>(5u, 4u, 10.0f, root_widget.get());
@@ -86,10 +86,10 @@ int main(int /*argc*/, char** /*argv[]*/) {
     );
     middle_widget->setBackgroundColor(sdl::core::engine::Color::NamedColor::CorneFlowerBlue);
     middle_widget->setSizePolicy(sdl::core::SizePolicy(
-      sdl::core::SizePolicy::Fixed,
-      sdl::core::SizePolicy::Expanding
+      sdl::core::SizePolicy::Expanding,
+      sdl::core::SizePolicy::Fixed
     ));
-    middle_widget->setMaxSize(utils::Sizef(50.0f, 165.0f));
+    // middle_widget->setMaxSize(utils::Sizef(50.0f, 165.0f));
 
     utils::Uuid font = app->getEngine().createColoredFont(
       std::string("data/fonts/times.ttf"),
@@ -114,7 +114,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
     );
     right_widget->setSizePolicy(sdl::core::SizePolicy(
       sdl::core::SizePolicy::Minimum,
-      sdl::core::SizePolicy::Minimum
+      sdl::core::SizePolicy::Expanding
     ));
     // right_widget->setMaxSize(utils::Sizef(180.0f, 60.0f));
 # endif

@@ -89,7 +89,6 @@ int main(int /*argc*/, char** /*argv[]*/) {
       sdl::core::SizePolicy::Expanding,
       sdl::core::SizePolicy::Fixed
     ));
-    // middle_widget->setMaxSize(utils::Sizef(50.0f, 165.0f));
 
     utils::Uuid font = app->getEngine().createColoredFont(
       std::string("data/fonts/times.ttf"),

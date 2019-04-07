@@ -70,7 +70,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
       sdl::core::engine::Palette::fromBackgroundColor(sdl::core::engine::Color::NamedColor::Green),
       utils::Sizef(100.0f, 100.0f)
     );
-    left_widget->setMinSize(utils::Sizef(50.0f, 5.0f));
+    left_widget->setMinSize(utils::Sizef(1.0f, 5.0f));
 
     // `middle_widget`
     sdl::core::SdlWidget* middle_widget = new sdl::core::SdlWidget(
@@ -115,16 +115,32 @@ int main(int /*argc*/, char** /*argv[]*/) {
       sdl::core::SizePolicy::Minimum,
       sdl::core::SizePolicy::Expanding
     ));
-    // right_widget->setMaxSize(utils::Sizef(180.0f, 60.0f));
+    right_widget->setMaxSize(utils::Sizef(180.0f, 60.0f));
+
+    // `sub_middle_widget`
+    sdl::graphic::PictureWidget* sub_middle_widget = new sdl::graphic::PictureWidget(
+      std::string("sub_middle_widget"),
+      std::string("data/img/wp_awesome.bmp"),
+      sdl::graphic::PictureWidget::Mode::Fit,
+# ifdef GRID_LAYOUT
+      nullptr,
+# else
+      root_widget.get(),
+# endif
+      false,
+      sdl::core::engine::Palette::fromBackgroundColor(sdl::core::engine::Color::NamedColor::Green)
+    );
+    sub_middle_widget->setMinSize(utils::Sizef(400.0f, 70.0f));
 # endif
 
 # ifdef GRID_LAYOUT
-    layout->setColumnsMinimumWidth(2.0f);
-    layout->setRowsMinimumHeight(3.0f);
+    layout->setColumnsMinimumWidth(10.0f);
+    layout->setRowsMinimumHeight(20.0f);
 #  ifdef OTHER_WIDGETS
-    layout->addItem(left_widget, 0, 0, 1, 1);
-    layout->addItem(middle_widget, 1, 2, 1, 1);
-    layout->addItem(right_widget, 3, 3, 1, 1);
+    layout->addItem(left_widget,       0, 0, 1, 1);
+    layout->addItem(middle_widget,     1, 2, 1, 1);
+    layout->addItem(right_widget,      3, 3, 1, 1);
+    layout->addItem(sub_middle_widget, 3, 0, 1, 2);
 #  endif
     root_widget->setLayout(layout);
 # endif

@@ -131,6 +131,23 @@ int main(int /*argc*/, char** /*argv[]*/) {
       sdl::core::engine::Palette::fromBackgroundColor(sdl::core::engine::Color::NamedColor::Green)
     );
     sub_middle_widget->setMinSize(utils::Sizef(400.0f, 70.0f));
+
+    // `sub_left_widget`
+# define SUB_LEFT_WIDGET
+# ifdef SUB_LEFT_WIDGET
+    sdl::graphic::PictureWidget* sub_left_widget = new sdl::graphic::PictureWidget(
+      std::string("sub_left_widget"),
+      std::string("data/img/wp_awesome.bmp"),
+      sdl::graphic::PictureWidget::Mode::Fit,
+# ifdef GRID_LAYOUT
+      nullptr,
+# else
+      root_widget.get(),
+# endif
+      false,
+      sdl::core::engine::Palette::fromBackgroundColor(sdl::core::engine::Color::NamedColor::Green)
+    );
+# endif
 # endif
 
 # ifdef GRID_LAYOUT
@@ -141,6 +158,9 @@ int main(int /*argc*/, char** /*argv[]*/) {
     layout->addItem(middle_widget,     1, 2, 1, 1);
     layout->addItem(right_widget,      3, 3, 1, 1);
     layout->addItem(sub_middle_widget, 3, 0, 1, 2);
+# ifdef SUB_LEFT_WIDGET
+    layout->addItem(sub_left_widget,   0, 3, 2, 1);
+# endif
 #  endif
     root_widget->setLayout(layout);
 # endif

@@ -68,14 +68,24 @@ int main(int /*argc*/, char** /*argv[]*/) {
 # endif
       false,
       sdl::core::engine::Palette::fromBackgroundColor(sdl::core::engine::Color::NamedColor::Green),
+# ifdef IDEAL_CASE
+      utils::Sizef()
+# else
       utils::Sizef(100.0f, 100.0f)
+# endif
     );
+# ifndef IDEAL_CASE
     left_widget->setMinSize(utils::Sizef(1.0f, 5.0f));
+# endif
 
     // `middle_widget`
     sdl::core::SdlWidget* middle_widget = new sdl::core::SdlWidget(
       std::string("middle_widget"),
+# ifdef IDEAL_CASE
+      utils::Sizef(),
+# else
       utils::Sizef(50.0f, 110.0f),
+# endif
 # ifdef GRID_LAYOUT
       nullptr,
 # else
@@ -115,7 +125,9 @@ int main(int /*argc*/, char** /*argv[]*/) {
       sdl::core::SizePolicy::Minimum,
       sdl::core::SizePolicy::Expanding
     ));
+# ifndef IDEAL_CASE
     right_widget->setMaxSize(utils::Sizef(180.0f, 60.0f));
+# endif
 
     // `sub_middle_widget`
     sdl::graphic::PictureWidget* sub_middle_widget = new sdl::graphic::PictureWidget(
@@ -130,7 +142,9 @@ int main(int /*argc*/, char** /*argv[]*/) {
       false,
       sdl::core::engine::Palette::fromBackgroundColor(sdl::core::engine::Color::NamedColor::Green)
     );
-    sub_middle_widget->setMinSize(utils::Sizef(400.0f, 70.0f));
+# ifndef IDEAL_CASE
+    sub_middle_widget->setMinSize(utils::Sizef(390.0f, 70.0f));
+# endif
 
     // `sub_left_widget`
 # define SUB_LEFT_WIDGET

@@ -113,7 +113,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
       root_widget.get(),
 # endif
       true,
-      sdl::core::engine::Color::NamedColor::Blue
+      sdl::core::engine::Color::NamedColor::Cyan
     );
     right_widget->setSizePolicy(sdl::core::SizePolicy(
       sdl::core::SizePolicy::Minimum,

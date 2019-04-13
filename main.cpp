@@ -38,7 +38,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
       utils::Sizef(600.0f, 440.0f),
       nullptr,
       false,
-      sdl::core::engine::Palette::fromBackgroundColor(sdl::core::engine::Color::NamedColor::Red)
+      sdl::core::engine::Color::NamedColor::Red
     );
     root_widget->setRenderingArea(utils::Boxf(320.0f, 240.0f, 600.0f, 440.0f));
 # endif
@@ -49,7 +49,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
 # ifdef GRID_LAYOUT
     sdl::graphic::GridLayoutShPtr layout = std::make_shared<sdl::graphic::GridLayout>(5u, 4u, 10.0f, root_widget.get());
 # else
-    root_widget->setLayout(std::make_shared<sdl::graphic::LinearLayout>(sdl::graphic::LinearLayout::Direction::Vertical, 5.0f, 10.0f, root_widget.get()));
+    root_widget->setLayout(std::make_shared<sdl::graphic::LinearLayout>(sdl::graphic::LinearLayout::Direction::Horizontal, 5.0f, 10.0f, root_widget.get()));
 # endif
 # endif
 
@@ -67,7 +67,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
       root_widget.get(),
 # endif
       false,
-      sdl::core::engine::Palette::fromBackgroundColor(sdl::core::engine::Color::NamedColor::Green),
+      sdl::core::engine::Color::NamedColor::Green,
 # ifdef IDEAL_CASE
       utils::Sizef()
 # else
@@ -92,25 +92,19 @@ int main(int /*argc*/, char** /*argv[]*/) {
       root_widget.get(),
 # endif
       false,
-      sdl::core::engine::Palette::fromBackgroundColor(sdl::core::engine::Color::fromRGB(0.5f, 0.5f, 0.0f))
+      sdl::core::engine::Color::fromRGB(0.5f, 0.5f, 0.0f)
     );
-    middle_widget->setBackgroundColor(sdl::core::engine::Color::NamedColor::CorneFlowerBlue);
     middle_widget->setSizePolicy(sdl::core::SizePolicy(
       sdl::core::SizePolicy::Expanding,
       sdl::core::SizePolicy::Fixed
     ));
 
-    utils::Uuid font = app->getEngine().createColoredFont(
-      std::string("data/fonts/times.ttf"),
-      15,
-      sdl::core::engine::Color::NamedColor::Gray
-    );
-
     // `right_widget`
     sdl::graphic::LabelWidget* right_widget = new sdl::graphic::LabelWidget(
       std::string("right_widget"),
       std::string("This is some bg text"),
-      font,
+      std::string("data/fonts/times.ttf"),
+      15,
       sdl::graphic::LabelWidget::HorizontalAlignment::Right,
       sdl::graphic::LabelWidget::VerticalAlignment::Center,
 # ifdef GRID_LAYOUT
@@ -119,7 +113,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
       root_widget.get(),
 # endif
       true,
-      sdl::core::engine::Palette::fromBackgroundColor(sdl::core::engine::Color::NamedColor::Blue)
+      sdl::core::engine::Color::NamedColor::Blue
     );
     right_widget->setSizePolicy(sdl::core::SizePolicy(
       sdl::core::SizePolicy::Minimum,
@@ -140,14 +134,14 @@ int main(int /*argc*/, char** /*argv[]*/) {
       root_widget.get(),
 # endif
       false,
-      sdl::core::engine::Palette::fromBackgroundColor(sdl::core::engine::Color::NamedColor::Green)
+      sdl::core::engine::Color::NamedColor::Green
     );
 # ifndef IDEAL_CASE
     sub_middle_widget->setMinSize(utils::Sizef(390.0f, 70.0f));
 # endif
 
     // `sub_left_widget`
-# define SUB_LEFT_WIDGET
+// # define SUB_LEFT_WIDGET
 # ifdef SUB_LEFT_WIDGET
     sdl::graphic::PictureWidget* sub_left_widget = new sdl::graphic::PictureWidget(
       std::string("sub_left_widget"),
@@ -159,7 +153,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
       root_widget.get(),
 # endif
       false,
-      sdl::core::engine::Palette::fromBackgroundColor(sdl::core::engine::Color::NamedColor::Green)
+      sdl::core::engine::Color::NamedColor::Green
     );
 # endif
 # endif

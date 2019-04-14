@@ -56,6 +56,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
     // `left_widget`
 # ifdef ROOT_WIDGET
 # define OTHER_WIDGETS
+// # define IDEAL_CASE
 # ifdef OTHER_WIDGETS
     sdl::graphic::PictureWidget* left_widget = new sdl::graphic::PictureWidget(
       std::string("left_widget"),
@@ -74,7 +75,9 @@ int main(int /*argc*/, char** /*argv[]*/) {
       utils::Sizef(100.0f, 100.0f)
 # endif
     );
-# ifndef IDEAL_CASE
+# ifdef IDEAL_CASE
+    left_widget->setImagePath(std::string("data/img/daybreak_Overwerk.bmp"));
+# else
     left_widget->setMinSize(utils::Sizef(1.0f, 5.0f));
 # endif
 
@@ -136,7 +139,9 @@ int main(int /*argc*/, char** /*argv[]*/) {
       false,
       sdl::core::engine::Color::NamedColor::Green
     );
-# ifndef IDEAL_CASE
+# ifdef IDEAL_CASE
+    sub_middle_widget->setImagePath(std::string("data/img/wp_awesome.bmp"));
+# else
     sub_middle_widget->setMinSize(utils::Sizef(390.0f, 70.0f));
 # endif
 

@@ -28,7 +28,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
   sdl::app::SdlApplicationShPtr app = nullptr;
 
   try {
-    app = std::make_shared<sdl::app::SdlApplication>(appName, appTitle, appIcon, size, 60.0f, 30.0f);
+    app = std::make_shared<sdl::app::SdlApplication>(appName, appTitle, appIcon, size, 1.0f, 60.0f);
 
     // `root_widget`
 # define ROOT_WIDGET
@@ -40,7 +40,6 @@ int main(int /*argc*/, char** /*argv[]*/) {
       false,
       sdl::core::engine::Color::NamedColor::Red
     );
-    root_widget->setRenderingArea(utils::Boxf(320.0f, 240.0f, 600.0f, 440.0f));
 # endif
 
     // `root_widget` layout
@@ -53,9 +52,19 @@ int main(int /*argc*/, char** /*argv[]*/) {
 # endif
 # endif
 
+    // Setup application
+# ifdef ROOT_WIDGET
+    app->addWidget(root_widget);
+# endif
+
+    // Assign rendering area for `root_widget`.
+# ifdef ROOT_WIDGET
+    root_widget->setRenderingArea(utils::Boxf(320.0f, 240.0f, 600.0f, 440.0f));
+# endif
+
     // `left_widget`
 # ifdef ROOT_WIDGET
-# define OTHER_WIDGETS
+// # define OTHER_WIDGETS
 // # define IDEAL_CASE
 # ifdef OTHER_WIDGETS
     sdl::graphic::PictureWidget* left_widget = new sdl::graphic::PictureWidget(
@@ -177,11 +186,6 @@ int main(int /*argc*/, char** /*argv[]*/) {
 #  endif
     root_widget->setLayout(layout);
 # endif
-# endif
-
-    // Setup application
-# ifdef ROOT_WIDGET
-    app->addWidget(root_widget);
 # endif
 
     // Run it.

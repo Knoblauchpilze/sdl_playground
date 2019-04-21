@@ -37,7 +37,6 @@ int main(int /*argc*/, char** /*argv[]*/) {
       std::string("root_widget"),
       utils::Sizef(600.0f, 440.0f),
       nullptr,
-      false,
       sdl::core::engine::Color::NamedColor::Red
     );
 # endif
@@ -76,7 +75,6 @@ int main(int /*argc*/, char** /*argv[]*/) {
 # else
       root_widget.get(),
 # endif
-      false,
       sdl::core::engine::Color::NamedColor::Green,
 # ifdef IDEAL_CASE
       utils::Sizef()
@@ -103,7 +101,6 @@ int main(int /*argc*/, char** /*argv[]*/) {
 # else
       root_widget.get(),
 # endif
-      false,
       sdl::core::engine::Color::fromRGB(0.5f, 0.5f, 0.0f)
     );
     middle_widget->setSizePolicy(sdl::core::SizePolicy(
@@ -124,7 +121,6 @@ int main(int /*argc*/, char** /*argv[]*/) {
 # else
       root_widget.get(),
 # endif
-      true,
       sdl::core::engine::Color::NamedColor::Cyan
     );
     right_widget->setSizePolicy(sdl::core::SizePolicy(
@@ -145,7 +141,6 @@ int main(int /*argc*/, char** /*argv[]*/) {
 # else
       root_widget.get(),
 # endif
-      false,
       sdl::core::engine::Color::NamedColor::Green
     );
 # ifdef IDEAL_CASE
@@ -166,7 +161,6 @@ int main(int /*argc*/, char** /*argv[]*/) {
 # else
       root_widget.get(),
 # endif
-      false,
       sdl::core::engine::Color::NamedColor::Green
     );
 # endif

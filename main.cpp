@@ -16,10 +16,11 @@
 # define GRID_LAYOUT
 // # define IDEAL_CASE
 
-// # define LEFT_WIDGET
-// # define MIDDLE_WIDGET
-// # define SUB_MIDDLE_WIDGET
-// # define SUB_LEFT_WIDGET
+# define LEFT_WIDGET
+# define RIGHT_WIDGET
+# define MIDDLE_WIDGET
+# define SUB_MIDDLE_WIDGET
+# define SUB_LEFT_WIDGET
 
 int main(int /*argc*/, char** /*argv[]*/) {
   // Create the logger.
@@ -69,11 +70,6 @@ int main(int /*argc*/, char** /*argv[]*/) {
       utils::Sizef(100.0f, 100.0f)
 #   endif
     );
-#   ifdef IDEAL_CASE
-    left_widget->setImagePath(std::string("data/img/daybreak_Overwerk.bmp"));
-#   else
-    left_widget->setMinSize(utils::Sizef(1.0f, 5.0f));
-#   endif
 #  endif
 
     // `middle_widget`
@@ -91,7 +87,6 @@ int main(int /*argc*/, char** /*argv[]*/) {
 #   endif
       sdl::core::engine::Color::fromRGB(0.5f, 0.5f, 0.0f)
     );
-    middle_widget->setSizePolicy(sdl::core::SizePolicy(sdl::core::SizePolicy::Expanding, sdl::core::SizePolicy::Fixed));
 #  endif
 
     // `right_widget`
@@ -110,13 +105,6 @@ int main(int /*argc*/, char** /*argv[]*/) {
 #   endif
       sdl::core::engine::Color::NamedColor::Cyan
     );
-    right_widget->setSizePolicy(sdl::core::SizePolicy(
-      sdl::core::SizePolicy::Minimum,
-      sdl::core::SizePolicy::Expanding
-    ));
-#   ifndef IDEAL_CASE
-    right_widget->setMaxSize(utils::Sizef(180.0f, 60.0f));
-#   endif
 #  endif
 
     // `sub_middle_widget`
@@ -132,11 +120,6 @@ int main(int /*argc*/, char** /*argv[]*/) {
 #   endif
       sdl::core::engine::Color::NamedColor::Green
     );
-#   ifdef IDEAL_CASE
-    sub_middle_widget->setImagePath(std::string("data/img/wp_awesome.bmp"));
-#   else
-    sub_middle_widget->setMinSize(utils::Sizef(390.0f, 70.0f));
-#   endif
 #  endif
 
     // `sub_left_widget`
@@ -173,6 +156,35 @@ int main(int /*argc*/, char** /*argv[]*/) {
     layout->addItem(sub_left_widget,   0, 3, 2, 1);
 #   endif
     root_widget->setLayout(layout);
+#  endif
+
+#  ifdef LEFT_WIDGET
+#   ifdef IDEAL_CASE
+    left_widget->setImagePath(std::string("data/img/daybreak_Overwerk.bmp"));
+#   else
+    left_widget->setMinSize(utils::Sizef(1.0f, 5.0f));
+#   endif
+#  endif
+#  ifdef MIDDLE_WIDGET
+#   ifndef IDEAL_CASE
+    middle_widget->setSizePolicy(sdl::core::SizePolicy(sdl::core::SizePolicy::Expanding, sdl::core::SizePolicy::Fixed));
+#   endif
+#  endif
+#  ifdef RIGHT_WIDGET
+#   ifndef IDEAL_CASE
+    right_widget->setMaxSize(utils::Sizef(180.0f, 60.0f));
+    // right_widget->setSizePolicy(sdl::core::SizePolicy(
+    //   sdl::core::SizePolicy::Minimum,
+    //   sdl::core::SizePolicy::Expanding
+    // ));
+#   endif
+#  endif
+#  ifdef SUB_MIDDLE_WIDGET
+#   ifdef IDEAL_CASE
+    sub_middle_widget->setImagePath(std::string("data/img/wp_awesome.bmp"));
+#   else
+    sub_middle_widget->setMinSize(utils::Sizef(390.0f, 70.0f));
+#   endif
 #  endif
 # endif
 

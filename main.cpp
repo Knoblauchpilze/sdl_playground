@@ -10,6 +10,7 @@
 # include <sdl_graphic/GridLayout.hh>
 # include <sdl_graphic/PictureWidget.hh>
 # include <sdl_graphic/LabelWidget.hh>
+# include <sdl_graphic/SelectorWidget.hh>
 
 # define ROOT_WIDGET
 
@@ -57,12 +58,11 @@ int main(int /*argc*/, char** /*argv[]*/) {
     // `left_widget`
 # ifdef ROOT_WIDGET
 #  ifdef LEFT_WIDGET
-    sdl::graphic::PictureWidget* left_widget = new sdl::graphic::PictureWidget(std::string("left_widget"), std::string("data/img/daybreak_Overwerk.bmp"), sdl::graphic::PictureWidget::Mode::Fit,
-#   ifdef GRID_LAYOUT
-      nullptr,
-#   else
+    sdl::graphic::PictureWidget* left_widget = new sdl::graphic::PictureWidget(
+      std::string("left_widget"),
+      std::string("data/img/daybreak_Overwerk.bmp"),
+      sdl::graphic::PictureWidget::Mode::Fit,
       root_widget.get(),
-#   endif
       sdl::core::engine::Color::NamedColor::Green,
 #   ifdef IDEAL_CASE
       utils::Sizef()
@@ -80,11 +80,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
 #   else
       utils::Sizef(50.0f, 110.0f),
 #   endif
-#   ifdef GRID_LAYOUT
-      nullptr,
-#   else
       root_widget.get(),
-#   endif
       sdl::core::engine::Color::fromRGB(0.5f, 0.5f, 0.0f)
     );
 #  endif
@@ -98,11 +94,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
       15,
       sdl::graphic::LabelWidget::HorizontalAlignment::Right,
       sdl::graphic::LabelWidget::VerticalAlignment::Center,
-#   ifdef GRID_LAYOUT
-      nullptr,
-#   else
       root_widget.get(),
-#   endif
       sdl::core::engine::Color::NamedColor::Cyan
     );
 #  endif
@@ -113,26 +105,17 @@ int main(int /*argc*/, char** /*argv[]*/) {
       std::string("sub_middle_widget"),
       std::string("data/img/wp_awesome.bmp"),
       sdl::graphic::PictureWidget::Mode::Fit,
-#   ifdef GRID_LAYOUT
-      nullptr,
-#   else
       root_widget.get(),
-#   endif
       sdl::core::engine::Color::NamedColor::Green
     );
 #  endif
 
     // `sub_left_widget`
 #  ifdef SUB_LEFT_WIDGET
-    sdl::graphic::PictureWidget* sub_left_widget = new sdl::graphic::PictureWidget(
+    sdl::graphic::SelectorWidget* sub_left_widget = new sdl::graphic::SelectorWidget(
       std::string("sub_left_widget"),
-      std::string("data/img/wp_awesome.bmp"),
-      sdl::graphic::PictureWidget::Mode::Fit,
-#   ifdef GRID_LAYOUT
-      nullptr,
-#   else
+      true,
       root_widget.get(),
-#   endif
       sdl::core::engine::Color::NamedColor::Green
     );
 #  endif
@@ -185,6 +168,13 @@ int main(int /*argc*/, char** /*argv[]*/) {
 #   else
     sub_middle_widget->setMinSize(utils::Sizef(390.0f, 70.0f));
 #   endif
+    sdl::graphic::PictureWidget* img1 = new sdl::graphic::PictureWidget(std::string("img1"), std::string("data/img/1.bmp"), sdl::graphic::PictureWidget::Mode::Fit, sub_left_widget, sdl::core::engine::Color::NamedColor::Green);
+    // sdl::graphic::PictureWidget* img3 = new sdl::graphic::PictureWidget(std::string("img3"), std::string("data/img/3.bmp"), sdl::graphic::PictureWidget::Mode::Fit, sub_left_widget, sdl::core::engine::Color::NamedColor::Green);
+    sdl::graphic::PictureWidget* img7 = new sdl::graphic::PictureWidget(std::string("img7"), std::string("data/img/7.bmp"), sdl::graphic::PictureWidget::Mode::Fit, sub_left_widget, sdl::core::engine::Color::NamedColor::Green);
+    sdl::core::engine::Palette palette = sdl::core::engine::Palette::fromButtonColor(sdl::core::engine::Color::NamedColor::Purple);
+    img1->setPalette(palette);
+    // img3->setPalette(palette);
+    img7->setPalette(palette);
 #  endif
 # endif
 

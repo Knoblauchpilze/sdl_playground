@@ -44,14 +44,19 @@ int main(int /*argc*/, char** /*argv[]*/) {
 
     // `root_widget`
 # ifdef ROOT_WIDGET
-    sdl::core::SdlWidgetShPtr root_widget = std::make_shared<sdl::core::SdlWidget>(std::string("root_widget"), utils::Sizef(600.0f, 440.0f), nullptr, sdl::core::engine::Color::NamedColor::Red);
+    sdl::core::SdlWidget* root_widget = new sdl::core::SdlWidget(
+      std::string("root_widget"),
+      utils::Sizef(600.0f, 440.0f),
+      nullptr,
+      sdl::core::engine::Color::NamedColor::Red
+    );
     app->addWidget(root_widget);
     root_widget->setRenderingArea(utils::Boxf(320.0f, 240.0f, 600.0f, 440.0f));
 
 #  ifdef GRID_LAYOUT
-    sdl::graphic::GridLayoutShPtr layout = std::make_shared<sdl::graphic::GridLayout>(5u, 4u, 10.0f, root_widget.get());
+    sdl::graphic::GridLayoutShPtr layout = std::make_shared<sdl::graphic::GridLayout>(5u, 4u, 10.0f, root_widget);
 #  else
-    root_widget->setLayout(std::make_shared<sdl::graphic::LinearLayout>(sdl::graphic::LinearLayout::Direction::Horizontal, 5.0f, 10.0f, root_widget.get()));
+    root_widget->setLayout(std::make_shared<sdl::graphic::LinearLayout>(sdl::graphic::LinearLayout::Direction::Horizontal, 5.0f, 10.0f, root_widget));
 #  endif
 # endif
 
@@ -62,7 +67,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
       std::string("left_widget"),
       std::string("data/img/daybreak_Overwerk.bmp"),
       sdl::graphic::PictureWidget::Mode::Fit,
-      root_widget.get(),
+      root_widget,
       sdl::core::engine::Color::NamedColor::Green,
 #   ifdef IDEAL_CASE
       utils::Sizef()
@@ -80,7 +85,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
 #   else
       utils::Sizef(50.0f, 110.0f),
 #   endif
-      root_widget.get(),
+      root_widget,
       sdl::core::engine::Color::fromRGB(0.5f, 0.5f, 0.0f)
     );
 #  endif
@@ -94,7 +99,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
       15,
       sdl::graphic::LabelWidget::HorizontalAlignment::Right,
       sdl::graphic::LabelWidget::VerticalAlignment::Center,
-      root_widget.get(),
+      root_widget,
       sdl::core::engine::Color::NamedColor::Cyan
     );
 #  endif
@@ -105,7 +110,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
       std::string("sub_middle_widget"),
       std::string("data/img/wp_awesome.bmp"),
       sdl::graphic::PictureWidget::Mode::Fit,
-      root_widget.get(),
+      root_widget,
       sdl::core::engine::Color::NamedColor::Green
     );
 #  endif
@@ -115,7 +120,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
     sdl::graphic::SelectorWidget* sub_left_widget = new sdl::graphic::SelectorWidget(
       std::string("sub_left_widget"),
       true,
-      root_widget.get(),
+      root_widget,
       sdl::core::engine::Color::NamedColor::Green
     );
 #  endif
@@ -168,6 +173,8 @@ int main(int /*argc*/, char** /*argv[]*/) {
 #   else
     sub_middle_widget->setMinSize(utils::Sizef(390.0f, 70.0f));
 #   endif
+#  endif
+#  ifdef SUB_LEFT_WIDGET
     sdl::graphic::PictureWidget* img1 = new sdl::graphic::PictureWidget(std::string("img1"), std::string("data/img/1.bmp"), sdl::graphic::PictureWidget::Mode::Fit, sub_left_widget, sdl::core::engine::Color::NamedColor::Green);
     // sdl::graphic::PictureWidget* img3 = new sdl::graphic::PictureWidget(std::string("img3"), std::string("data/img/3.bmp"), sdl::graphic::PictureWidget::Mode::Fit, sub_left_widget, sdl::core::engine::Color::NamedColor::Green);
     sdl::graphic::PictureWidget* img7 = new sdl::graphic::PictureWidget(std::string("img7"), std::string("data/img/7.bmp"), sdl::graphic::PictureWidget::Mode::Fit, sub_left_widget, sdl::core::engine::Color::NamedColor::Green);

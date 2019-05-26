@@ -46,12 +46,19 @@ int main(int /*argc*/, char** /*argv[]*/) {
 # ifdef ROOT_WIDGET
     sdl::core::SdlWidget* root_widget = new sdl::core::SdlWidget(
       std::string("root_widget"),
-      utils::Sizef(),//utils::Sizef(600.0f, 440.0f),
+      utils::Sizef(),
       nullptr,
       sdl::core::engine::Color::NamedColor::Red
     );
     app->setCentralWidget(root_widget);
-    //root_widget->setRenderingArea(utils::Boxf(320.0f, 240.0f, 600.0f, 440.0f));
+
+    sdl::core::SdlWidget* left_dock_widget = new sdl::core::SdlWidget(
+      std::string("left_dock_widget"),
+      utils::Sizef(),
+      nullptr,
+      sdl::core::engine::Color::NamedColor::Maroon
+    );
+    app->addDockWidget(left_dock_widget, sdl::app::DockWidgetArea::LeftArea);
 
 #  ifdef GRID_LAYOUT
     sdl::graphic::GridLayoutShPtr layout = std::make_shared<sdl::graphic::GridLayout>(5u, 4u, 10.0f, root_widget);

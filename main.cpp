@@ -50,7 +50,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
       nullptr,
       sdl::core::engine::Color::NamedColor::Red
     );
-    app->addWidget(root_widget);
+    app->setCentralWidget(root_widget);
     //root_widget->setRenderingArea(utils::Boxf(320.0f, 240.0f, 600.0f, 440.0f));
 
 #  ifdef GRID_LAYOUT

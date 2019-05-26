@@ -23,6 +23,8 @@
 # define SUB_MIDDLE_WIDGET
 # define SUB_LEFT_WIDGET
 
+// # define LEFT_DOCK_WIDGET
+
 int main(int /*argc*/, char** /*argv[]*/) {
   // Create the logger.
   utils::StdLogger logger;
@@ -52,6 +54,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
     );
     app->setCentralWidget(root_widget);
 
+#  ifdef LEFT_DOCK_WIDGET
     sdl::core::SdlWidget* left_dock_widget = new sdl::core::SdlWidget(
       std::string("left_dock_widget"),
       utils::Sizef(),
@@ -59,6 +62,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
       sdl::core::engine::Color::NamedColor::Maroon
     );
     app->addDockWidget(left_dock_widget, sdl::app::DockWidgetArea::LeftArea);
+#  endif
 
 #  ifdef GRID_LAYOUT
     sdl::graphic::GridLayoutShPtr layout = std::make_shared<sdl::graphic::GridLayout>(5u, 4u, 10.0f, root_widget);

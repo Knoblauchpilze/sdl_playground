@@ -23,7 +23,7 @@
 # define SUB_MIDDLE_WIDGET
 # define SUB_LEFT_WIDGET
 
-// # define LEFT_DOCK_WIDGET
+# define LEFT_DOCK_WIDGET
 
 int main(int /*argc*/, char** /*argv[]*/) {
   // Create the logger.

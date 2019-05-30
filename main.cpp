@@ -65,7 +65,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
 #  endif
 
 #  ifdef GRID_LAYOUT
-    sdl::graphic::GridLayoutShPtr layout = std::make_shared<sdl::graphic::GridLayout>(5u, 4u, 10.0f, root_widget);
+    sdl::graphic::GridLayoutShPtr layout = std::make_shared<sdl::graphic::GridLayout>(5u, 4u, 10.0f, root_widget, false, "grid_layout_for_root");
 #  else
     root_widget->setLayout(std::make_shared<sdl::graphic::LinearLayout>(sdl::graphic::LinearLayout::Direction::Horizontal, 5.0f, 10.0f, root_widget));
 #  endif

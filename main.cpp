@@ -17,13 +17,15 @@
 # define GRID_LAYOUT
 // # define IDEAL_CASE
 
-# define LEFT_WIDGET
-# define RIGHT_WIDGET
-# define MIDDLE_WIDGET
-# define SUB_MIDDLE_WIDGET
-# define SUB_LEFT_WIDGET
+// # define LEFT_WIDGET
+// # define RIGHT_WIDGET
+// # define MIDDLE_WIDGET
+// # define SUB_MIDDLE_WIDGET
+// # define SUB_LEFT_WIDGET
 
+// # define MENU_BAR_DOCK_WIDGET
 # define LEFT_DOCK_WIDGET
+// # define RIGHT_DOCK_WIDGET
 
 int main(int /*argc*/, char** /*argv[]*/) {
   // Create the logger.
@@ -54,14 +56,36 @@ int main(int /*argc*/, char** /*argv[]*/) {
     );
     app->setCentralWidget(root_widget);
 
+#  ifdef MENU_BAR_DOCK_WIDGET
+    sdl::graphic::PictureWidget* menu_bar = new sdl::graphic::PictureWidget(
+      std::string("menu_bar"),
+      std::string("data/img/menu_bar.bmp"),
+      sdl::graphic::PictureWidget::Mode::Fit,
+      nullptr,
+      sdl::core::engine::Color::NamedColor::Magenta,
+      utils::Sizef()
+    );
+    app->setMenuBar(menu_bar);
+#  endif
 #  ifdef LEFT_DOCK_WIDGET
     sdl::core::SdlWidget* left_dock_widget = new sdl::core::SdlWidget(
       std::string("left_dock_widget"),
       utils::Sizef(),
       nullptr,
-      sdl::core::engine::Color::NamedColor::Maroon
+      sdl::core::engine::Color::NamedColor::Orange
     );
     app->addDockWidget(left_dock_widget, sdl::app::DockWidgetArea::LeftArea);
+#  endif
+#  ifdef RIGHT_DOCK_WIDGET
+    sdl::graphic::PictureWidget* right_dock_widget = new sdl::graphic::PictureWidget(
+      std::string("right_dock_widget"),
+      std::string("data/img/ssystem.bmp"),
+      sdl::graphic::PictureWidget::Mode::Fit,
+      nullptr,
+      sdl::core::engine::Color::NamedColor::Yellow,
+      utils::Sizef()
+    );
+    app->addDockWidget(right_dock_widget, sdl::app::DockWidgetArea::RightArea);
 #  endif
 
 #  ifdef GRID_LAYOUT

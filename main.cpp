@@ -14,14 +14,14 @@
 
 # define ROOT_WIDGET
 
-# define GRID_LAYOUT
-// # define IDEAL_CASE
+// # define GRID_LAYOUT
+# define IDEAL_CASE
 
-// # define LEFT_WIDGET
-// # define RIGHT_WIDGET
-// # define MIDDLE_WIDGET
-// # define SUB_MIDDLE_WIDGET
-// # define SUB_LEFT_WIDGET
+# define LEFT_WIDGET
+# define RIGHT_WIDGET
+# define MIDDLE_WIDGET
+# define SUB_MIDDLE_WIDGET
+# define SUB_LEFT_WIDGET
 
 # define MENU_BAR_DOCK_WIDGET
 // # define LEFT_DOCK_WIDGET
@@ -56,6 +56,25 @@ int main(int /*argc*/, char** /*argv[]*/) {
     );
     app->setCentralWidget(root_widget);
 
+#  ifdef GRID_LAYOUT
+    sdl::graphic::GridLayoutShPtr layout = std::make_shared<sdl::graphic::GridLayout>(
+      std::string("grid_layout_for_root"),
+      root_widget,
+      5u,
+      4u,
+      10.0f
+    );
+#  else
+    sdl::graphic::LinearLayoutShPtr layout = std::make_shared<sdl::graphic::LinearLayout>(
+      std::string("linear_layout_for_root"),
+      root_widget,
+      sdl::graphic::LinearLayout::Direction::Horizontal,
+      5.0f,
+      10.0f
+    );
+#  endif
+# endif
+
 #  ifdef MENU_BAR_DOCK_WIDGET
     sdl::graphic::PictureWidget* menu_bar = new sdl::graphic::PictureWidget(
       std::string("menu_bar"),
@@ -87,13 +106,6 @@ int main(int /*argc*/, char** /*argv[]*/) {
     );
     app->addDockWidget(right_dock_widget, sdl::app::DockWidgetArea::RightArea);
 #  endif
-
-#  ifdef GRID_LAYOUT
-    sdl::graphic::GridLayoutShPtr layout = std::make_shared<sdl::graphic::GridLayout>(5u, 4u, 10.0f, root_widget, false, "grid_layout_for_root");
-#  else
-    root_widget->setLayout(std::make_shared<sdl::graphic::LinearLayout>(sdl::graphic::LinearLayout::Direction::Horizontal, 5.0f, 10.0f, root_widget));
-#  endif
-# endif
 
     // `left_widget`
 # ifdef ROOT_WIDGET
@@ -154,8 +166,8 @@ int main(int /*argc*/, char** /*argv[]*/) {
 #  ifdef SUB_LEFT_WIDGET
     sdl::graphic::SelectorWidget* sub_left_widget = new sdl::graphic::SelectorWidget(
       std::string("sub_left_widget"),
-      true,
       root_widget,
+      true,
       sdl::core::engine::Color::NamedColor::Green
     );
 #  endif
@@ -178,8 +190,24 @@ int main(int /*argc*/, char** /*argv[]*/) {
 #   ifdef SUB_LEFT_WIDGET
     layout->addItem(sub_left_widget,   0, 3, 2, 1);
 #   endif
-    root_widget->setLayout(layout);
+#  else
+#   ifdef LEFT_WIDGET
+    layout->addItem(left_widget,       0, 0, 1, 1);
+#   endif
+#   ifdef MIDDLE_WIDGET
+    layout->addItem(middle_widget,     1, 2, 1, 1);
+#   endif
+#   ifdef RIGHT_WIDGET
+    layout->addItem(right_widget,      3, 3, 1, 1);
+#   endif
+#   ifdef SUB_MIDDLE_WIDGET
+    layout->addItem(sub_middle_widget, 3, 0, 1, 2);
+#   endif
+#   ifdef SUB_LEFT_WIDGET
+    layout->addItem(sub_left_widget,   0, 3, 2, 1);
+#   endif
 #  endif
+    root_widget->setLayout(layout);
 
 #  ifdef LEFT_WIDGET
 #   ifdef IDEAL_CASE
@@ -189,12 +217,12 @@ int main(int /*argc*/, char** /*argv[]*/) {
 #   endif
 #  endif
 #  ifdef MIDDLE_WIDGET
-#   ifndef IDEAL_CASE
+#   if !defined(IDEAL_CASE) || !defined(GRID_LAYOUT)
     middle_widget->setSizePolicy(sdl::core::SizePolicy(sdl::core::SizePolicy::Expanding, sdl::core::SizePolicy::Fixed));
 #   endif
 #  endif
 #  ifdef RIGHT_WIDGET
-#   ifndef IDEAL_CASE
+#   if !defined(IDEAL_CASE) || !defined(GRID_LAYOUT)
     right_widget->setMaxSize(utils::Sizef(180.0f, 60.0f));
     // right_widget->setSizePolicy(sdl::core::SizePolicy(
     //   sdl::core::SizePolicy::Minimum,

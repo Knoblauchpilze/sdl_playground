@@ -11,21 +11,22 @@
 # include <sdl_graphic/PictureWidget.hh>
 # include <sdl_graphic/LabelWidget.hh>
 # include <sdl_graphic/SelectorWidget.hh>
+# include <sdl_graphic/ComboBox.hh>
 
 # define ROOT_WIDGET
 
-// # define GRID_LAYOUT
-# define IDEAL_CASE
+# define GRID_LAYOUT
+// # define IDEAL_CASE
 
-# define LEFT_WIDGET
-# define RIGHT_WIDGET
-# define MIDDLE_WIDGET
-# define SUB_MIDDLE_WIDGET
-# define SUB_LEFT_WIDGET
+// # define LEFT_WIDGET
+// # define RIGHT_WIDGET
+// # define MIDDLE_WIDGET
+// # define SUB_MIDDLE_WIDGET
+// # define SUB_LEFT_WIDGET
 
-# define MENU_BAR_DOCK_WIDGET
-// # define LEFT_DOCK_WIDGET
-# define RIGHT_DOCK_WIDGET
+// # define MENU_BAR_DOCK_WIDGET
+# define LEFT_DOCK_WIDGET
+// # define RIGHT_DOCK_WIDGET
 
 int main(int /*argc*/, char** /*argv[]*/) {
   // Create the logger.
@@ -87,11 +88,11 @@ int main(int /*argc*/, char** /*argv[]*/) {
     app->setMenuBar(menu_bar);
 #  endif
 #  ifdef LEFT_DOCK_WIDGET
-    sdl::core::SdlWidget* left_dock_widget = new sdl::core::SdlWidget(
+    sdl::graphic::ComboBox* left_dock_widget = new sdl::graphic::ComboBox(
       std::string("left_dock_widget"),
-      utils::Sizef(),
+      sdl::graphic::ComboBox::InsertPolicy::InsertAtCurrent,
       nullptr,
-      sdl::core::engine::Color::NamedColor::Orange
+      utils::Sizef()
     );
     app->addDockWidget(left_dock_widget, sdl::app::DockWidgetArea::LeftArea);
 #  endif

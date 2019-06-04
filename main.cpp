@@ -12,6 +12,7 @@
 # include <sdl_graphic/LabelWidget.hh>
 # include <sdl_graphic/SelectorWidget.hh>
 # include <sdl_graphic/ComboBox.hh>
+# include <sdl_graphic/TabWidget.hh>
 
 # define ROOT_WIDGET
 
@@ -25,8 +26,8 @@
 // # define SUB_LEFT_WIDGET
 
 // # define MENU_BAR_DOCK_WIDGET
-# define LEFT_DOCK_WIDGET
-// # define RIGHT_DOCK_WIDGET
+// # define TOP_DOCK_WIDGET
+# define RIGHT_DOCK_WIDGET
 
 int main(int /*argc*/, char** /*argv[]*/) {
   // Create the logger.
@@ -87,23 +88,22 @@ int main(int /*argc*/, char** /*argv[]*/) {
     );
     app->setMenuBar(menu_bar);
 #  endif
-#  ifdef LEFT_DOCK_WIDGET
-    sdl::graphic::ComboBox* left_dock_widget = new sdl::graphic::ComboBox(
-      std::string("left_dock_widget"),
+#  ifdef TOP_DOCK_WIDGET
+    sdl::graphic::ComboBox* top_dock_widget = new sdl::graphic::ComboBox(
+      std::string("top_dock_widget"),
       sdl::graphic::ComboBox::InsertPolicy::InsertAtCurrent,
       nullptr,
       utils::Sizef()
     );
-    app->addDockWidget(left_dock_widget, sdl::app::DockWidgetArea::LeftArea);
+    app->addDockWidget(top_dock_widget, sdl::app::DockWidgetArea::TopArea);
+    top_dock_widget->insertItem(std::string("Julia"), std::string("data/img/julia.bmp"));
+    top_dock_widget->insertItem(std::string("romanesco"), std::string("data/img/romanesco.bmp"));
+    top_dock_widget->insertItem(std::string("Big Benoit"), std::string("data/img/mandelbrot.bmp"));
 #  endif
 #  ifdef RIGHT_DOCK_WIDGET
-    sdl::graphic::PictureWidget* right_dock_widget = new sdl::graphic::PictureWidget(
+    sdl::graphic::TabWidget* right_dock_widget = new sdl::graphic::TabWidget(
       std::string("right_dock_widget"),
-      std::string("data/img/ssystem.bmp"),
-      sdl::graphic::PictureWidget::Mode::Fit,
-      nullptr,
-      sdl::core::engine::Color::NamedColor::Yellow,
-      utils::Sizef()
+      nullptr
     );
     app->addDockWidget(right_dock_widget, sdl::app::DockWidgetArea::RightArea);
 #  endif

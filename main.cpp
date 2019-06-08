@@ -106,6 +106,14 @@ int main(int /*argc*/, char** /*argv[]*/) {
       nullptr
     );
     app->addDockWidget(right_dock_widget, sdl::app::DockWidgetArea::RightArea);
+
+    sdl::core::SdlWidget* tab = new sdl::core::SdlWidget(
+      std::string("tab_widget"),
+      utils::Sizef(),
+      right_dock_widget,
+      sdl::core::engine::Color::NamedColor::Purple
+    );
+    right_dock_widget->insertTab(0, tab, std::string("Test"));
 #  endif
 
     // `left_widget`

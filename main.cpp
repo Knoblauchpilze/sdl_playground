@@ -16,18 +16,18 @@
 
 # define ROOT_WIDGET
 
-# define GRID_LAYOUT
+// # define GRID_LAYOUT
 // # define IDEAL_CASE
 
-// # define LEFT_WIDGET
-// # define RIGHT_WIDGET
-// # define MIDDLE_WIDGET
-// # define SUB_MIDDLE_WIDGET
+# define LEFT_WIDGET
+# define RIGHT_WIDGET
+# define MIDDLE_WIDGET
+# define SUB_MIDDLE_WIDGET
 // # define SUB_LEFT_WIDGET
 
 // # define MENU_BAR_DOCK_WIDGET
 // # define TOP_DOCK_WIDGET
-# define RIGHT_DOCK_WIDGET
+// # define RIGHT_DOCK_WIDGET
 
 int main(int /*argc*/, char** /*argv[]*/) {
   // Create the logger.
@@ -70,7 +70,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
     sdl::graphic::LinearLayoutShPtr layout = std::make_shared<sdl::graphic::LinearLayout>(
       std::string("linear_layout_for_root"),
       root_widget,
-      sdl::graphic::LinearLayout::Direction::Horizontal,
+      sdl::graphic::LinearLayout::Direction::Vertical,
       5.0f,
       10.0f
     );
@@ -105,12 +105,13 @@ int main(int /*argc*/, char** /*argv[]*/) {
       std::string("right_dock_widget"),
       nullptr
     );
-    app->addDockWidget(right_dock_widget, sdl::app::DockWidgetArea::RightArea);
+    // app->addDockWidget(right_dock_widget, sdl::app::DockWidgetArea::RightArea);
+    app->setCentralWidget(right_dock_widget);
 
     sdl::core::SdlWidget* tab = new sdl::core::SdlWidget(
       std::string("tab_widget"),
       utils::Sizef(),
-      right_dock_widget,
+      nullptr,
       sdl::core::engine::Color::NamedColor::Purple
     );
     right_dock_widget->insertTab(0, tab, std::string("Test"));
@@ -201,19 +202,19 @@ int main(int /*argc*/, char** /*argv[]*/) {
 #   endif
 #  else
 #   ifdef LEFT_WIDGET
-    layout->addItem(left_widget,       0, 0, 1, 1);
+    layout->addItem(left_widget);
 #   endif
 #   ifdef MIDDLE_WIDGET
-    layout->addItem(middle_widget,     1, 2, 1, 1);
+    layout->addItem(middle_widget);
 #   endif
 #   ifdef RIGHT_WIDGET
-    layout->addItem(right_widget,      3, 3, 1, 1);
+    layout->addItem(right_widget);
 #   endif
 #   ifdef SUB_MIDDLE_WIDGET
-    layout->addItem(sub_middle_widget, 3, 0, 1, 2);
+    layout->addItem(sub_middle_widget);
 #   endif
 #   ifdef SUB_LEFT_WIDGET
-    layout->addItem(sub_left_widget,   0, 3, 2, 1);
+    layout->addItem(sub_left_widget);
 #   endif
 #  endif
     root_widget->setLayout(layout);

@@ -14,7 +14,7 @@
 # include <sdl_graphic/ComboBox.hh>
 # include <sdl_graphic/TabWidget.hh>
 
-# define ROOT_WIDGET
+// # define ROOT_WIDGET
 
 # define GRID_LAYOUT
 // # define IDEAL_CASE
@@ -23,11 +23,11 @@
 // # define RIGHT_WIDGET
 // # define MIDDLE_WIDGET
 // # define SUB_MIDDLE_WIDGET
-# define SUB_LEFT_WIDGET
+// # define SUB_LEFT_WIDGET
 
 // # define MENU_BAR_DOCK_WIDGET
 // # define TOP_DOCK_WIDGET
-// # define RIGHT_DOCK_WIDGET
+# define RIGHT_DOCK_WIDGET
 
 int main(int /*argc*/, char** /*argv[]*/) {
   // Create the logger.
@@ -105,24 +105,28 @@ int main(int /*argc*/, char** /*argv[]*/) {
       std::string("right_dock_widget"),
       nullptr
     );
-    app->addDockWidget(right_dock_widget, sdl::app::DockWidgetArea::RightArea);
-    // app->setCentralWidget(right_dock_widget);
+    // app->addDockWidget(right_dock_widget, sdl::app::DockWidgetArea::RightArea);
+    app->setCentralWidget(right_dock_widget);
 
-    // sdl::core::SdlWidget* tab = new sdl::core::SdlWidget(
-    //   std::string("tab_widget"),
-    //   utils::Sizef(),
-    //   nullptr,
-    //   sdl::core::engine::Color::NamedColor::Purple
-    // );
-    // right_dock_widget->insertTab(0, tab, std::string("Test"));
+    sdl::graphic::PictureWidget* tab = new sdl::graphic::PictureWidget(
+      std::string("tab_widget"),
+      std::string("data/img/fullmoon.bmp"),
+      sdl::graphic::PictureWidget::Mode::Fit,
+      nullptr,
+      sdl::core::engine::Color::NamedColor::Purple,
+      utils::Sizef()
+    );
+    right_dock_widget->insertTab(0, tab, std::string("Test"));
 
-    // sdl::core::SdlWidget* tab2 = new sdl::core::SdlWidget(
-    //   std::string("tab_widget_2"),
-    //   utils::Sizef(),
-    //   nullptr,
-    //   sdl::core::engine::Color::NamedColor::CorneFlowerBlue
-    // );
-    // right_dock_widget->insertTab(0, tab2);
+    sdl::graphic::PictureWidget* tab2 = new sdl::graphic::PictureWidget(
+      std::string("tab_widget_2"),
+      std::string("data/img/ganymede.bmp"),
+      sdl::graphic::PictureWidget::Mode::Fit,
+      nullptr,
+      sdl::core::engine::Color::NamedColor::CorneFlowerBlue,
+      utils::Sizef()
+    );
+    right_dock_widget->insertTab(0, tab2);
 #  endif
 
     // `left_widget`

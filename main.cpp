@@ -16,14 +16,14 @@
 
 # define ROOT_WIDGET
 
-// # define GRID_LAYOUT
+# define GRID_LAYOUT
 // # define IDEAL_CASE
 
-# define LEFT_WIDGET
-# define RIGHT_WIDGET
-# define MIDDLE_WIDGET
-# define SUB_MIDDLE_WIDGET
-// # define SUB_LEFT_WIDGET
+// # define LEFT_WIDGET
+// # define RIGHT_WIDGET
+// # define MIDDLE_WIDGET
+// # define SUB_MIDDLE_WIDGET
+# define SUB_LEFT_WIDGET
 
 // # define MENU_BAR_DOCK_WIDGET
 // # define TOP_DOCK_WIDGET
@@ -105,16 +105,24 @@ int main(int /*argc*/, char** /*argv[]*/) {
       std::string("right_dock_widget"),
       nullptr
     );
-    // app->addDockWidget(right_dock_widget, sdl::app::DockWidgetArea::RightArea);
-    app->setCentralWidget(right_dock_widget);
+    app->addDockWidget(right_dock_widget, sdl::app::DockWidgetArea::RightArea);
+    // app->setCentralWidget(right_dock_widget);
 
-    sdl::core::SdlWidget* tab = new sdl::core::SdlWidget(
-      std::string("tab_widget"),
-      utils::Sizef(),
-      nullptr,
-      sdl::core::engine::Color::NamedColor::Purple
-    );
-    right_dock_widget->insertTab(0, tab, std::string("Test"));
+    // sdl::core::SdlWidget* tab = new sdl::core::SdlWidget(
+    //   std::string("tab_widget"),
+    //   utils::Sizef(),
+    //   nullptr,
+    //   sdl::core::engine::Color::NamedColor::Purple
+    // );
+    // right_dock_widget->insertTab(0, tab, std::string("Test"));
+
+    // sdl::core::SdlWidget* tab2 = new sdl::core::SdlWidget(
+    //   std::string("tab_widget_2"),
+    //   utils::Sizef(),
+    //   nullptr,
+    //   sdl::core::engine::Color::NamedColor::CorneFlowerBlue
+    // );
+    // right_dock_widget->insertTab(0, tab2);
 #  endif
 
     // `left_widget`
@@ -249,12 +257,12 @@ int main(int /*argc*/, char** /*argv[]*/) {
 #  endif
 #  ifdef SUB_LEFT_WIDGET
     sdl::graphic::PictureWidget* img1 = new sdl::graphic::PictureWidget(std::string("img1"), std::string("data/img/1.bmp"), sdl::graphic::PictureWidget::Mode::Fit, sub_left_widget, sdl::core::engine::Color::NamedColor::Green);
-    // sdl::graphic::PictureWidget* img3 = new sdl::graphic::PictureWidget(std::string("img3"), std::string("data/img/3.bmp"), sdl::graphic::PictureWidget::Mode::Fit, sub_left_widget, sdl::core::engine::Color::NamedColor::Green);
+    sdl::graphic::PictureWidget* img3 = new sdl::graphic::PictureWidget(std::string("img3"), std::string("data/img/3.bmp"), sdl::graphic::PictureWidget::Mode::Fit, sub_left_widget, sdl::core::engine::Color::NamedColor::Green);
     sdl::graphic::PictureWidget* img7 = new sdl::graphic::PictureWidget(std::string("img7"), std::string("data/img/7.bmp"), sdl::graphic::PictureWidget::Mode::Fit, sub_left_widget, sdl::core::engine::Color::NamedColor::Green);
     sdl::core::engine::Palette palette = sdl::core::engine::Palette::fromButtonColor(sdl::core::engine::Color::NamedColor::Purple);
-    img1->setPalette(palette);
-    // img3->setPalette(palette);
-    img7->setPalette(palette);
+    sub_left_widget->insertWidget(img1, 0);
+    sub_left_widget->insertWidget(img3, 1);
+    sub_left_widget->insertWidget(img7, 1);
 #  endif
 # endif
 

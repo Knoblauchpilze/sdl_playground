@@ -27,7 +27,10 @@
 
 // # define MENU_BAR_DOCK_WIDGET
 // # define TOP_DOCK_WIDGET
+
 # define RIGHT_DOCK_WIDGET
+# define TAB_WIDGET
+# define TAB_WIDGET_2
 
 int main(int /*argc*/, char** /*argv[]*/) {
   // Create the logger.
@@ -77,7 +80,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
 #  endif
 # endif
 
-#  ifdef MENU_BAR_DOCK_WIDGET
+# ifdef MENU_BAR_DOCK_WIDGET
     sdl::graphic::PictureWidget* menu_bar = new sdl::graphic::PictureWidget(
       std::string("menu_bar"),
       std::string("data/img/menu_bar.bmp"),
@@ -87,8 +90,8 @@ int main(int /*argc*/, char** /*argv[]*/) {
       utils::Sizef()
     );
     app->setMenuBar(menu_bar);
-#  endif
-#  ifdef TOP_DOCK_WIDGET
+# endif
+# ifdef TOP_DOCK_WIDGET
     sdl::graphic::ComboBox* top_dock_widget = new sdl::graphic::ComboBox(
       std::string("top_dock_widget"),
       sdl::graphic::ComboBox::InsertPolicy::InsertAtCurrent,
@@ -99,15 +102,17 @@ int main(int /*argc*/, char** /*argv[]*/) {
     top_dock_widget->insertItem(std::string("Julia"), std::string("data/img/julia.bmp"));
     top_dock_widget->insertItem(std::string("romanesco"), std::string("data/img/romanesco.bmp"));
     top_dock_widget->insertItem(std::string("Big Benoit"), std::string("data/img/mandelbrot.bmp"));
-#  endif
-#  ifdef RIGHT_DOCK_WIDGET
+# endif
+# ifdef RIGHT_DOCK_WIDGET
     sdl::graphic::TabWidget* right_dock_widget = new sdl::graphic::TabWidget(
       std::string("right_dock_widget"),
-      nullptr
+      nullptr,
+      sdl::graphic::TabWidget::TabPosition::North
     );
     // app->addDockWidget(right_dock_widget, sdl::app::DockWidgetArea::RightArea);
     app->setCentralWidget(right_dock_widget);
 
+#  ifdef TAB_WIDGET
     sdl::graphic::PictureWidget* tab = new sdl::graphic::PictureWidget(
       std::string("tab_widget"),
       std::string("data/img/fullmoon.bmp"),
@@ -117,7 +122,8 @@ int main(int /*argc*/, char** /*argv[]*/) {
       utils::Sizef()
     );
     right_dock_widget->insertTab(0, tab, std::string("Test"));
-
+#  endif
+#  ifdef TAB_WIDGET_2
     sdl::graphic::PictureWidget* tab2 = new sdl::graphic::PictureWidget(
       std::string("tab_widget_2"),
       std::string("data/img/ganymede.bmp"),
@@ -128,6 +134,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
     );
     right_dock_widget->insertTab(0, tab2);
 #  endif
+# endif
 
     // `left_widget`
 # ifdef ROOT_WIDGET

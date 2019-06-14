@@ -14,19 +14,19 @@
 # include <sdl_graphic/ComboBox.hh>
 # include <sdl_graphic/TabWidget.hh>
 
-// # define ROOT_WIDGET
+# define ROOT_WIDGET
 
 # define GRID_LAYOUT
 // # define IDEAL_CASE
 
-// # define LEFT_WIDGET
-// # define RIGHT_WIDGET
-// # define MIDDLE_WIDGET
-// # define SUB_MIDDLE_WIDGET
-// # define SUB_LEFT_WIDGET
+# define LEFT_WIDGET
+# define RIGHT_WIDGET
+# define MIDDLE_WIDGET
+# define SUB_MIDDLE_WIDGET
+# define SUB_LEFT_WIDGET
 
-// # define MENU_BAR_DOCK_WIDGET
-// # define TOP_DOCK_WIDGET
+# define MENU_BAR_DOCK_WIDGET
+# define TOP_DOCK_WIDGET
 
 # define RIGHT_DOCK_WIDGET
 # define TAB_WIDGET
@@ -60,7 +60,6 @@ int main(int /*argc*/, char** /*argv[]*/) {
       sdl::core::engine::Color::NamedColor::Red
     );
     app->setCentralWidget(root_widget);
-
 #  ifdef GRID_LAYOUT
     sdl::graphic::GridLayoutShPtr layout = std::make_shared<sdl::graphic::GridLayout>(
       std::string("grid_layout_for_root"),
@@ -104,35 +103,44 @@ int main(int /*argc*/, char** /*argv[]*/) {
     top_dock_widget->insertItem(std::string("Big Benoit"), std::string("data/img/mandelbrot.bmp"));
 # endif
 # ifdef RIGHT_DOCK_WIDGET
+#  ifndef ROOT_WIDGET
     sdl::graphic::TabWidget* right_dock_widget = new sdl::graphic::TabWidget(
       std::string("right_dock_widget"),
       nullptr,
       sdl::graphic::TabWidget::TabPosition::North
     );
-    // app->addDockWidget(right_dock_widget, sdl::app::DockWidgetArea::RightArea);
     app->setCentralWidget(right_dock_widget);
+#  endif
 
 #  ifdef TAB_WIDGET
     sdl::graphic::PictureWidget* tab = new sdl::graphic::PictureWidget(
-      std::string("tab_widget"),
+      std::string("moon"),
       std::string("data/img/fullmoon.bmp"),
       sdl::graphic::PictureWidget::Mode::Fit,
       nullptr,
       sdl::core::engine::Color::NamedColor::Purple,
       utils::Sizef()
     );
+#  ifdef ROOT_WIDGET
+    app->addDockWidget(tab, sdl::app::DockWidgetArea::RightArea);
+#  else
     right_dock_widget->insertTab(0, tab, std::string("Test"));
+#  endif
 #  endif
 #  ifdef TAB_WIDGET_2
     sdl::graphic::PictureWidget* tab2 = new sdl::graphic::PictureWidget(
-      std::string("tab_widget_2"),
+      std::string("gany"),
       std::string("data/img/ganymede.bmp"),
       sdl::graphic::PictureWidget::Mode::Fit,
       nullptr,
       sdl::core::engine::Color::NamedColor::CorneFlowerBlue,
       utils::Sizef()
     );
+#  ifdef ROOT_WIDGET
+    app->addDockWidget(tab2, sdl::app::DockWidgetArea::RightArea);
+#  else
     right_dock_widget->insertTab(0, tab2);
+#  endif
 #  endif
 # endif
 

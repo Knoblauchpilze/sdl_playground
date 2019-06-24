@@ -16,21 +16,22 @@
 
 # define ROOT_WIDGET
 
-# define GRID_LAYOUT
-// # define IDEAL_CASE
+// # define GRID_LAYOUT
+# define IDEAL_CASE
 
 # define LEFT_WIDGET
 # define RIGHT_WIDGET
 # define MIDDLE_WIDGET
-# define SUB_MIDDLE_WIDGET
+// # define SUB_MIDDLE_WIDGET
 # define SUB_LEFT_WIDGET
+# define INTER_LEFT_WIDGET
 
-# define MENU_BAR_DOCK_WIDGET
-# define TOP_DOCK_WIDGET
+// # define MENU_BAR_DOCK_WIDGET
+// # define TOP_DOCK_WIDGET
 
-# define RIGHT_DOCK_WIDGET
-# define TAB_WIDGET
-# define TAB_WIDGET_2
+// # define RIGHT_DOCK_WIDGET
+// # define TAB_WIDGET
+// # define TAB_WIDGET_2
 
 int main(int /*argc*/, char** /*argv[]*/) {
   // Create the logger.
@@ -209,6 +210,21 @@ int main(int /*argc*/, char** /*argv[]*/) {
     );
 #  endif
 
+   // `inter_left_widget`
+#  ifdef INTER_LEFT_WIDGET
+    sdl::graphic::ComboBox* inter_left_widget = new sdl::graphic::ComboBox(
+      std::string("inter_left_widget"),
+      sdl::graphic::ComboBox::InsertPolicy::InsertAtBottom,
+      root_widget,
+      utils::Sizef()
+    );
+    inter_left_widget->insertItem(std::string("Energy"), std::string("data/img/resource_0.bmp"));
+    inter_left_widget->insertItem(std::string("Metal"), std::string("data/img/resource_1.bmp"));
+    inter_left_widget->insertItem(std::string("Crystal"), std::string("data/img/resource_2.bmp"));
+    inter_left_widget->insertItem(std::string("Deuterium"), std::string("data/img/resource_3.bmp"));
+    inter_left_widget->insertItem(std::string("Antimatter"));
+#  endif
+
 #  ifdef GRID_LAYOUT
     layout->setColumnsMinimumWidth(10.0f);
     layout->setRowsMinimumHeight(20.0f);
@@ -227,7 +243,13 @@ int main(int /*argc*/, char** /*argv[]*/) {
 #   ifdef SUB_LEFT_WIDGET
     layout->addItem(sub_left_widget,   0, 3, 2, 1);
 #   endif
+#   ifdef INTER_LEFT_WIDGET
+    layout->addItem(inter_left_widget, 0, 1, 2, 1);
+#   endif
 #  else
+#   ifdef INTER_LEFT_WIDGET
+    layout->addItem(inter_left_widget);
+#   endif
 #   ifdef LEFT_WIDGET
     layout->addItem(left_widget);
 #   endif
@@ -278,7 +300,6 @@ int main(int /*argc*/, char** /*argv[]*/) {
     sdl::graphic::PictureWidget* img1 = new sdl::graphic::PictureWidget(std::string("img1"), std::string("data/img/1.bmp"), sdl::graphic::PictureWidget::Mode::Fit, sub_left_widget, sdl::core::engine::Color::NamedColor::Green);
     sdl::graphic::PictureWidget* img3 = new sdl::graphic::PictureWidget(std::string("img3"), std::string("data/img/3.bmp"), sdl::graphic::PictureWidget::Mode::Fit, sub_left_widget, sdl::core::engine::Color::NamedColor::Green);
     sdl::graphic::PictureWidget* img7 = new sdl::graphic::PictureWidget(std::string("img7"), std::string("data/img/7.bmp"), sdl::graphic::PictureWidget::Mode::Fit, sub_left_widget, sdl::core::engine::Color::NamedColor::Green);
-    sdl::core::engine::Palette palette = sdl::core::engine::Palette::fromButtonColor(sdl::core::engine::Color::NamedColor::Purple);
     sub_left_widget->insertWidget(img1, 0);
     sub_left_widget->insertWidget(img3, 1);
     sub_left_widget->insertWidget(img7, 1);

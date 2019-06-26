@@ -31,3 +31,6 @@ r: sandbox
 d: sandboxDebug
 	cd sandbox && ./debug.sh local
 
+v: sandboxDebug
+	cd sandbox && ./valgrind.sh local
+

@@ -16,22 +16,22 @@
 
 # define ROOT_WIDGET
 
-// # define GRID_LAYOUT
-# define IDEAL_CASE
+# define GRID_LAYOUT
+// # define IDEAL_CASE
 
 # define LEFT_WIDGET
 # define RIGHT_WIDGET
 # define MIDDLE_WIDGET
-// # define SUB_MIDDLE_WIDGET
+# define SUB_MIDDLE_WIDGET
 # define SUB_LEFT_WIDGET
 # define INTER_LEFT_WIDGET
 
-// # define MENU_BAR_DOCK_WIDGET
-// # define TOP_DOCK_WIDGET
+# define MENU_BAR_DOCK_WIDGET
+# define TOP_DOCK_WIDGET
 
-// # define RIGHT_DOCK_WIDGET
-// # define TAB_WIDGET
-// # define TAB_WIDGET_2
+# define RIGHT_DOCK_WIDGET
+# define TAB_WIDGET
+# define TAB_WIDGET_2
 
 int main(int /*argc*/, char** /*argv[]*/) {
   // Create the logger.
@@ -51,6 +51,8 @@ int main(int /*argc*/, char** /*argv[]*/) {
 
   try {
     app = std::make_shared<sdl::app::SdlApplication>(appName, appTitle, appIcon, size, 50.0f, 60.0f);
+
+    // TODO: Check transparency as it seems to be weird when handling repaint.
 
     // `root_widget`
 # ifdef ROOT_WIDGET

@@ -50,17 +50,18 @@ int main(int /*argc*/, char** /*argv[]*/) {
   sdl::app::SdlApplicationShPtr app = nullptr;
 
   try {
-    app = std::make_shared<sdl::app::SdlApplication>(appName, appTitle, appIcon, size, true, 1.0f, 60.0f);
+    app = std::make_shared<sdl::app::SdlApplication>(appName, appTitle, appIcon, size, true, 50.0f, 60.0f);
 
     // TODO: Check transparency as it seems to be weird when handling repaint.
 
     // `root_widget`
 # ifdef ROOT_WIDGET
-    sdl::core::SdlWidget* root_widget = new sdl::core::SdlWidget(
+    sdl::graphic::PictureWidget* root_widget = new sdl::graphic::PictureWidget(
       std::string("root_widget"),
-      utils::Sizef(),
+      std::string("data/img/wp_not_so_awesome.bmp"),
+      sdl::graphic::PictureWidget::Mode::Fit,
       nullptr,
-      sdl::core::engine::Color::NamedColor::Red
+      sdl::core::engine::Color::NamedColor::Green
     );
     app->setCentralWidget(root_widget);
 #  ifdef GRID_LAYOUT
@@ -173,7 +174,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
       utils::Sizef(50.0f, 110.0f),
 #   endif
       root_widget,
-      sdl::core::engine::Color::fromRGB(0.5f, 0.5f, 0.0f)
+      sdl::core::engine::Color::fromRGBA(0.5f, 0.5f, 0.0f, 0.75f)
     );
 #  endif
 

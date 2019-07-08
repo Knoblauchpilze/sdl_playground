@@ -50,7 +50,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
   sdl::app::SdlApplicationShPtr app = nullptr;
 
   try {
-    app = std::make_shared<sdl::app::SdlApplication>(appName, appTitle, appIcon, size, 50.0f, 60.0f);
+    app = std::make_shared<sdl::app::SdlApplication>(appName, appTitle, appIcon, size, true, 1.0f, 60.0f);
 
     // TODO: Check transparency as it seems to be weird when handling repaint.
 

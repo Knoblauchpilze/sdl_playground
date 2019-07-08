@@ -52,8 +52,6 @@ int main(int /*argc*/, char** /*argv[]*/) {
   try {
     app = std::make_shared<sdl::app::SdlApplication>(appName, appTitle, appIcon, size, true, 50.0f, 60.0f);
 
-    // TODO: Check transparency as it seems to be weird when handling repaint.
-
     // `root_widget`
 # ifdef ROOT_WIDGET
     sdl::graphic::PictureWidget* root_widget = new sdl::graphic::PictureWidget(
@@ -167,7 +165,8 @@ int main(int /*argc*/, char** /*argv[]*/) {
 
     // `middle_widget`
 #  ifdef MIDDLE_WIDGET
-    sdl::core::SdlWidget* middle_widget = new sdl::core::SdlWidget(std::string("middle_widget"),
+    sdl::core::SdlWidget* middle_widget = new sdl::core::SdlWidget(
+      std::string("middle_widget"),
 #   ifdef IDEAL_CASE
       utils::Sizef(),
 #   else

@@ -45,7 +45,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
   const std::string appName = std::string("sdl_playground");
   const std::string appTitle = std::string("Sdl playground (but this is still SPARTA !)");
   const std::string appIcon = std::string("data/img/65px-Stop_hand.BMP");
-  const utils::Size<int> size(640, 480);
+  const utils::Sizei size(640, 480);
 
   sdl::app::SdlApplicationShPtr app = nullptr;
 

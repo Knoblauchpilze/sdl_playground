@@ -340,8 +340,6 @@ int main(int /*argc*/, char** /*argv[]*/) {
 
   app.reset();
 
-  // TODO: Fix leaks.
-
   // All is good.
   return EXIT_SUCCESS;
 }

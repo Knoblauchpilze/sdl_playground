@@ -218,7 +218,11 @@ int main(int /*argc*/, char** /*argv[]*/) {
       std::string("inter_left_widget"),
       sdl::graphic::ComboBox::InsertPolicy::InsertAtBottom,
       root_widget,
+#   ifdef LEFT_WIDGET
       utils::Sizef()
+#   else
+      utils::Sizef(100.0f, 100.0f)
+#   endif
     );
     inter_left_widget->insertItem(std::string("Energy"), std::string("data/img/resource_0.bmp"));
     inter_left_widget->insertItem(std::string("Metal"), std::string("data/img/resource_1.bmp"));
@@ -246,7 +250,11 @@ int main(int /*argc*/, char** /*argv[]*/) {
     layout->addItem(sub_left_widget,   0, 3, 2, 1);
 #   endif
 #   ifdef INTER_LEFT_WIDGET
+#    ifdef LEFT_WIDGET
     layout->addItem(inter_left_widget, 0, 1, 2, 1);
+#    else
+    layout->addItem(inter_left_widget, 0, 0, 1, 1);
+#    endif
 #   endif
 #  else
 #   ifdef INTER_LEFT_WIDGET

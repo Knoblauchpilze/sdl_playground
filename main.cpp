@@ -20,18 +20,18 @@
 // # define IDEAL_CASE
 
 # define LEFT_WIDGET
-# define RIGHT_WIDGET
-# define MIDDLE_WIDGET
-# define SUB_MIDDLE_WIDGET
-# define SUB_LEFT_WIDGET
-# define INTER_LEFT_WIDGET
+// # define RIGHT_WIDGET
+// # define MIDDLE_WIDGET
+// # define SUB_MIDDLE_WIDGET
+// # define SUB_LEFT_WIDGET
+// # define INTER_LEFT_WIDGET
 
-# define MENU_BAR_DOCK_WIDGET
-# define TOP_DOCK_WIDGET
+// # define MENU_BAR_DOCK_WIDGET
+// # define TOP_DOCK_WIDGET
 
-# define RIGHT_DOCK_WIDGET
-# define TAB_WIDGET
-# define TAB_WIDGET_2
+// # define RIGHT_DOCK_WIDGET
+// # define TAB_WIDGET
+// # define TAB_WIDGET_2
 
 int main(int /*argc*/, char** /*argv[]*/) {
   // Create the logger.
@@ -70,6 +70,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
       4u,
       10.0f
     );
+    layout->allowLog(false);
 #  else
     sdl::graphic::LinearLayoutShPtr layout = std::make_shared<sdl::graphic::LinearLayout>(
       std::string("linear_layout_for_root"),

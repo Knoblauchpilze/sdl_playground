@@ -13,6 +13,7 @@
 # include <sdl_graphic/SelectorWidget.hh>
 # include <sdl_graphic/ComboBox.hh>
 # include <sdl_graphic/TabWidget.hh>
+# include <sdl_graphic/TextBox.hh>
 
 # define ROOT_WIDGET
 
@@ -20,11 +21,12 @@
 // # define IDEAL_CASE
 
 # define LEFT_WIDGET
-// # define RIGHT_WIDGET
-// # define MIDDLE_WIDGET
-// # define SUB_MIDDLE_WIDGET
-// # define SUB_LEFT_WIDGET
-// # define INTER_LEFT_WIDGET
+# define RIGHT_WIDGET
+# define MIDDLE_WIDGET
+# define SUB_MIDDLE_WIDGET
+# define SUB_LEFT_WIDGET
+# define INTER_LEFT_WIDGET
+# define SUB_RIGHT_WIDGET
 
 // # define MENU_BAR_DOCK_WIDGET
 // # define TOP_DOCK_WIDGET
@@ -194,11 +196,10 @@ int main(int /*argc*/, char** /*argv[]*/) {
 
     // `sub_middle_widget`
 #  ifdef SUB_MIDDLE_WIDGET
-    sdl::graphic::PictureWidget* sub_middle_widget = new sdl::graphic::PictureWidget(
+    sdl::graphic::SelectorWidget* sub_middle_widget = new sdl::graphic::SelectorWidget(
       std::string("sub_middle_widget"),
-      std::string("data/img/wp_awesome.bmp"),
-      sdl::graphic::PictureWidget::Mode::Fit,
       root_widget,
+      true,
       sdl::core::engine::Color::NamedColor::Green
     );
 #  endif
@@ -225,11 +226,20 @@ int main(int /*argc*/, char** /*argv[]*/) {
       utils::Sizef(100.0f, 100.0f)
 #   endif
     );
-    inter_left_widget->insertItem(std::string("Energy"), std::string("data/img/resource_0.bmp"));
-    inter_left_widget->insertItem(std::string("Metal"), std::string("data/img/resource_1.bmp"));
-    inter_left_widget->insertItem(std::string("Crystal"), std::string("data/img/resource_2.bmp"));
+    inter_left_widget->insertItem(std::string("Energy"), std::string("data/img/resource_left_widget.bmp"));
+    inter_left_widget->insertItem(std::string("Metal"), std::string("data/img/resource_1left_widgetbmp"));
+    inter_left_widget->insertItem(std::string("Crystal"), std::string("data/img/resourceleft_widget2.bmp"));
     inter_left_widget->insertItem(std::string("Deuterium"), std::string("data/img/resource_3.bmp"));
     inter_left_widget->insertItem(std::string("Antimatter"));
+#  endif
+
+  // `sub_right_widget`
+#  ifdef SUB_RIGHT_WIDGET
+    sdl::graphic::TextBox* sub_right_widget = new sdl::graphic::TextBox(
+      std::string("sub_right_widget"),
+      root_widget,
+      utils::Sizef()
+    );
 #  endif
 
 #  ifdef GRID_LAYOUT
@@ -256,6 +266,10 @@ int main(int /*argc*/, char** /*argv[]*/) {
 #    else
     layout->addItem(inter_left_widget, 0, 0, 1, 1);
 #    endif
+#   ifdef SUB_RIGHT_WIDGET
+    // sub_right_widget->setPalette(sub_right_widget->getPalette());
+    layout->addItem(sub_right_widget,  3, 1, 2, 2);
+#   endif
 #   endif
 #  else
 #   ifdef INTER_LEFT_WIDGET
@@ -275,6 +289,9 @@ int main(int /*argc*/, char** /*argv[]*/) {
 #   endif
 #   ifdef SUB_LEFT_WIDGET
     layout->addItem(sub_left_widget);
+#   endif
+#   ifdef SUB_RIGHT_WIDGET
+    layout->addItem(sub_right_widget);
 #   endif
 #  endif
     root_widget->setLayout(layout);
@@ -306,6 +323,12 @@ int main(int /*argc*/, char** /*argv[]*/) {
 #   else
     sub_middle_widget->setMinSize(utils::Sizef(390.0f, 70.0f));
 #   endif
+#  endif
+#  ifdef SUB_MIDDLE_WIDGET
+    sdl::core::SdlWidget* child1 = new sdl::core::SdlWidget(std::string("child1"), utils::Sizef(), sub_middle_widget, sdl::core::engine::Color::NamedColor::Orange);
+    sdl::core::SdlWidget* child2 = new sdl::core::SdlWidget(std::string("child2"), utils::Sizef(), sub_middle_widget, sdl::core::engine::Color::NamedColor::Magenta);
+    sub_middle_widget->insertWidget(child1, 0);
+    sub_middle_widget->insertWidget(child2, 0); 
 #  endif
 #  ifdef SUB_LEFT_WIDGET
     sdl::graphic::PictureWidget* img1 = new sdl::graphic::PictureWidget(std::string("img1"), std::string("data/img/1.bmp"), sdl::graphic::PictureWidget::Mode::Fit, sub_left_widget, sdl::core::engine::Color::NamedColor::Green);

@@ -20,12 +20,12 @@
 # define GRID_LAYOUT
 // # define IDEAL_CASE
 
-# define LEFT_WIDGET
-# define RIGHT_WIDGET
-# define MIDDLE_WIDGET
-# define SUB_MIDDLE_WIDGET
-# define SUB_LEFT_WIDGET
-# define INTER_LEFT_WIDGET
+// # define LEFT_WIDGET
+// # define RIGHT_WIDGET
+// # define MIDDLE_WIDGET
+// # define SUB_MIDDLE_WIDGET
+// # define SUB_LEFT_WIDGET
+// # define INTER_LEFT_WIDGET
 # define SUB_RIGHT_WIDGET
 
 // # define MENU_BAR_DOCK_WIDGET
@@ -266,10 +266,10 @@ int main(int /*argc*/, char** /*argv[]*/) {
 #    else
     layout->addItem(inter_left_widget, 0, 0, 1, 1);
 #    endif
+#   endif
 #   ifdef SUB_RIGHT_WIDGET
     // sub_right_widget->setPalette(sub_right_widget->getPalette());
     layout->addItem(sub_right_widget,  3, 1, 2, 2);
-#   endif
 #   endif
 #  else
 #   ifdef INTER_LEFT_WIDGET

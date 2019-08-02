@@ -237,6 +237,9 @@ int main(int /*argc*/, char** /*argv[]*/) {
 #  ifdef SUB_RIGHT_WIDGET
     sdl::graphic::TextBox* sub_right_widget = new sdl::graphic::TextBox(
       std::string("sub_right_widget"),
+      std::string("data/fonts/times.ttf"),
+      std::string("Init"),
+      10,
       root_widget,
       utils::Sizef()
     );

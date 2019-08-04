@@ -18,6 +18,7 @@ copyDebug:
 
 copy:
 	mkdir -p sandbox/
+	mkdir -p sandbox/bin
 	rsync -avH data sandbox/
 	mv sandbox/data/*.sh sandbox/
 

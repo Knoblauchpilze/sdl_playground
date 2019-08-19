@@ -20,20 +20,20 @@
 # define GRID_LAYOUT
 // # define IDEAL_CASE
 
-// # define LEFT_WIDGET
-// # define RIGHT_WIDGET
-// # define MIDDLE_WIDGET
-// # define SUB_MIDDLE_WIDGET
-// # define SUB_LEFT_WIDGET
-// # define INTER_LEFT_WIDGET
+# define LEFT_WIDGET
+# define RIGHT_WIDGET
+# define MIDDLE_WIDGET
+# define SUB_MIDDLE_WIDGET
+# define SUB_LEFT_WIDGET
+# define INTER_LEFT_WIDGET
 # define SUB_RIGHT_WIDGET
 
-// # define MENU_BAR_DOCK_WIDGET
-// # define TOP_DOCK_WIDGET
+# define MENU_BAR_DOCK_WIDGET
+# define TOP_DOCK_WIDGET
 
-// # define RIGHT_DOCK_WIDGET
-// # define TAB_WIDGET
-// # define TAB_WIDGET_2
+# define RIGHT_DOCK_WIDGET
+# define TAB_WIDGET
+# define TAB_WIDGET_2
 
 int main(int /*argc*/, char** /*argv[]*/) {
   // Create the logger.
@@ -47,7 +47,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
   const std::string appName = std::string("sdl_playground");
   const std::string appTitle = std::string("Sdl playground (but this is still SPARTA !)");
   const std::string appIcon = std::string("data/img/65px-Stop_hand.BMP");
-  const utils::Sizei size(640, 480);
+  const utils::Sizei size(800, 600);
 
   sdl::app::SdlApplicationShPtr app = nullptr;
 
@@ -192,6 +192,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
       root_widget,
       sdl::core::engine::Color::NamedColor::Cyan
     );
+    // TODO: The `Moon` element does not seem to receive keyboard focus.
 #  endif
 
     // `sub_middle_widget`
@@ -226,9 +227,9 @@ int main(int /*argc*/, char** /*argv[]*/) {
       utils::Sizef(100.0f, 100.0f)
 #   endif
     );
-    inter_left_widget->insertItem(std::string("Energy"), std::string("data/img/resource_left_widget.bmp"));
-    inter_left_widget->insertItem(std::string("Metal"), std::string("data/img/resource_1left_widgetbmp"));
-    inter_left_widget->insertItem(std::string("Crystal"), std::string("data/img/resourceleft_widget2.bmp"));
+    inter_left_widget->insertItem(std::string("Energy"), std::string("data/img/resource_0.bmp"));
+    inter_left_widget->insertItem(std::string("Metal"), std::string("data/img/resource_1.bmp"));
+    inter_left_widget->insertItem(std::string("Crystal"), std::string("data/img/resource_2.bmp"));
     inter_left_widget->insertItem(std::string("Deuterium"), std::string("data/img/resource_3.bmp"));
     inter_left_widget->insertItem(std::string("Antimatter"));
 #  endif

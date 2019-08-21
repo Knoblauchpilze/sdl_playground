@@ -64,6 +64,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
       sdl::core::engine::Color::NamedColor::Green
     );
     app->setCentralWidget(root_widget);
+    // TODO: The root widget does not seem to loose focus when clicking on the `Moon` element.
 #  ifdef GRID_LAYOUT
     sdl::graphic::GridLayoutShPtr layout = std::make_shared<sdl::graphic::GridLayout>(
       std::string("grid_layout_for_root"),
@@ -192,7 +193,6 @@ int main(int /*argc*/, char** /*argv[]*/) {
       root_widget,
       sdl::core::engine::Color::NamedColor::Cyan
     );
-    // TODO: The `Moon` element does not seem to receive keyboard focus.
 #  endif
 
     // `sub_middle_widget`
@@ -330,9 +330,9 @@ int main(int /*argc*/, char** /*argv[]*/) {
 #  endif
 #  ifdef SUB_MIDDLE_WIDGET
     sdl::core::SdlWidget* child1 = new sdl::core::SdlWidget(std::string("child1"), utils::Sizef(), sub_middle_widget, sdl::core::engine::Color::NamedColor::Orange);
-    sdl::core::SdlWidget* child2 = new sdl::core::SdlWidget(std::string("child2"), utils::Sizef(), sub_middle_widget, sdl::core::engine::Color::NamedColor::Magenta);
+    // sdl::core::SdlWidget* child2 = new sdl::core::SdlWidget(std::string("child2"), utils::Sizef(), sub_middle_widget, sdl::core::engine::Color::NamedColor::Magenta);
     sub_middle_widget->insertWidget(child1, 0);
-    sub_middle_widget->insertWidget(child2, 0); 
+    // sub_middle_widget->insertWidget(child2, 0);
 #  endif
 #  ifdef SUB_LEFT_WIDGET
     sdl::graphic::PictureWidget* img1 = new sdl::graphic::PictureWidget(std::string("img1"), std::string("data/img/1.bmp"), sdl::graphic::PictureWidget::Mode::Fit, sub_left_widget, sdl::core::engine::Color::NamedColor::Green);

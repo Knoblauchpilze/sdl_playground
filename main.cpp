@@ -64,7 +64,6 @@ int main(int /*argc*/, char** /*argv[]*/) {
       sdl::core::engine::Color::NamedColor::Green
     );
     app->setCentralWidget(root_widget);
-    // TODO: The root widget does not seem to loose focus when clicking on the `Moon` element.
 #  ifdef GRID_LAYOUT
     sdl::graphic::GridLayoutShPtr layout = std::make_shared<sdl::graphic::GridLayout>(
       std::string("grid_layout_for_root"),

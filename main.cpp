@@ -337,6 +337,8 @@ int main(int /*argc*/, char** /*argv[]*/) {
     sdl::graphic::PictureWidget* img1 = new sdl::graphic::PictureWidget(std::string("img1"), std::string("data/img/1.bmp"), sdl::graphic::PictureWidget::Mode::Fit, sub_left_widget, sdl::core::engine::Color::NamedColor::Green);
     sdl::graphic::PictureWidget* img3 = new sdl::graphic::PictureWidget(std::string("img3"), std::string("data/img/3.bmp"), sdl::graphic::PictureWidget::Mode::Fit, sub_left_widget, sdl::core::engine::Color::NamedColor::Green);
     sdl::graphic::PictureWidget* img7 = new sdl::graphic::PictureWidget(std::string("img7"), std::string("data/img/7.bmp"), sdl::graphic::PictureWidget::Mode::Fit, sub_left_widget, sdl::core::engine::Color::NamedColor::Green);
+    img1->setMaxSize(utils::Sizef(150.0f, 200.0f));
+    img3->setMaxSize(utils::Sizef(300.0f, 150.0f));
     sub_left_widget->insertWidget(img1, 0);
     sub_left_widget->insertWidget(img3, 1);
     sub_left_widget->insertWidget(img7, 1);

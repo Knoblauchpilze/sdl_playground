@@ -20,20 +20,20 @@
 # define GRID_LAYOUT
 // # define IDEAL_CASE
 
-# define LEFT_WIDGET
-# define RIGHT_WIDGET
-# define MIDDLE_WIDGET
+// # define LEFT_WIDGET
+// # define RIGHT_WIDGET
+// # define MIDDLE_WIDGET
 # define SUB_MIDDLE_WIDGET
 # define SUB_LEFT_WIDGET
-# define INTER_LEFT_WIDGET
-# define SUB_RIGHT_WIDGET
+// # define INTER_LEFT_WIDGET
+// # define SUB_RIGHT_WIDGET
 
-# define MENU_BAR_DOCK_WIDGET
-# define TOP_DOCK_WIDGET
+// # define MENU_BAR_DOCK_WIDGET
+// # define TOP_DOCK_WIDGET
 
-# define RIGHT_DOCK_WIDGET
-# define TAB_WIDGET
-# define TAB_WIDGET_2
+// # define RIGHT_DOCK_WIDGET
+// # define TAB_WIDGET
+// # define TAB_WIDGET_2
 
 int main(int /*argc*/, char** /*argv[]*/) {
   // Create the logger.
@@ -329,9 +329,9 @@ int main(int /*argc*/, char** /*argv[]*/) {
 #  endif
 #  ifdef SUB_MIDDLE_WIDGET
     sdl::core::SdlWidget* child1 = new sdl::core::SdlWidget(std::string("child1"), utils::Sizef(), sub_middle_widget, sdl::core::engine::Color::NamedColor::Orange);
-    // sdl::core::SdlWidget* child2 = new sdl::core::SdlWidget(std::string("child2"), utils::Sizef(), sub_middle_widget, sdl::core::engine::Color::NamedColor::Magenta);
+    sdl::core::SdlWidget* child2 = new sdl::core::SdlWidget(std::string("child2"), utils::Sizef(), sub_middle_widget, sdl::core::engine::Color::NamedColor::Magenta);
     sub_middle_widget->insertWidget(child1, 0);
-    // sub_middle_widget->insertWidget(child2, 0);
+    sub_middle_widget->insertWidget(child2, 0);
 #  endif
 #  ifdef SUB_LEFT_WIDGET
     sdl::graphic::PictureWidget* img1 = new sdl::graphic::PictureWidget(std::string("img1"), std::string("data/img/1.bmp"), sdl::graphic::PictureWidget::Mode::Fit, sub_left_widget, sdl::core::engine::Color::NamedColor::Green);

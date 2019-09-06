@@ -23,10 +23,11 @@
 // # define LEFT_WIDGET
 // # define RIGHT_WIDGET
 // # define MIDDLE_WIDGET
-# define SUB_MIDDLE_WIDGET
-# define SUB_LEFT_WIDGET
+// # define SUB_MIDDLE_WIDGET
+// # define SUB_LEFT_WIDGET
+// # define DEEP
 // # define INTER_LEFT_WIDGET
-// # define SUB_RIGHT_WIDGET
+# define SUB_RIGHT_WIDGET
 
 // # define MENU_BAR_DOCK_WIDGET
 // # define TOP_DOCK_WIDGET
@@ -342,6 +343,13 @@ int main(int /*argc*/, char** /*argv[]*/) {
     sub_left_widget->insertWidget(img1, 0);
     sub_left_widget->insertWidget(img3, 1);
     sub_left_widget->insertWidget(img7, 1);
+#   ifdef DEEP
+    sdl::graphic::LinearLayoutShPtr lay = std::make_shared<sdl::graphic::LinearLayout>(std::string("lin_layout_for_img3"), img3, sdl::graphic::LinearLayout::Direction::Vertical);
+    img3->setLayout(lay);
+    sdl::core::SdlWidget* deep1 = new sdl::core::SdlWidget(std::string("deep1"), utils::Sizef(), img3, sdl::core::engine::Color::NamedColor::Blue);
+    deep1->setMaxSize(utils::Sizef(30.0f, 20.0f));
+    lay->addItem(deep1);
+#   endif
 #  endif
 # endif
 

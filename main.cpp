@@ -30,7 +30,7 @@
 # define SUB_RIGHT_WIDGET
 
 // # define MENU_BAR_DOCK_WIDGET
-// # define TOP_DOCK_WIDGET
+# define TOP_DOCK_WIDGET
 
 // # define RIGHT_DOCK_WIDGET
 // # define TAB_WIDGET
@@ -240,7 +240,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
       std::string("sub_right_widget"),
       std::string("data/fonts/times.ttf"),
       std::string("Init"),
-      10,
+      150,
       root_widget,
       utils::Sizef()
     );

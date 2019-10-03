@@ -111,7 +111,7 @@ endif()
 set(SDL2_LIBRARIES ${SDL2_LIBRARY})
 set(SDL2_INCLUDE_DIRS ${SDL2_INCLUDE_DIR})
 
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(SDL2
+find_package_handle_standard_args(SDL2
                                   REQUIRED_VARS SDL2_LIBRARIES SDL2_INCLUDE_DIRS
                                   VERSION_VAR SDL2_VERSION_STRING)
 

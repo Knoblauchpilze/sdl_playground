@@ -15,6 +15,8 @@
 # include <sdl_graphic/TabWidget.hh>
 # include <sdl_graphic/TextBox.hh>
 
+# include <sdl_graphic/IntValidator.hh>
+
 # define ROOT_WIDGET
 
 # define GRID_LAYOUT
@@ -244,6 +246,8 @@ int main(int /*argc*/, char** /*argv[]*/) {
       root_widget,
       utils::Sizef()
     );
+
+    sub_right_widget->setValidator(std::make_shared<sdl::graphic::IntValidator>(10, 20));
 #  endif
 
 #  ifdef GRID_LAYOUT

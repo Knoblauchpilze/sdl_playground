@@ -250,7 +250,14 @@ int main(int /*argc*/, char** /*argv[]*/) {
       utils::Sizef()
     );
 
-    sub_right_widget->setValidator(std::make_shared<sdl::graphic::FloatValidator>(2.0f, 6.0f));
+    sub_right_widget->setValidator(
+      std::make_shared<sdl::graphic::FloatValidator>(
+        -6.0f,
+        12.0f,
+        sdl::graphic::number::Notation::Standard,
+        2
+      )
+    );
 #  endif
 
 #  ifdef GRID_LAYOUT

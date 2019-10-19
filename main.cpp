@@ -15,7 +15,7 @@
 # include <sdl_graphic/TabWidget.hh>
 # include <sdl_graphic/TextBox.hh>
 
-# include <sdl_graphic/IntValidator.hh>
+# include <sdl_graphic/FloatValidator.hh>
 
 # define ROOT_WIDGET
 
@@ -87,6 +87,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
 #  endif
 # endif
 
+  // `menu_bar_dock_widget`
 # ifdef MENU_BAR_DOCK_WIDGET
     sdl::graphic::PictureWidget* menu_bar = new sdl::graphic::PictureWidget(
       std::string("menu_bar"),
@@ -98,6 +99,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
     );
     app->setMenuBar(menu_bar);
 # endif
+  // `top_dock_widget`
 # ifdef TOP_DOCK_WIDGET
     sdl::graphic::ComboBox* top_dock_widget = new sdl::graphic::ComboBox(
       std::string("top_dock_widget"),
@@ -110,6 +112,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
     top_dock_widget->insertItem(std::string("romanesco"), std::string("data/img/romanesco.bmp"));
     top_dock_widget->insertItem(std::string("Big Benoit"), std::string("data/img/mandelbrot.bmp"));
 # endif
+  // `right_dock_widget`
 # ifdef RIGHT_DOCK_WIDGET
 #  ifndef ROOT_WIDGET
     sdl::graphic::TabWidget* right_dock_widget = new sdl::graphic::TabWidget(
@@ -247,7 +250,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
       utils::Sizef()
     );
 
-    sub_right_widget->setValidator(std::make_shared<sdl::graphic::IntValidator>(10, 20));
+    sub_right_widget->setValidator(std::make_shared<sdl::graphic::FloatValidator>(2.0f, 6.0f));
 #  endif
 
 #  ifdef GRID_LAYOUT

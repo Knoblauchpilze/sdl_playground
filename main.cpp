@@ -244,7 +244,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
     sdl::graphic::TextBox* sub_right_widget = new sdl::graphic::TextBox(
       std::string("sub_right_widget"),
       std::string("data/fonts/times.ttf"),
-      std::string("Init"),
+      std::string(""),
       150,
       root_widget,
       utils::Sizef()
@@ -254,7 +254,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
       std::make_shared<sdl::graphic::FloatValidator>(
         -6.0f,
         12.0f,
-        sdl::graphic::number::Notation::Standard,
+        sdl::graphic::number::Notation::Scientific,
         2
       )
     );

@@ -14,6 +14,7 @@
 # include <sdl_graphic/ComboBox.hh>
 # include <sdl_graphic/TabWidget.hh>
 # include <sdl_graphic/TextBox.hh>
+# include <sdl_graphic/ScrollArea.hh>
 
 # include <sdl_graphic/FloatValidator.hh>
 
@@ -22,21 +23,22 @@
 # define GRID_LAYOUT
 // # define IDEAL_CASE
 
-// # define LEFT_WIDGET
-// # define RIGHT_WIDGET
-// # define MIDDLE_WIDGET
-// # define SUB_MIDDLE_WIDGET
-// # define SUB_LEFT_WIDGET
-// # define DEEP
-// # define INTER_LEFT_WIDGET
+# define LEFT_WIDGET
+# define RIGHT_WIDGET
+# define MIDDLE_WIDGET
+# define SUB_MIDDLE_WIDGET
+# define SUB_LEFT_WIDGET
+# define DEEP
+# define INTER_LEFT_WIDGET
 # define SUB_RIGHT_WIDGET
+# define EXTRA_RIGHT_WIDGET
 
-// # define MENU_BAR_DOCK_WIDGET
+# define MENU_BAR_DOCK_WIDGET
 # define TOP_DOCK_WIDGET
 
-// # define RIGHT_DOCK_WIDGET
-// # define TAB_WIDGET
-// # define TAB_WIDGET_2
+# define RIGHT_DOCK_WIDGET
+# define TAB_WIDGET
+# define TAB_WIDGET_2
 
 int main(int /*argc*/, char** /*argv[]*/) {
   // Create the logger.
@@ -89,6 +91,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
 
   // `menu_bar_dock_widget`
 # ifdef MENU_BAR_DOCK_WIDGET
+    // TODO: Menu bar seems to get resized weirdly when using the top dock widget combobox.
     sdl::graphic::PictureWidget* menu_bar = new sdl::graphic::PictureWidget(
       std::string("menu_bar"),
       std::string("data/img/menu_bar.bmp"),
@@ -252,13 +255,22 @@ int main(int /*argc*/, char** /*argv[]*/) {
 
     sub_right_widget->setValidator(
       std::make_shared<sdl::graphic::FloatValidator>(
-        -6.0f,
-        12.0f,
+        -0.5f,
+        0.1f,
         sdl::graphic::number::Notation::Scientific,
         2
       )
     );
 #  endif
+
+  // `extra_right_widget`
+  sdl::graphic::ScrollArea* extra_right_widget = new sdl::graphic::ScrollArea(
+    std::string("extra_right_widget"),
+    rooot_widget,
+    utils::Sizef(),
+    sdl::graphic::ScrollArea::BarPolicy::AsNeeded,
+    sdl::graphic::ScrollArea::BarPolicy::AlwaysOn
+  );
 
 #  ifdef GRID_LAYOUT
     layout->setColumnsMinimumWidth(10.0f);
@@ -286,8 +298,10 @@ int main(int /*argc*/, char** /*argv[]*/) {
 #    endif
 #   endif
 #   ifdef SUB_RIGHT_WIDGET
-    // sub_right_widget->setPalette(sub_right_widget->getPalette());
-    layout->addItem(sub_right_widget,  3, 1, 2, 2);
+    layout->addItem(sub_right_widget,  3, 1, 1, 2);
+#   endif
+#   ifdef EXTRA_RIGHT_WIDGET
+    layout->addItem(extra_right_widget,  4, 1, 1, 2);
 #   endif
 #  else
 #   ifdef INTER_LEFT_WIDGET
@@ -323,7 +337,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
 #  endif
 #  ifdef MIDDLE_WIDGET
 #   if !defined(IDEAL_CASE) || !defined(GRID_LAYOUT)
-    middle_widget->setSizePolicy(sdl::core::SizePolicy(sdl::core::SizePolicy::Expanding, sdl::core::SizePolicy::Fixed));
+    middle_widget->setSizePolicy(sdl::core::SizePolicy(sdl::core::SizePolicy::Name::Expanding, sdl::core::SizePolicy::Name::Fixed));
 #   endif
 #  endif
 #  ifdef RIGHT_WIDGET

@@ -23,22 +23,22 @@
 # define GRID_LAYOUT
 // # define IDEAL_CASE
 
-# define LEFT_WIDGET
-# define RIGHT_WIDGET
-# define MIDDLE_WIDGET
-# define SUB_MIDDLE_WIDGET
-# define SUB_LEFT_WIDGET
-# define DEEP
-# define INTER_LEFT_WIDGET
-# define SUB_RIGHT_WIDGET
+// # define LEFT_WIDGET
+// # define RIGHT_WIDGET
+// # define MIDDLE_WIDGET
+// # define SUB_MIDDLE_WIDGET
+// # define SUB_LEFT_WIDGET
+// # define DEEP
+// # define INTER_LEFT_WIDGET
+// # define SUB_RIGHT_WIDGET
 # define EXTRA_RIGHT_WIDGET
 
-# define MENU_BAR_DOCK_WIDGET
-# define TOP_DOCK_WIDGET
+// # define MENU_BAR_DOCK_WIDGET
+// # define TOP_DOCK_WIDGET
 
-# define RIGHT_DOCK_WIDGET
-# define TAB_WIDGET
-# define TAB_WIDGET_2
+// # define RIGHT_DOCK_WIDGET
+// # define TAB_WIDGET
+// # define TAB_WIDGET_2
 
 int main(int /*argc*/, char** /*argv[]*/) {
   // Create the logger.
@@ -266,7 +266,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
   // `extra_right_widget`
   sdl::graphic::ScrollArea* extra_right_widget = new sdl::graphic::ScrollArea(
     std::string("extra_right_widget"),
-    rooot_widget,
+    root_widget,
     utils::Sizef(),
     sdl::graphic::ScrollArea::BarPolicy::AsNeeded,
     sdl::graphic::ScrollArea::BarPolicy::AlwaysOn

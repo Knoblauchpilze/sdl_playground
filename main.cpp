@@ -32,6 +32,8 @@
 // # define INTER_LEFT_WIDGET
 // # define SUB_RIGHT_WIDGET
 # define EXTRA_RIGHT_WIDGET
+# define BIG_PIC
+// # define SMALL_PIC
 
 // # define MENU_BAR_DOCK_WIDGET
 // # define TOP_DOCK_WIDGET
@@ -264,6 +266,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
 #  endif
 
   // `extra_right_widget`
+#  ifdef EXTRA_RIGHT_WIDGET
   sdl::graphic::ScrollArea* extra_right_widget = new sdl::graphic::ScrollArea(
     std::string("extra_right_widget"),
     root_widget,
@@ -271,6 +274,29 @@ int main(int /*argc*/, char** /*argv[]*/) {
     sdl::graphic::ScrollArea::BarPolicy::AsNeeded,
     sdl::graphic::ScrollArea::BarPolicy::AlwaysOn
   );
+#   ifdef BIG_PIC
+    sdl::graphic::PictureWidget* big_pic = new sdl::graphic::PictureWidget(
+      std::string("big_pic"),
+      std::string("data/img/turtle.bmp"),
+      sdl::graphic::PictureWidget::Mode::Crop,
+      nullptr,
+      sdl::core::engine::Color::NamedColor::Maroon,
+      utils::Sizef()
+    );
+    extra_right_widget->setViewport(big_pic);
+#   endif
+#   ifdef SMALL_PIC
+    sdl::graphic::PictureWidget* small_pic = new sdl::graphic::PictureWidget(
+      std::string("small_pic"),
+      std::string("data/img/ham_sandwich.bmp"),
+      sdl::graphic::PictureWidget::Mode::Crop,
+      nullptr,
+      sdl::core::engine::Color::NamedColor::Pink,
+      utils::Sizef()
+    );
+    extra_right_widget->setViewport(small_pic);
+#   endif
+#  endif
 
 #  ifdef GRID_LAYOUT
     layout->setColumnsMinimumWidth(10.0f);

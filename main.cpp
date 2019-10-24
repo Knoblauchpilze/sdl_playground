@@ -35,8 +35,6 @@
 // # define BIG_PIC
 // # define SMALL_PIC
 
-// TODO: Maximize and minimize events still seem to be missed sometimes.
-
 // # define MENU_BAR_DOCK_WIDGET
 // # define TOP_DOCK_WIDGET
 

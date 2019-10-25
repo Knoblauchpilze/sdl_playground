@@ -42,6 +42,10 @@
 // # define TAB_WIDGET
 // # define TAB_WIDGET_2
 
+// TODO: Weird crash when clicking quickly around the window with a window index `0` not found.
+// It crashes because for example a mouse drag event ends up outside of the window. We need to
+// make sure that this event gets generated but is not used by anyone.
+
 int main(int /*argc*/, char** /*argv[]*/) {
   // Create the logger.
   utils::StdLogger logger;

@@ -31,12 +31,12 @@
 // # define DEEP
 // # define INTER_LEFT_WIDGET
 // # define SUB_RIGHT_WIDGET
-# define EXTRA_RIGHT_WIDGET
-# define BIG_PIC
+// # define EXTRA_RIGHT_WIDGET
+// # define BIG_PIC
 // # define SMALL_PIC
 
-// # define MENU_BAR_DOCK_WIDGET
-// # define TOP_DOCK_WIDGET
+# define MENU_BAR_DOCK_WIDGET
+# define TOP_DOCK_WIDGET
 
 // # define RIGHT_DOCK_WIDGET
 // # define TAB_WIDGET

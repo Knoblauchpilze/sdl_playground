@@ -93,7 +93,6 @@ int main(int /*argc*/, char** /*argv[]*/) {
 
   // `menu_bar_dock_widget`
 # ifdef MENU_BAR_DOCK_WIDGET
-    // TODO: Menu bar seems to get resized weirdly when using the top dock widget combobox.
     sdl::graphic::PictureWidget* menu_bar = new sdl::graphic::PictureWidget(
       std::string("menu_bar"),
       std::string("data/img/menu_bar.bmp"),

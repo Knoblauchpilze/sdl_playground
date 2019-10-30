@@ -280,7 +280,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
       sdl::graphic::PictureWidget::Mode::Crop,
       nullptr,
       sdl::core::engine::Color::NamedColor::Maroon,
-      utils::Sizef()
+      utils::Sizef(1500.0f, 1300.0f)
     );
     extra_right_widget->setViewport(big_pic);
 #   endif
@@ -291,7 +291,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
       sdl::graphic::PictureWidget::Mode::Crop,
       nullptr,
       sdl::core::engine::Color::NamedColor::Pink,
-      utils::Sizef()
+      utils::Sizef(400.0f, 300.0f)
     );
     extra_right_widget->setViewport(small_pic);
 #   endif

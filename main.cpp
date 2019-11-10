@@ -38,9 +38,12 @@
 // # define MENU_BAR_DOCK_WIDGET
 // # define TOP_DOCK_WIDGET
 
-// # define RIGHT_DOCK_WIDGET
-// # define TAB_WIDGET
-// # define TAB_WIDGET_2
+# define RIGHT_DOCK_WIDGET
+# define TAB_WIDGET
+# define TAB_WIDGET_2
+
+// TODO: It seems that when performing a resize we can get the
+// `Rendering target is not null` error. Should be fixed.
 
 int main(int /*argc*/, char** /*argv[]*/) {
   // Create the logger.

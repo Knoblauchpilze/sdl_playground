@@ -38,17 +38,20 @@
 // # define MENU_BAR_DOCK_WIDGET
 // # define TOP_DOCK_WIDGET
 
-# define RIGHT_DOCK_WIDGET
-# define TAB_WIDGET
-# define TAB_WIDGET_2
+// # define RIGHT_DOCK_WIDGET
+// # define TAB_WIDGET
+// # define TAB_WIDGET_2
 
 // TODO: It seems that when performing a resize we can get the
 // `Rendering target is not null` error. Should be fixed.
+// Apparently the size of the texture that is active corresponds
+// to the area of the scroll area.
 
 int main(int /*argc*/, char** /*argv[]*/) {
   // Create the logger.
   utils::StdLogger logger;
   utils::LoggerLocator::provide(&logger);
+  logger.setLevel(utils::Level::Debug);
 
   const std::string service("playground");
   const std::string module("main");
@@ -66,13 +69,20 @@ int main(int /*argc*/, char** /*argv[]*/) {
 
     // `root_widget`
 # ifdef ROOT_WIDGET
-    sdl::graphic::PictureWidget* root_widget = new sdl::graphic::PictureWidget(
+    // sdl::graphic::PictureWidget* root_widget = new sdl::graphic::PictureWidget(
+    //   std::string("root_widget"),
+    //   std::string("data/img/wp_not_so_awesome.bmp"),
+    //   sdl::graphic::PictureWidget::Mode::Fit,
+    //   nullptr,
+    //   sdl::core::engine::Color::NamedColor::Green
+    // );
+    sdl::core::SdlWidget* root_widget = new sdl::core::SdlWidget(
       std::string("root_widget"),
-      std::string("data/img/wp_not_so_awesome.bmp"),
-      sdl::graphic::PictureWidget::Mode::Fit,
+      utils::Sizef(),
       nullptr,
       sdl::core::engine::Color::NamedColor::Green
     );
+
     app->setCentralWidget(root_widget);
 #  ifdef GRID_LAYOUT
     sdl::graphic::GridLayoutShPtr layout = std::make_shared<sdl::graphic::GridLayout>(

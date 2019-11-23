@@ -42,21 +42,6 @@
 # define TAB_WIDGET
 # define TAB_WIDGET_2
 
-// TODO: It seems that when performing a resize we can get the
-// `Rendering target is not null` error. Should be fixed.
-// Apparently the size of the texture that is active corresponds
-// to the area of the scroll area.
-// Apparently it is not possible to call `Sdl_PollEvents` from
-// outside the main thread. This is most likely the cause of our
-// issues because we do so.
-// Typically what is likely happening is something like this:
-// - the rendering thread starts a rendering
-// - the event polling pulls a maximize event
-// - the viewport is updated in between the renderings
-// - the rendering is fucked up.
-// To correct this we should probably retrieve the events from the
-// main thread and populate the dispatcher once in a while.
-
 int main(int /*argc*/, char** /*argv[]*/) {
   // Create the logger.
   utils::StdLogger logger;

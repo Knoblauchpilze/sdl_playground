@@ -42,9 +42,6 @@
 # define TAB_WIDGET
 # define TAB_WIDGET_2
 
-// TODO: The `ScrollableWidget` should maybe try to accomodate for
-// widgets too small to occupy the entirety of the widget.
-
 int main(int /*argc*/, char** /*argv[]*/) {
   // Create the logger.
   utils::StdLogger logger;

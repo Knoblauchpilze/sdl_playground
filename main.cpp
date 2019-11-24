@@ -33,7 +33,7 @@
 // # define SUB_RIGHT_WIDGET
 # define EXTRA_RIGHT_WIDGET
 # define BIG_PIC
-// # define SMALL_PIC
+# define SMALL_PIC
 
 // # define MENU_BAR_DOCK_WIDGET
 // # define TOP_DOCK_WIDGET
@@ -41,6 +41,9 @@
 # define RIGHT_DOCK_WIDGET
 # define TAB_WIDGET
 # define TAB_WIDGET_2
+
+// TODO: The `ScrollableWidget` should maybe try to accomodate for
+// widgets too small to occupy the entirety of the widget.
 
 int main(int /*argc*/, char** /*argv[]*/) {
   // Create the logger.
@@ -287,8 +290,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
       std::string("data/img/turtle.bmp"),
       sdl::graphic::PictureWidget::Mode::Crop,
       nullptr,
-      sdl::core::engine::Color::NamedColor::Maroon,
-      utils::Sizef(1500.0f, 1300.0f)
+      sdl::core::engine::Color::NamedColor::Maroon
     );
     extra_right_widget->setViewport(big_pic);
 #   endif
@@ -298,8 +300,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
       std::string("data/img/ham_sandwich.bmp"),
       sdl::graphic::PictureWidget::Mode::Crop,
       nullptr,
-      sdl::core::engine::Color::NamedColor::Pink,
-      utils::Sizef(400.0f, 300.0f)
+      sdl::core::engine::Color::NamedColor::Pink
     );
     extra_right_widget->setViewport(small_pic);
 #   endif

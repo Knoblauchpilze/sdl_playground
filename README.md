@@ -5,7 +5,7 @@ Contains a default instantiation of an sdl window to be able to check components
 
 # Installation
 
-- First install https://github.com/Knoblauchpilze/graphic_library, https://github.com/Knoblauchpilze/sdl_core and https://github.com/Knoblauchpilze/sdl_app_core
+- First install https://github.com/Knoblauchpilze/sdl_engine, https://github.com/Knoblauchpilze/sdl_core, https://github.com/Knoblauchpilze/sdl_grqphic and https://github.com/Knoblauchpilze/sdl_app_core
 - Clone the repo: `git clone git@github.com:Knoblauchpilze/sdl_minimal.git`
 - Go to the project's directory `cd ~/path/to/the/repo`
 - Compile: `make r`

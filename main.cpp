@@ -60,7 +60,16 @@ int main(int /*argc*/, char** /*argv[]*/) {
   sdl::app::SdlApplicationShPtr app = nullptr;
 
   try {
-    app = std::make_shared<sdl::app::SdlApplication>(appName, appTitle, appIcon, size, true, 50.0f, 60.0f);
+    app = std::make_shared<sdl::app::SdlApplication>(
+      appName,
+      appTitle,
+      appIcon,
+      size,
+      true,
+      utils::Sizef(0.7f, 0.5f),
+      50.0f,
+      60.0f
+    );
 
     // `root_widget`
 # ifdef ROOT_WIDGET

@@ -15,6 +15,7 @@
 # include <sdl_graphic/TabWidget.hh>
 # include <sdl_graphic/TextBox.hh>
 # include <sdl_graphic/ScrollArea.hh>
+# include <sdl_graphic/Button.hh>
 
 # include <sdl_graphic/FloatValidator.hh>
 
@@ -31,7 +32,10 @@
 // # define DEEP
 // # define INTER_LEFT_WIDGET
 // # define SUB_RIGHT_WIDGET
-# define EXTRA_RIGHT_WIDGET
+# ifndef SUB_RIGHT_WIDGET
+#  define SUB_SUB_RIGHT_WIDGET
+# endif
+// # define EXTRA_RIGHT_WIDGET
 # define BIG_PIC
 # define SMALL_PIC
 
@@ -281,6 +285,20 @@ int main(int /*argc*/, char** /*argv[]*/) {
     );
 #  endif
 
+  // `sub_sub_right_widget`
+#  ifndef SUB_RIGHT_WIDGET
+#   ifdef SUB_SUB_RIGHT_WIDGET
+    sdl::graphic::Button* sub_sub_right_widget = new sdl::graphic::Button(
+      std::string("sub_sub_right_widget"),
+      std::string("CLICK HERE !"),
+      std::string("data/img/65px-Stop_hand.BMP"),
+      std::string("data/fonts/times.ttf"),
+      50,
+      root_widget
+    );
+#   endif
+#  endif
+
   // `extra_right_widget`
 #  ifdef EXTRA_RIGHT_WIDGET
   sdl::graphic::ScrollArea* extra_right_widget = new sdl::graphic::ScrollArea(
@@ -339,6 +357,10 @@ int main(int /*argc*/, char** /*argv[]*/) {
 #   endif
 #   ifdef SUB_RIGHT_WIDGET
     layout->addItem(sub_right_widget,  3, 1, 1, 2);
+#   else
+#    ifdef SUB_SUB_RIGHT_WIDGET
+    layout->addItem(sub_sub_right_widget,  3, 1, 1, 2);
+#    endif
 #   endif
 #   ifdef EXTRA_RIGHT_WIDGET
     layout->addItem(extra_right_widget,  4, 1, 1, 2);
@@ -364,6 +386,10 @@ int main(int /*argc*/, char** /*argv[]*/) {
 #   endif
 #   ifdef SUB_RIGHT_WIDGET
     layout->addItem(sub_right_widget);
+#   else
+#    ifdef SUB_RIGHT_WIDGET
+    layout->addItem(sub_sub_right_widget);
+#    endif
 #   endif
 #  endif
     root_widget->setLayout(layout);

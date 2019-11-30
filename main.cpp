@@ -16,10 +16,12 @@
 # include <sdl_graphic/TextBox.hh>
 # include <sdl_graphic/ScrollArea.hh>
 # include <sdl_graphic/Button.hh>
+# include <sdl_graphic/GradientWidget.hh>
 
 # include <sdl_graphic/FloatValidator.hh>
 
 # define ROOT_WIDGET
+# define SIMPLE_ROOT_WIDGET
 
 # define GRID_LAYOUT
 // # define IDEAL_CASE
@@ -30,17 +32,17 @@
 // # define SUB_MIDDLE_WIDGET
 // # define SUB_LEFT_WIDGET
 // # define DEEP
-// # define INTER_LEFT_WIDGET
+# define INTER_LEFT_WIDGET
 // # define SUB_RIGHT_WIDGET
 # ifndef SUB_RIGHT_WIDGET
 #  define SUB_SUB_RIGHT_WIDGET
 # endif
 // # define EXTRA_RIGHT_WIDGET
-# define BIG_PIC
-# define SMALL_PIC
+// # define BIG_PIC
+// # define SMALL_PIC
 
 // # define MENU_BAR_DOCK_WIDGET
-// # define TOP_DOCK_WIDGET
+# define TOP_DOCK_WIDGET
 
 # define RIGHT_DOCK_WIDGET
 # define TAB_WIDGET
@@ -77,19 +79,22 @@ int main(int /*argc*/, char** /*argv[]*/) {
 
     // `root_widget`
 # ifdef ROOT_WIDGET
-    // sdl::graphic::PictureWidget* root_widget = new sdl::graphic::PictureWidget(
-    //   std::string("root_widget"),
-    //   std::string("data/img/wp_not_so_awesome.bmp"),
-    //   sdl::graphic::PictureWidget::Mode::Fit,
-    //   nullptr,
-    //   sdl::core::engine::Color::NamedColor::Green
-    // );
+# ifdef SIMPLE_ROOT_WIDGET
     sdl::core::SdlWidget* root_widget = new sdl::core::SdlWidget(
       std::string("root_widget"),
       utils::Sizef(),
       nullptr,
       sdl::core::engine::Color::NamedColor::Green
     );
+# else
+    sdl::graphic::PictureWidget* root_widget = new sdl::graphic::PictureWidget(
+      std::string("root_widget"),
+      std::string("data/img/wp_not_so_awesome.bmp"),
+      sdl::graphic::PictureWidget::Mode::Fit,
+      nullptr,
+      sdl::core::engine::Color::NamedColor::Green
+    );
+# endif
 
     app->setCentralWidget(root_widget);
 #  ifdef GRID_LAYOUT
@@ -247,21 +252,22 @@ int main(int /*argc*/, char** /*argv[]*/) {
 
    // `inter_left_widget`
 #  ifdef INTER_LEFT_WIDGET
-    sdl::graphic::ComboBox* inter_left_widget = new sdl::graphic::ComboBox(
+    sdl::graphic::GradientShPtr gradient = std::make_shared<sdl::graphic::Gradient>(
+      std::string("green_to_red_gradient"),
+      sdl::graphic::gradient::Mode::Linear,
+      sdl::core::engine::Color::NamedColor::Red,
+      sdl::core::engine::Color::NamedColor::Green
+    );
+    sdl::graphic::GradientWidget* inter_left_widget = new sdl::graphic::GradientWidget(
       std::string("inter_left_widget"),
-      sdl::graphic::ComboBox::InsertPolicy::InsertAtBottom,
-      root_widget,
+      gradient,
+      nullptr,
 #   ifdef LEFT_WIDGET
       utils::Sizef()
 #   else
       utils::Sizef(100.0f, 100.0f)
 #   endif
     );
-    inter_left_widget->insertItem(std::string("Energy"), std::string("data/img/resource_0.bmp"));
-    inter_left_widget->insertItem(std::string("Metal"), std::string("data/img/resource_1.bmp"));
-    inter_left_widget->insertItem(std::string("Crystal"), std::string("data/img/resource_2.bmp"));
-    inter_left_widget->insertItem(std::string("Deuterium"), std::string("data/img/resource_3.bmp"));
-    inter_left_widget->insertItem(std::string("Antimatter"));
 #  endif
 
   // `sub_right_widget`
@@ -294,7 +300,9 @@ int main(int /*argc*/, char** /*argv[]*/) {
       std::string("data/img/65px-Stop_hand.BMP"),
       std::string("data/fonts/times.ttf"),
       50,
-      root_widget
+      root_widget,
+      utils::Sizef(),
+      sdl::core::engine::Color::NamedColor::Orange
     );
 #   endif
 #  endif

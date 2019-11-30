@@ -261,7 +261,7 @@ int main(int /*argc*/, char** /*argv[]*/) {
     sdl::graphic::GradientWidget* inter_left_widget = new sdl::graphic::GradientWidget(
       std::string("inter_left_widget"),
       gradient,
-      nullptr,
+      root_widget,
 #   ifdef LEFT_WIDGET
       utils::Sizef()
 #   else

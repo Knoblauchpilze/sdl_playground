@@ -21,7 +21,7 @@
 # include <sdl_graphic/FloatValidator.hh>
 
 # define ROOT_WIDGET
-# define SIMPLE_ROOT_WIDGET
+// # define SIMPLE_ROOT_WIDGET
 
 # define GRID_LAYOUT
 // # define IDEAL_CASE
@@ -252,9 +252,9 @@ int main(int /*argc*/, char** /*argv[]*/) {
 
    // `inter_left_widget`
 #  ifdef INTER_LEFT_WIDGET
-    sdl::graphic::GradientShPtr gradient = std::make_shared<sdl::graphic::Gradient>(
+    sdl::core::engine::GradientShPtr gradient = std::make_shared<sdl::core::engine::Gradient>(
       std::string("green_to_red_gradient"),
-      sdl::graphic::gradient::Mode::Linear,
+      sdl::core::engine::gradient::Mode::Linear,
       sdl::core::engine::Color::NamedColor::Red,
       sdl::core::engine::Color::NamedColor::Green
     );

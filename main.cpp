@@ -16,7 +16,7 @@
 # include <sdl_graphic/TextBox.hh>
 # include <sdl_graphic/ScrollArea.hh>
 # include <sdl_graphic/Button.hh>
-# include <sdl_graphic/GradientWidget.hh>
+# include <sdl_graphic/ProgressBar.hh>
 
 # include <sdl_graphic/FloatValidator.hh>
 
@@ -258,9 +258,8 @@ int main(int /*argc*/, char** /*argv[]*/) {
       sdl::core::engine::Color::NamedColor::Red,
       sdl::core::engine::Color::NamedColor::Green
     );
-    sdl::graphic::GradientWidget* inter_left_widget = new sdl::graphic::GradientWidget(
+    sdl::graphic::ProgressBar* inter_left_widget = new sdl::graphic::ProgressBar(
       std::string("inter_left_widget"),
-      gradient,
       root_widget,
 #   ifdef LEFT_WIDGET
       utils::Sizef()

@@ -48,7 +48,7 @@
 # define TAB_WIDGET
 # define TAB_WIDGET_2
 
-int main(int /*argc*/, char** /*argv[]*/) {
+int main(int /*argc*/, char** /*argv*/) {
   // Create the logger.
   utils::StdLogger logger;
   utils::LoggerLocator::provide(&logger);

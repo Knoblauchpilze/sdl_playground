@@ -298,6 +298,7 @@ int main(int /*argc*/, char** /*argv*/) {
       std::string("CLICK HERE !"),
       std::string("data/img/65px-Stop_hand.BMP"),
       std::string("data/fonts/times.ttf"),
+      sdl::graphic::button::Type::Toggle,
       50,
       root_widget,
       utils::Sizef(),

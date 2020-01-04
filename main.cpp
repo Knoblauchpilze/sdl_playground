@@ -17,8 +17,8 @@
 # include <sdl_graphic/ScrollArea.hh>
 # include <sdl_graphic/Button.hh>
 # include <sdl_graphic/ProgressBar.hh>
-
 # include <sdl_graphic/FloatValidator.hh>
+# include <sdl_graphic/Checkbox.hh>
 
 # define ROOT_WIDGET
 // # define SIMPLE_ROOT_WIDGET
@@ -252,20 +252,15 @@ int main(int /*argc*/, char** /*argv*/) {
 
    // `inter_left_widget`
 #  ifdef INTER_LEFT_WIDGET
-    sdl::core::engine::GradientShPtr gradient = std::make_shared<sdl::core::engine::Gradient>(
-      std::string("green_to_red_gradient"),
-      sdl::core::engine::gradient::Mode::Linear,
-      sdl::core::engine::Color::NamedColor::Red,
-      sdl::core::engine::Color::NamedColor::Green
-    );
-    sdl::graphic::ProgressBar* inter_left_widget = new sdl::graphic::ProgressBar(
+    sdl::graphic::Checkbox* inter_left_widget = new sdl::graphic::Checkbox(
       std::string("inter_left_widget"),
+      std::string("Did you consider this option ?"),
+      std::string("data/fonts/times.ttf"),
+      false,
+      15u,
       root_widget,
-#   ifdef LEFT_WIDGET
-      utils::Sizef()
-#   else
-      utils::Sizef(100.0f, 100.0f)
-#   endif
+      utils::Sizef(),
+      sdl::core::engine::Color::NamedColor::Magenta
     );
 #  endif
 

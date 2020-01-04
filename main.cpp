@@ -296,6 +296,7 @@ int main(int /*argc*/, char** /*argv*/) {
       sdl::graphic::button::Type::Toggle,
       50,
       root_widget,
+      10.0f,
       utils::Sizef(),
       sdl::core::engine::Color::NamedColor::Orange
     );

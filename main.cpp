@@ -351,7 +351,7 @@ int main(int /*argc*/, char** /*argv*/) {
     layout->addItem(right_widget,      3, 3, 1, 1);
 #   endif
 #   ifdef SUB_MIDDLE_WIDGET
-    layout->addItem(sub_middle_widget, 3, 0, 1, 2);
+    layout->addItem(sub_middle_widget, 3, 0, 1, 1);
 #   endif
 #   ifdef SUB_LEFT_WIDGET
     layout->addItem(sub_left_widget,   0, 3, 2, 1);

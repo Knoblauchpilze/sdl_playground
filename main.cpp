@@ -235,9 +235,10 @@ int main(int /*argc*/, char** /*argv*/) {
 #  ifdef SUB_MIDDLE_WIDGET
     sdl::graphic::Slider* sub_middle_widget = new sdl::graphic::Slider(
       std::string("sub_middle_widget"),
-      5.0f,
+      2.5f,
       utils::Vector2f(2.0f, 3.0f),
       10,
+      2u,
       std::string("data/fonts/times.ttf"),
       15u,
       root_widget

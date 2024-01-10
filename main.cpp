@@ -1,6 +1,7 @@
 
-# include <core_utils/StdLogger.hh>
-# include <core_utils/LoggerLocator.hh>
+# include <core_utils/log/StdLogger.hh>
+# include <core_utils/log/PrefixedLogger.hh>
+# include <core_utils/log/Locator.hh>
 # include <sdl_engine/SdlEngine.hh>
 
 # include <sdl_app_core/SdlApplication.hh>
@@ -27,51 +28,47 @@
 # define GRID_LAYOUT
 // # define IDEAL_CASE
 
-// # define LEFT_WIDGET
+# define LEFT_WIDGET
 // # define RIGHT_WIDGET
-// # define MIDDLE_WIDGET
-# define SUB_MIDDLE_WIDGET
-// # define SUB_LEFT_WIDGET
+# define MIDDLE_WIDGET
+// # define SUB_MIDDLE_WIDGET
+# define SUB_LEFT_WIDGET
 // # define DEEP
-# define INTER_LEFT_WIDGET
+// # define INTER_LEFT_WIDGET
 // # define SUB_RIGHT_WIDGET
 # ifndef SUB_RIGHT_WIDGET
-#  define SUB_SUB_RIGHT_WIDGET
+// #  define SUB_SUB_RIGHT_WIDGET
 # endif
 // # define EXTRA_RIGHT_WIDGET
 // # define BIG_PIC
 // # define SMALL_PIC
 
 // # define MENU_BAR_DOCK_WIDGET
-# define TOP_DOCK_WIDGET
+// # define TOP_DOCK_WIDGET
 
-# define RIGHT_DOCK_WIDGET
-# define TAB_WIDGET
-# define TAB_WIDGET_2
+// # define RIGHT_DOCK_WIDGET
+// # define TAB_WIDGET
+// # define TAB_WIDGET_2
+
+namespace {
+constexpr auto APP_NAME = "sdl_playground";
+constexpr auto APP_TITLE = "Sdl playground (but this is still SPARTA !)";
+constexpr auto APP_ICON_PATH = "data/img/65px-Stop_hand.BMP";
+}
 
 int main(int /*argc*/, char** /*argv*/) {
   // Create the logger.
-  utils::StdLogger logger;
-  utils::LoggerLocator::provide(&logger);
-  logger.setLevel(utils::Level::Debug);
-
-  const std::string service("playground");
-  const std::string module("main");
-
-  // Create the application window parameters.
-  const std::string appName = std::string("sdl_playground");
-  const std::string appTitle = std::string("Sdl playground (but this is still SPARTA !)");
-  const std::string appIcon = std::string("data/img/65px-Stop_hand.BMP");
-  const utils::Sizei size(800, 600);
-
-  sdl::app::SdlApplicationShPtr app = nullptr;
+  utils::log::StdLogger raw;
+  raw.setLevel(utils::log::Severity::DEBUG);
+  utils::log::PrefixedLogger logger("minimal", "main");
+  utils::log::Locator::provide(&raw);
 
   try {
-    app = std::make_shared<sdl::app::SdlApplication>(
-      appName,
-      appTitle,
-      appIcon,
-      size,
+    auto app = std::make_shared<sdl::app::SdlApplication>(
+      APP_NAME,
+      APP_TITLE,
+      APP_ICON_PATH,
+      utils::Sizei(800, 600),
       true,
       utils::Sizef(0.7f, 0.5f),
       50.0f,
@@ -106,7 +103,7 @@ int main(int /*argc*/, char** /*argv*/) {
       4u,
       10.0f
     );
-    layout->allowLog(false);
+    layout->setAllowLog(false);
 #  else
     sdl::graphic::LinearLayoutShPtr layout = std::make_shared<sdl::graphic::LinearLayout>(
       std::string("linear_layout_for_root"),
@@ -448,35 +445,21 @@ int main(int /*argc*/, char** /*argv*/) {
 
     // Run it.
     app->run();
+
+    app.reset();
   }
   catch (const utils::CoreException& e) {
-    utils::LoggerLocator::getLogger().logMessage(
-      utils::Level::Critical,
-      std::string("Caught internal exception while setting up application"),
-      module,
-      service,
-      e.what()
-    );
+    logger.error("Caught internal exception while setting up application", e.what());
+    return EXIT_FAILURE;
   }
   catch (const std::exception& e) {
-    utils::LoggerLocator::getLogger().logMessage(
-      utils::Level::Critical,
-      std::string("Caught exception while setting up application"),
-      module,
-      service,
-      e.what()
-    );
+    logger.error("Caught internal exception while setting up application", e.what());
+    return EXIT_FAILURE;
   }
   catch (...) {
-    utils::LoggerLocator::getLogger().logMessage(
-      utils::Level::Critical,
-      std::string("Unexpected error while setting up application"),
-      module,
-      service
-    );
+    logger.error("Unexpected error while setting up application");
+    return EXIT_FAILURE;
   }
-
-  app.reset();
 
   // All is good.
   return EXIT_SUCCESS;
